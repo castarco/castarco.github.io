@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>PHP-SDS First Thoughts</title>
+  <meta name="description" content="Some days have passed since my last contribution to PHP-SDS, but todayI’ve returned, and my first step will be telling something about this project.">
+  <meta name="author" content="Andrés Correa Casablanca">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PHP-SDS First Thoughts">
+  <meta name="twitter:description" content="Some days have passed since my last contribution to PHP-SDS, but todayI’ve returned, and my first step will be telling something about this project.">
+  
+  <meta name="twitter:creator" content="castarco">
+  
+  <meta name="twitter:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PHP-SDS First Thoughts">
+  <meta property="og:description" content="Some days have passed since my last contribution to PHP-SDS, but todayI’ve returned, and my first step will be telling something about this project.">
+  <meta property="og:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css?1544390472091909253">
+  <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2016/12/01/php-sds-first-thoughts/">
+  <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['¬€','€¬']]}});
+  </script>
+  <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Coder Spirit">
+          <img src="/images/profile.png" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Coder Spirit</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Coder Spirit blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/castarco" title="@castarco on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/castarco" title="castarco on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/castarco" title="castarco on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="1 Dec 2016" class="post-meta__date date">1 Dec 2016</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#PHP">PHP</a> <a href="/tags/#PHP-SDS">PHP-SDS</a> <a href="/tags/#Rust">Rust</a> <a href="/tags/#Data Engineering">Data Engineering</a> </span>
+      
+    </div>
+    <h1 class="post-title">PHP-SDS First Thoughts</h1>
+  </header>
+
+  <section class="post">
+    <p>Some days have passed since my last contribution to <a href="https://github.com/SciPHPy/php-sds-polyfill">PHP-SDS</a>, but today
+I’ve returned, and my first step will be telling something about this project.</p>
+
+<p>The name of this PHP library isn’t very imaginative: “Scientific Data Structures”. The data structures aren’t scientific
+or unscientific :s , but there is an extension called “<a href="https://github.com/php-ds">PHP-DS</a>” (PHP Data Structures), which
+provides basic data structures, and PHP-SDS aims to provide “data-science related data structures”… so, that’s it.</p>
+
+<p>My idea was to port some features from three interesting Python projects to PHP: <a href="http://pandas.pydata.org/">Pandas</a>,
+<a href="http://www.numpy.org/">Numpy</a> and <a href="https://www.tensorflow.org/">TensorFlow</a>. The basic data structures that will be
+implemented are Matrix, DataFrame and Tensor (the “same” as Numpy’s ndarray).</p>
+
+<p>As today, almost all the meaningful features of the Tensor data structure have been developed in pure PHP, plus some
+basic features of the Matrix class.</p>
+
+<p>So? Well, the actual code is pure PHP, but it is a sort of prototype/polyfill. I want to implemenet a PHP extension to
+boost performance for certain data related operations, and I want to implement that extension using Rust.</p>
+
+<p>There are a lot of things to do, finishing the Matrix and DataFrame classes in the polyfill library, add some data
+importing/exporting features, and then start coding the extension using Rust. You’re welcome if you want to become
+involved :) .</p>
+
+<p>These are the main sources I’m using to obtain inspiration:</p>
+
+<ul>
+  <li><a href="http://hermanradtke.com/2015/08/03/creating-a-php-extension-to-rust.html">Creating a PHP Extension to Rust</a></li>
+  <li><a href="https://jaredonline.svbtle.com/creating-a-php-extension-in-rust">Creating a PHP extension in Rust</a></li>
+  <li><a href="http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend">Extension Writing Part I: Introduction to PHP and Zend</a></li>
+  <li><a href="http://devzone.zend.com/317/extension-writing-part-ii-parameters-arrays-and-zvals">Extension Writing Part II: Parameters, Arrays, and ZVALS</a></li>
+</ul>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'https://blog.coderspirit.xyz/blog/2016/12/01/php-sds-first-thoughts/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '/blog/2016/12/01/php-sds-first-thoughts'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//coderspirit.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1544390472091909253"></script>
+
+
+    </div>
+  </body>
+</html>

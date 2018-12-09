@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Naive matrix multiplication Benchmark (PHP)</title>
+  <meta name="description" content="In my last post (PHP-SDS First thoughts) I introduced the library PHP-SDS.Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.">
+  <meta name="author" content="Andrés Correa Casablanca">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Naive matrix multiplication Benchmark (PHP)">
+  <meta name="twitter:description" content="In my last post (PHP-SDS First thoughts) I introduced the library PHP-SDS.Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.">
+  
+  <meta name="twitter:creator" content="castarco">
+  
+  <meta name="twitter:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Naive matrix multiplication Benchmark (PHP)">
+  <meta property="og:description" content="In my last post (PHP-SDS First thoughts) I introduced the library PHP-SDS.Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.">
+  <meta property="og:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css?1544390472091909253">
+  <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2016/12/16/naive-matrix-multiplication-benchmark-php/">
+  <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['¬€','€¬']]}});
+  </script>
+  <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Coder Spirit">
+          <img src="/images/profile.png" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Coder Spirit</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Coder Spirit blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/castarco" title="@castarco on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/castarco" title="castarco on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/castarco" title="castarco on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="16 Dec 2016" class="post-meta__date date">16 Dec 2016</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#PHP">PHP</a> <a href="/tags/#PHP-DS">PHP-DS</a> <a href="/tags/#PHP-SDS">PHP-SDS</a> <a href="/tags/#Data Engineering">Data Engineering</a> <a href="/tags/#Benchmark">Benchmark</a> </span>
+      
+    </div>
+    <h1 class="post-title">Naive matrix multiplication Benchmark (PHP)</h1>
+  </header>
+
+  <section class="post">
+    <p>In my last post (<a href="/blog/2016/12/01/php-sds-first-thoughts">PHP-SDS First thoughts</a>) I introduced the library <code class="highlighter-rouge">PHP-SDS</code>.
+Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.</p>
+
+<p>The benchmark script has measured 8 different versions of the naive matrix multiplication algorithm:</p>
+
+<ul>
+  <li>Using <code class="highlighter-rouge">array</code> vs Using <code class="highlighter-rouge">Ds\Vector</code>.</li>
+  <li>Contiguous values vs Nested rows</li>
+  <li><code class="highlighter-rouge">I,J,K</code> iteration order vs <code class="highlighter-rouge">I,K,J</code> iteration order.</li>
+</ul>
+
+<p>I didn’t try to parallelize anything in any way, since PHP isn’t a well suited language to do this sort of things. I
+didn’t try to implement the <a href="https://en.wikipedia.org/wiki/Strassen_algorithm">Strassen algorithm</a> neither, because
+first I want to have a solid baseline to compare (and because at some point, the Strassen algorithm should fallback to
+the naive algorithm).</p>
+
+<p>Scripts used to benchmark and present data:</p>
+
+<ul>
+  <li><a href="https://gist.github.com/castarco/5b051f9e7df04a2de87d3268f01ea461"><code class="highlighter-rouge">matrix_benchmark.php</code></a></li>
+  <li><a href="https://gist.github.com/castarco/8591dc20e2740215709ede9566eaa826"><code class="highlighter-rouge">PHPMatrixBenchmarkPlot.ipynb</code></a></li>
+</ul>
+
+<h2 id="expectations-vs-reality">Expectations vs Reality</h2>
+
+<p>In the first place, I should explain what my expectations were before the experiment. I thought that the best
+combination would be (<code class="highlighter-rouge">Ds\Vector</code>, contiguous values, <code class="highlighter-rouge">I,K,J</code>)…</p>
+
+<p>But the reality didn’t match my expectations, the best combination was (<code class="highlighter-rouge">array</code>, contiguous values, <code class="highlighter-rouge">I,K,J</code> ).</p>
+
+<p><img src="/images/2016/20161216_matrix_benchmark.png" alt="Matrix Benchmark" /></p>
+
+<p>Why I thought that <code class="highlighter-rouge">Ds\Vector</code> would offer better performance than <code class="highlighter-rouge">array</code> for matrix multiplications? The two main
+reason were the smaller memory footprint, and the better performance of <code class="highlighter-rouge">Ds\Vector</code> on other operations.</p>
+
+<p>I imagined that less memory usage would lead to less cache misses, but probably I missinterpreted <strong>WHY</strong> <code class="highlighter-rouge">Ds\Vector</code>
+uses less memory than array. The reason was not that <code class="highlighter-rouge">Ds\Vector</code> uses less bytes per item, but that <code class="highlighter-rouge">Ds\Vector</code> uses a
+“smarter”¹ algorithm to allocate memory regions in order to grow o shrink itself.</p>
+
+<h2 id="why-ikj-runs-faster-than-ijk">Why I,K,J runs faster than I,J,K?</h2>
+
+<p>Why my other two guesses are right? Well, it’s because the CPU cache.</p>
+
+<ul>
+  <li>Using a single data structure we avoid one indirection per read, and we can take more advandatge of data locality.</li>
+  <li>Traversing the matrix instances with the I,K,J order we ensure a row-by-row order (and even better, we can avoid
+some redundant read operations). This way we have a <a href="https://en.wikipedia.org/wiki/Cache-oblivious_algorithm">cache-oblivious algorithm</a>.</li>
+</ul>
+
+<h2 id="final-thoughts">Final thoughts</h2>
+
+<p>There are some benchmarks that I’d like to do in order to have a more precise image of what’s happening with <code class="highlighter-rouge">Ds\Vector</code>.
+I’ll measure isolated <code class="highlighter-rouge">offsetGet</code> and <code class="highlighter-rouge">offsetSet</code> operations, and a combination of both (using <code class="highlighter-rouge">+=</code> for example).</p>
+
+<p>Returning to my beloved matrix… In a fantastic <strong>@nikic</strong>’s post
+(<a href="https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html">PHP’s new hastable implementation</a>), we can
+see that packed PHP arrays consume ~32 bytes per item. The Matrix use-case is “good” enough¹ to allow us storing raw
+values without using wrappers.</p>
+
+<p>Typically, <code class="highlighter-rouge">long</code> &amp; <code class="highlighter-rouge">double</code> values take 8 bytes in 64 bit systems, so using a compiled extension we should be able to
+divide the memory footprint by 4 (and store 4 times more items per cache line). If we allow less precision (using 32
+bits instead of 64), then we can use less CPU time and memory.</p>
+
+<p>See you soon!</p>
+
+<h2 id="notes">Notes</h2>
+
+<ol>
+  <li>Because it can rely on some assumptions that aren’t true for <code class="highlighter-rouge">array</code>.</li>
+</ol>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'https://blog.coderspirit.xyz/blog/2016/12/16/naive-matrix-multiplication-benchmark-php/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '/blog/2016/12/16/naive-matrix-multiplication-benchmark-php'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//coderspirit.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1544390472091909253"></script>
+
+
+    </div>
+  </body>
+</html>

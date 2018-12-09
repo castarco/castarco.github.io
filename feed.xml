@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2018-12-09T22:21:12+01:00</updated><id>https://blog.coderspirit.xyz/</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</subtitle><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><entry><title type="html">Web development jobs diagram</title><link href="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/" rel="alternate" type="text/html" title="Web development jobs diagram" /><published>2018-10-08T16:45:00+02:00</published><updated>2018-10-08T16:45:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/">&lt;p&gt;Yesterday evening I created this diagram to show how some web development jobs
+are “connected”, I hope it can be useful for people looking what to do, but also
+for HR people wanting to understand the web development landscape.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2018/20181008_jobs_map.png&quot; alt=&quot;web development jobs landscape&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Postdata: I’ll try to be more active on this blog :) .&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Diagram" /><summary type="html">Yesterday evening I created this diagram to show how some web development jobs are “connected”, I hope it can be useful for people looking what to do, but also for HR people wanting to understand the web development landscape.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.coderspirit.xyz/2018/20181008_jobs_map.png" /></entry><entry><title type="html">Our composer.json file is wrong</title><link href="https://blog.coderspirit.xyz/blog/2017/08/18/our-composer-json-is-wrong/" rel="alternate" type="text/html" title="Our composer.json file is wrong" /><published>2017-08-18T23:00:00+02:00</published><updated>2017-08-18T23:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2017/08/18/our-composer-json-is-wrong</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2017/08/18/our-composer-json-is-wrong/">&lt;p&gt;I’m working for the &lt;a href=&quot;http://www.adsmurai.com/&quot;&gt;Adsmurai&lt;/a&gt; engineering team since
+January, that’s around 8 months and a half right now. In this time, we’ve
+advanced a lot in the direction of splitting a big code monolith into different
+and isolated services.&lt;/p&gt;
+
+&lt;p&gt;One tool that helped us a lot to achieve this goal was &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt;.
+We started with &lt;a href=&quot;https://hub.docker.com/_/ubuntu/&quot;&gt;Ubuntu-based images&lt;/a&gt; for our
+development environment, that was the case during my first seven months.&lt;/p&gt;
+
+&lt;p&gt;But then we wanted to use Docker in our production servers too for reasons that
+are not important here: this is not a devops post! And at that point, we
+realized that using &lt;a href=&quot;https://alpinelinux.org/&quot;&gt;Alpine Linux&lt;/a&gt; for our base images
+could help us to save disk space, among other minor benefits. So we jumped to
+&lt;a href=&quot;https://hub.docker.com/_/alpine/&quot;&gt;Alpine-based images&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;And here is where our story really starts. Our applications started to crash…
+because there were missing functions and interfaces.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://getcomposer.org/&quot;&gt;Composer&lt;/a&gt; didn’t complain about missing extensions,
+but it was evident that something that we needed was not there. Our problem was
+that Alpine, in order to obtain very little systems, splits its packages
+whenever it makes sense, but that’s not the case with Ubuntu nor Debian, nor
+other popular Linux distros.&lt;/p&gt;
+
+&lt;p&gt;So, because many PHP extensions are pre-packaged in a single bundle for systems
+like Debian, Ubuntu, RedHat, Centos… many developers forget to declare some
+extensions as dependencies of their packages. Extensions that typically fall
+into this category are: &lt;a href=&quot;http://php.net/manual/en/book.ctype.php&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ext-ctype&lt;/code&gt;&lt;/a&gt;,
+&lt;a href=&quot;http://php.net/manual/en/book.fileinfo.php&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ext-fileinfo&lt;/code&gt;&lt;/a&gt;,
+&lt;a href=&quot;http://php.net/manual/en/book.session.php&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ext-session&lt;/code&gt;&lt;/a&gt;,
+&lt;a href=&quot;http://php.net/manual/en/book.tokenizer.php&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ext-tokenizer&lt;/code&gt;&lt;/a&gt;…&lt;/p&gt;
+
+&lt;p&gt;This problem can be found across the entire &lt;a href=&quot;https://packagist.org/&quot;&gt;Packagist&lt;/a&gt;
+packages repository, even if we look into the subset of super-popular packages,
+like &lt;a href=&quot;http://symfony.com/&quot;&gt;Symfony&lt;/a&gt; components.&lt;/p&gt;
+
+&lt;p&gt;To end this post: my advice is to read the PHP.net documentation when we’re
+using special purpose functions  in order to know if they belong to an extension,
+and declare such extensions as dependencies on our composer.json files.&lt;/p&gt;
+
+&lt;p&gt;Best regards!&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="PHP" /><category term="Adsmurai" /><category term="Alpine Linux" /><category term="Docker" /><summary type="html">I’m working for the Adsmurai engineering team since January, that’s around 8 months and a half right now. In this time, we’ve advanced a lot in the direction of splitting a big code monolith into different and isolated services.</summary></entry><entry><title type="html">Toy problem: The Traveler’s Dilemma</title><link href="https://blog.coderspirit.xyz/blog/2017/01/05/toy-problem-the-traverlers-dilemma/" rel="alternate" type="text/html" title="Toy problem: The Traveler's Dilemma" /><published>2017-01-05T18:00:00+01:00</published><updated>2017-01-05T18:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2017/01/05/toy-problem-the-traverlers-dilemma</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2017/01/05/toy-problem-the-traverlers-dilemma/">&lt;p&gt;The &lt;a href=&quot;https://en.wikipedia.org/wiki/Traveler's_dilemma&quot;&gt;Traveler’s Dilemma&lt;/a&gt; is a generalization of the
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Prisoner's_dilemma&quot;&gt;Prisoner’s Dilemma&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The starting point of the problem is the following one: two people have lost identical baggage, and the airline company
+offers them a monetary compensation.&lt;/p&gt;
+
+&lt;p&gt;This two individuals have to tell the company which is the value of the lost baggage, and the company will pay the
+lowest of the two mentioned values… with an extra complication: the humblest one will receive an extra compensation
+of ¬€R$€¬, and the most ambitious will receive the stated value minus ¬€R$€¬.&lt;/p&gt;
+
+&lt;p&gt;There are many variations of this problem, but we’ll use a prices range between ¬€0$€¬ and ¬€100$€¬ (both included), the
+prize for being humble will be ¬€2$€¬, and the punishment for being too ambitious will be ¬€1$€¬ instead of ¬€2$€¬&lt;/p&gt;
+
+&lt;p&gt;(I did some computations and I don’t want to repeat them with more “standard” parameters).&lt;/p&gt;
+
+&lt;p&gt;The main interesting point of this dilemma is that, if we apply naive “rationality”, we fall in “prices war”: I start
+with ¬€100$€¬ as a good starting point, and then I think that if I choose ¬€99$€¬, then I could win ¬€101$€¬, but
+probably my oponent will think the same way, so maybe choosing ¬€98$€¬ is a better option, because then I can win
+¬€100$€¬ instead of ¬€99$€¬, but my oponent will think the same way… and if we continue thinking, we’ll eventually
+reach a proposal of ¬€1$€¬ or ¬€0$€¬…&lt;/p&gt;
+
+&lt;h2 id=&quot;alternative-rationality&quot;&gt;Alternative rationality&lt;/h2&gt;
+
+&lt;p&gt;Of course, real people aren’t so “rational”, and tend to propose higher prices than the lower bound. There are many
+theories about why people are “irrational”, and of course many of these theories also try to improve our insight on the
+strategies used in this sort of games
+&lt;a href=&quot;http://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0072427&amp;amp;type=printable&quot;&gt;¹&lt;/a&gt;
+&lt;a href=&quot;https://sci-hub.ac/10.1257/0002828054201431&quot;&gt;²&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Personally, I don’t like tagging as “irrational” some strategies when those strategies are far better than the ones
+tagged as “rational”.&lt;/p&gt;
+
+&lt;p&gt;Many years ago a simple solution crossed my mind after reading for the first time about this dilemma. The main idea was
+simple: The classic “solution” has a good point (the “nested thoughts”), and a crucial error (the real target: earning
+money, is forgotten and replaced by a surrogate one: earning more money than the opponent).&lt;/p&gt;
+
+&lt;p&gt;So I used a probabilistic approach. We start with “a priori” distribution on the “decision space” for the opponent
+decision, we compute the reward for every possible decision taking into account the “a priori” distribution… and then,
+we construct a new distribution based on the computed rewards. As you can imagine, we need to do this iteratively until
+the distribution converges.&lt;/p&gt;
+
+&lt;p&gt;If you’ve payed attention, you’ll notice that there are some loose ends:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Will affect the chosen “a priori” distribution to the final solution?&lt;/li&gt;
+  &lt;li&gt;It’s almost obvious that we have to use a monotonous growing function over the rewards to construct the next
+distribution, but… there are a lot of functions, which one?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Fortunately, the “a priori” distribution doesn’t matter… (with a few exceptions), nor does the function! My exposition
+isn’t rigorous at all, but is supported by “empirical” data.&lt;/p&gt;
+
+&lt;p&gt;The only problematic distributions are the ones where the probabilities are concentrated on the lowest ¬€R€¬ possible
+values (in our case, when only ¬€0$€¬ and ¬€1$€¬ have probabilities greater than zero).&lt;/p&gt;
+
+&lt;p&gt;I started with the function ¬€f(x)=x€¬, and tried it with many random “a priori” distributions, obtaining the same final
+solution every time:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2017/20170105_x_dist.png&quot; alt=&quot;final_solution_f_x&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this solution, the best options are ¬€97$€¬ and ¬€98$€¬ as the baggage prices. If we choose a higher degree
+polynomial the best options will change, but not much, let’s see what happens with ¬€f(x)=x^{32}€¬, in this case the
+best option is to pick ¬€97$€¬ as the baggage price:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2017/20170105_x32_dist.png&quot; alt=&quot;final_solution_f_x32&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The distribution changes very smoothly respect to the polynomial exponent (this is why I’ve chosen a “big” exponent). We
+have a soft change, but in any case, a significant change. This leads us to the question of how to choose the function
+to transform the reward into a probability distribution.&lt;/p&gt;
+
+&lt;p&gt;What seems more “rational” to me is to maximize the reward expectations, this is, approximately (but not exactly):&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\sum^{100}_{x=0}x \cdot p\left(x\right)&lt;/script&gt;
+
+&lt;p&gt;Where&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;p\left(x\right)=\frac{f\left(x\right)}{\sum^{100}_{x=0}f\left(x\right)}&lt;/script&gt;
+
+&lt;p&gt;A good way to maximize the expected reward is to consider polynomials with very high exponents. Here you can see a graph
+of the expected reward as a function of the polynomial exponent:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2017/20170105_reward_vs_exp.png&quot; alt=&quot;Reward vs exponent&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It is tempting to use a more drastic approach, giving a probability of 1 to the price with the highest associated
+reward, and 0 to the other prices, but this approach is sensitive to the “a priori” distribution… and we don’t know
+anything about our opponent, so our strategy should not depend on the initial chosen distribution.&lt;/p&gt;
+
+&lt;h2 id=&quot;real-world-experiment&quot;&gt;“Real world” experiment&lt;/h2&gt;
+
+&lt;p&gt;I’m pretty sure that the exposed approach is near optimal, but can we expect a similar behavior from people? I don’t
+know, and I haven’t the time to conduct the required experiments.&lt;/p&gt;
+
+&lt;p&gt;So I’ve used &lt;code class=&quot;highlighter-rouge&quot;&gt;sklearn&lt;/code&gt; to implement two &lt;a href=&quot;https://en.wikipedia.org/wiki/Multilayer_perceptron&quot;&gt;multilayer perceptron&lt;/a&gt;
+instances. In first place, I’ve trained them using white noise to simulate a completely random behavior. I could use
+only 4 white noise samples because using more noise samples makes impossible the training convergence.&lt;/p&gt;
+
+&lt;p&gt;Every playing round, the perceptrons receive the results from the previous round and use them to decide which is their
+next movement. The first round the perceptrons receive white noise because there is no previous historical data.&lt;/p&gt;
+
+&lt;p&gt;We generate new samples every round, but every “player” keeps a completely subjective view of the world (the players
+don’t learn from the errors of the other players).&lt;/p&gt;
+
+&lt;p&gt;I didn’t find a way to generate training samples completely decoupled from my first intuition. So, to reduce coupling,
+every player only learns part of the available info each round (if the player proposed the lowest number p, then it
+learns the associated rewards of the prices greater than p, and the associated rewards of the prices lesser than p
+otherwise).&lt;/p&gt;
+
+&lt;p&gt;The results are the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2017/20170105_ai_competition.png&quot; alt=&quot;AI competition&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As you can see, the perceptrons proposed prices converge to ¬€94€¬, which is similar to our previous values.&lt;/p&gt;
+
+&lt;p&gt;A more interesting experiment might be training perceptrons to learn the best strategy depending on ¬€R€¬ rather than
+depending on past movements (because depending on past movements only has sense when your opponent is always the same).
+Anyway, this is work for another article.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;UPDATE:&lt;/strong&gt; I’ve found these two interesting articles deepening into the exposed ideas, but with much more detail and
+rigour:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.people.virginia.edu/~cah2k/tdweb.pdf&quot;&gt;Anomalous Behavior in a Traveler’s Dilemma?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.econ.cam.ac.uk/dae/repec/cam/pdf/cwpe1058.pdf&quot;&gt;A Reason for Unreason: Returns-Based Beliefs in Game Theory&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Mathematics" /><category term="Statistics" /><category term="Economics" /><category term="Game Theory" /><summary type="html">The Traveler’s Dilemma is a generalization of the Prisoner’s Dilemma.</summary></entry><entry><title type="html">Naive matrix multiplication Benchmark (PHP)</title><link href="https://blog.coderspirit.xyz/blog/2016/12/16/naive-matrix-multiplication-benchmark-php/" rel="alternate" type="text/html" title="Naive matrix multiplication Benchmark (PHP)" /><published>2016-12-16T18:00:00+01:00</published><updated>2016-12-16T18:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2016/12/16/naive-matrix-multiplication-benchmark-php</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2016/12/16/naive-matrix-multiplication-benchmark-php/">&lt;p&gt;In my last post (&lt;a href=&quot;/blog/2016/12/01/php-sds-first-thoughts&quot;&gt;PHP-SDS First thoughts&lt;/a&gt;) I introduced the library &lt;code class=&quot;highlighter-rouge&quot;&gt;PHP-SDS&lt;/code&gt;.
+Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.&lt;/p&gt;
+
+&lt;p&gt;The benchmark script has measured 8 different versions of the naive matrix multiplication algorithm:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Using &lt;code class=&quot;highlighter-rouge&quot;&gt;array&lt;/code&gt; vs Using &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Contiguous values vs Nested rows&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;I,J,K&lt;/code&gt; iteration order vs &lt;code class=&quot;highlighter-rouge&quot;&gt;I,K,J&lt;/code&gt; iteration order.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I didn’t try to parallelize anything in any way, since PHP isn’t a well suited language to do this sort of things. I
+didn’t try to implement the &lt;a href=&quot;https://en.wikipedia.org/wiki/Strassen_algorithm&quot;&gt;Strassen algorithm&lt;/a&gt; neither, because
+first I want to have a solid baseline to compare (and because at some point, the Strassen algorithm should fallback to
+the naive algorithm).&lt;/p&gt;
+
+&lt;p&gt;Scripts used to benchmark and present data:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/castarco/5b051f9e7df04a2de87d3268f01ea461&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;matrix_benchmark.php&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/castarco/8591dc20e2740215709ede9566eaa826&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;PHPMatrixBenchmarkPlot.ipynb&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;expectations-vs-reality&quot;&gt;Expectations vs Reality&lt;/h2&gt;
+
+&lt;p&gt;In the first place, I should explain what my expectations were before the experiment. I thought that the best
+combination would be (&lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt;, contiguous values, &lt;code class=&quot;highlighter-rouge&quot;&gt;I,K,J&lt;/code&gt;)…&lt;/p&gt;
+
+&lt;p&gt;But the reality didn’t match my expectations, the best combination was (&lt;code class=&quot;highlighter-rouge&quot;&gt;array&lt;/code&gt;, contiguous values, &lt;code class=&quot;highlighter-rouge&quot;&gt;I,K,J&lt;/code&gt; ).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2016/20161216_matrix_benchmark.png&quot; alt=&quot;Matrix Benchmark&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Why I thought that &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt; would offer better performance than &lt;code class=&quot;highlighter-rouge&quot;&gt;array&lt;/code&gt; for matrix multiplications? The two main
+reason were the smaller memory footprint, and the better performance of &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt; on other operations.&lt;/p&gt;
+
+&lt;p&gt;I imagined that less memory usage would lead to less cache misses, but probably I missinterpreted &lt;strong&gt;WHY&lt;/strong&gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt;
+uses less memory than array. The reason was not that &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt; uses less bytes per item, but that &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt; uses a
+“smarter”¹ algorithm to allocate memory regions in order to grow o shrink itself.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-ikj-runs-faster-than-ijk&quot;&gt;Why I,K,J runs faster than I,J,K?&lt;/h2&gt;
+
+&lt;p&gt;Why my other two guesses are right? Well, it’s because the CPU cache.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Using a single data structure we avoid one indirection per read, and we can take more advandatge of data locality.&lt;/li&gt;
+  &lt;li&gt;Traversing the matrix instances with the I,K,J order we ensure a row-by-row order (and even better, we can avoid
+some redundant read operations). This way we have a &lt;a href=&quot;https://en.wikipedia.org/wiki/Cache-oblivious_algorithm&quot;&gt;cache-oblivious algorithm&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;final-thoughts&quot;&gt;Final thoughts&lt;/h2&gt;
+
+&lt;p&gt;There are some benchmarks that I’d like to do in order to have a more precise image of what’s happening with &lt;code class=&quot;highlighter-rouge&quot;&gt;Ds\Vector&lt;/code&gt;.
+I’ll measure isolated &lt;code class=&quot;highlighter-rouge&quot;&gt;offsetGet&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;offsetSet&lt;/code&gt; operations, and a combination of both (using &lt;code class=&quot;highlighter-rouge&quot;&gt;+=&lt;/code&gt; for example).&lt;/p&gt;
+
+&lt;p&gt;Returning to my beloved matrix… In a fantastic &lt;strong&gt;@nikic&lt;/strong&gt;’s post
+(&lt;a href=&quot;https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html&quot;&gt;PHP’s new hastable implementation&lt;/a&gt;), we can
+see that packed PHP arrays consume ~32 bytes per item. The Matrix use-case is “good” enough¹ to allow us storing raw
+values without using wrappers.&lt;/p&gt;
+
+&lt;p&gt;Typically, &lt;code class=&quot;highlighter-rouge&quot;&gt;long&lt;/code&gt; &amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;double&lt;/code&gt; values take 8 bytes in 64 bit systems, so using a compiled extension we should be able to
+divide the memory footprint by 4 (and store 4 times more items per cache line). If we allow less precision (using 32
+bits instead of 64), then we can use less CPU time and memory.&lt;/p&gt;
+
+&lt;p&gt;See you soon!&lt;/p&gt;
+
+&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Because it can rely on some assumptions that aren’t true for &lt;code class=&quot;highlighter-rouge&quot;&gt;array&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="PHP" /><category term="PHP-DS" /><category term="PHP-SDS" /><category term="Data Engineering" /><category term="Benchmark" /><summary type="html">In my last post (PHP-SDS First thoughts) I introduced the library PHP-SDS. Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.</summary></entry><entry><title type="html">PHP-SDS First Thoughts</title><link href="https://blog.coderspirit.xyz/blog/2016/12/01/php-sds-first-thoughts/" rel="alternate" type="text/html" title="PHP-SDS First Thoughts" /><published>2016-12-01T18:00:00+01:00</published><updated>2016-12-01T18:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2016/12/01/php-sds-first-thoughts</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2016/12/01/php-sds-first-thoughts/">&lt;p&gt;Some days have passed since my last contribution to &lt;a href=&quot;https://github.com/SciPHPy/php-sds-polyfill&quot;&gt;PHP-SDS&lt;/a&gt;, but today
+I’ve returned, and my first step will be telling something about this project.&lt;/p&gt;
+
+&lt;p&gt;The name of this PHP library isn’t very imaginative: “Scientific Data Structures”. The data structures aren’t scientific
+or unscientific :s , but there is an extension called “&lt;a href=&quot;https://github.com/php-ds&quot;&gt;PHP-DS&lt;/a&gt;” (PHP Data Structures), which
+provides basic data structures, and PHP-SDS aims to provide “data-science related data structures”… so, that’s it.&lt;/p&gt;
+
+&lt;p&gt;My idea was to port some features from three interesting Python projects to PHP: &lt;a href=&quot;http://pandas.pydata.org/&quot;&gt;Pandas&lt;/a&gt;,
+&lt;a href=&quot;http://www.numpy.org/&quot;&gt;Numpy&lt;/a&gt; and &lt;a href=&quot;https://www.tensorflow.org/&quot;&gt;TensorFlow&lt;/a&gt;. The basic data structures that will be
+implemented are Matrix, DataFrame and Tensor (the “same” as Numpy’s ndarray).&lt;/p&gt;
+
+&lt;p&gt;As today, almost all the meaningful features of the Tensor data structure have been developed in pure PHP, plus some
+basic features of the Matrix class.&lt;/p&gt;
+
+&lt;p&gt;So? Well, the actual code is pure PHP, but it is a sort of prototype/polyfill. I want to implemenet a PHP extension to
+boost performance for certain data related operations, and I want to implement that extension using Rust.&lt;/p&gt;
+
+&lt;p&gt;There are a lot of things to do, finishing the Matrix and DataFrame classes in the polyfill library, add some data
+importing/exporting features, and then start coding the extension using Rust. You’re welcome if you want to become
+involved :) .&lt;/p&gt;
+
+&lt;p&gt;These are the main sources I’m using to obtain inspiration:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://hermanradtke.com/2015/08/03/creating-a-php-extension-to-rust.html&quot;&gt;Creating a PHP Extension to Rust&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jaredonline.svbtle.com/creating-a-php-extension-in-rust&quot;&gt;Creating a PHP extension in Rust&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://devzone.zend.com/303/extension-writing-part-i-introduction-to-php-and-zend&quot;&gt;Extension Writing Part I: Introduction to PHP and Zend&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://devzone.zend.com/317/extension-writing-part-ii-parameters-arrays-and-zvals&quot;&gt;Extension Writing Part II: Parameters, Arrays, and ZVALS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="PHP" /><category term="PHP-SDS" /><category term="Rust" /><category term="Data Engineering" /><summary type="html">Some days have passed since my last contribution to PHP-SDS, but today I’ve returned, and my first step will be telling something about this project.</summary></entry><entry><title type="html">Generating Colored Gosper Curves</title><link href="https://blog.coderspirit.xyz/blog/2016/04/03/gosper-curve/" rel="alternate" type="text/html" title="Generating Colored Gosper Curves" /><published>2016-04-03T19:00:00+02:00</published><updated>2016-04-03T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2016/04/03/gosper-curve</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2016/04/03/gosper-curve/">&lt;p&gt;Yesterday I finished a script to generate colored &lt;a href=&quot;https://en.wikipedia.org/wiki/Gosper_curve&quot;&gt;Gosper Curves&lt;/a&gt;. You can
+find it in Github, as a Gist:
+&lt;a href=&quot;https://gist.github.com/castarco/58826fa6a880cff69e1d987ce2037a1f&quot;&gt;gosper_curve.py&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The main idea behind this code is to generate an ordered list of points using a
+&lt;a href=&quot;https://en.wikipedia.org/wiki/L-system&quot;&gt;L-system&lt;/a&gt; (a set of production rules combined with a mechanism for translating
+the generated strings into geometric structures).&lt;/p&gt;
+
+&lt;p&gt;One extra idea I’ve applied is to work with the HSL color space instead of the RGB color space, this way I can do a
+random walk over the Hue dimension (with “smooth” steps) keeping lightness and saturation as constants.&lt;/p&gt;
+
+&lt;p&gt;And this is one of the generated images:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2016/gosper_curve.png&quot; alt=&quot;Gosper Curve&quot; /&gt;&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Fractals" /><category term="Geometry" /><category term="Mathematics" /><category term="Generative Art" /><category term="Art" /><summary type="html">Yesterday I finished a script to generate colored Gosper Curves. You can find it in Github, as a Gist: gosper_curve.py.</summary></entry><entry><title type="html">Dealing with precise timestamps in PHP</title><link href="https://blog.coderspirit.xyz/blog/2015/11/08/dealing-with-precise-timestamps-on-php/" rel="alternate" type="text/html" title="Dealing with precise timestamps in PHP" /><published>2015-11-08T18:00:00+01:00</published><updated>2015-11-08T18:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2015/11/08/dealing-with-precise-timestamps-on-php</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/11/08/dealing-with-precise-timestamps-on-php/">&lt;p&gt;PHP does not offer any native class to implement timestamps with milliseconds or microseconds precision, the only
+“native” way to do it is working with the weird microtime function and/or the &lt;code class=&quot;highlighter-rouge&quot;&gt;\MongoDate&lt;/code&gt; class (available through the
+&lt;code class=&quot;highlighter-rouge&quot;&gt;mongo&lt;/code&gt; extension).&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;code class=&quot;highlighter-rouge&quot;&gt;\DateTime&lt;/code&gt; class is not enough, because it only can offer seconds precision, and using the &lt;code class=&quot;highlighter-rouge&quot;&gt;\MongoDate&lt;/code&gt; class
+isn’t a good idea if you aren’t using MongoDB or if you care about coupling. In fact, the &lt;code class=&quot;highlighter-rouge&quot;&gt;mongo&lt;/code&gt; extension will be
+deprecated in a few months in favour of a new extension that is in active development right now.&lt;/p&gt;
+
+&lt;p&gt;Because this, I’ve developed two Composer packages to allow using type hinting without increasing coupling and with less
+abstraction leaks:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PHP-Jiffy, a library that provides a timestamp class with milliseconds (and   even microseconds) precision:
+&lt;a href=&quot;https://github.com/Litipk/php-jiffy/&quot;&gt;https://github.com/Litipk/php-jiffy/&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Doctrine MongoDB Jiffy, an addapter to use the PHP-Jiffy library with Doctrine’s MongoDB ODM:
+&lt;a href=&quot;https://github.com/Litipk/doctrine-mongodb-jiffy&quot;&gt;https://github.com/Litipk/doctrine-mongodb-jiffy&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Is my intention to modify the PHP-Jiffy library at the same time of the new MongoDB’s extension release, so it will be
+very useful for people who likes moving fast to new software versions.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="PHP" /><category term="Timestamps" /><category term="Doctrine" /><category term="MongoDB" /><summary type="html">PHP does not offer any native class to implement timestamps with milliseconds or microseconds precision, the only “native” way to do it is working with the weird microtime function and/or the \MongoDate class (available through the mongo extension).</summary></entry><entry><title type="html">Added Isso commenting system</title><link href="https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system/" rel="alternate" type="text/html" title="Added Isso commenting system" /><published>2015-10-18T19:00:00+02:00</published><updated>2015-10-18T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system/">&lt;p&gt;Since today is possible to post comments in this blog :) . I’ve integrated the &lt;a href=&quot;http://posativ.org/isso/&quot;&gt;Isso&lt;/a&gt;
+commenting system in order to allow readers to send comments.&lt;/p&gt;
+
+&lt;h3 id=&quot;my-reasons&quot;&gt;My reasons&lt;/h3&gt;
+
+&lt;p&gt;I’ve chosen this software because I don’t want to help big companies to destroy our privacy. If people want to tell to
+the world everything about themselves then I’m not opposed to that, but I don’t want to force the people who are worried
+about protecting its privacy.&lt;/p&gt;
+
+&lt;p&gt;Disqus is a great option to add comments in static blogs, but it requires registration and allows user tracking around
+the web.&lt;/p&gt;
+
+&lt;h3 id=&quot;about-the-underlying-technology&quot;&gt;About the underlying technology&lt;/h3&gt;
+
+&lt;p&gt;Isso is programmed in Python and runs in the server as a daemon, and it can be integrated with the following “http
+handlers”: &lt;strong&gt;Gevent&lt;/strong&gt; (this isn’t an http handling library, but a generic non-blocking IO handling library), &lt;strong&gt;uWSGI&lt;/strong&gt;,
+&lt;strong&gt;Gunicorn&lt;/strong&gt;, &lt;strong&gt;mod_wsgi&lt;/strong&gt; (for Apache), and &lt;strong&gt;mod_fastcgi&lt;/strong&gt; (also for Apache).&lt;/p&gt;
+
+&lt;p&gt;For simplicity, I’ve chosen to use &lt;strong&gt;Gevent&lt;/strong&gt;, it’s the easiest option (no settings :D), but maybe I’ll change the
+settings in the future in favour of uWSGI because its flexibility.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Gunicorn&lt;/strong&gt; is not an option because I need to optimize every service in my server (my server is VERY tiny), and the
+prefork model isn’t enough efficient.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;mod_wsgi&lt;/strong&gt;, and &lt;strong&gt;mod_fastcgi&lt;/strong&gt; require some configuration and are too coupled with the Apache server, so I won’t
+consider them neither.&lt;/p&gt;
+
+&lt;h3 id=&quot;some-points-that-i-dislike&quot;&gt;Some points that I dislike&lt;/h3&gt;
+
+&lt;p&gt;I’m very grateful for the existence of Isso, but I it needs some rework: The management system is too complicated and
+rigid, there is lack of documentation, and there aren’t new releases since 7 months ago (I think this is because there
+is a work in progress on a big refactor).&lt;/p&gt;
+
+&lt;p&gt;Because this, I’m considering to study the Isso’s code in order to be able to contribute, or to fork the project if my
+needs don’t match with the project’s aims.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Blog" /><category term="Isso" /><category term="Privacy" /><summary type="html">Since today is possible to post comments in this blog :) . I’ve integrated the Isso commenting system in order to allow readers to send comments.</summary></entry><entry><title type="html">Be aware of trailing slashes in Symfony 2 URIs</title><link href="https://blog.coderspirit.xyz/blog/2015/10/12/be-aware-of-trailing-slashes-with-symfony2/" rel="alternate" type="text/html" title="Be aware of trailing slashes in Symfony 2 URIs" /><published>2015-10-12T19:00:00+02:00</published><updated>2015-10-12T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2015/10/12/be-aware-of-trailing-slashes-with-symfony2</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/10/12/be-aware-of-trailing-slashes-with-symfony2/">&lt;p&gt;This post will be very short, it’s only a little advice. I’m currently working on the development of a REST API with
+Symfony 2, and to save time we’re using the FOS REST Bundle.&lt;/p&gt;
+
+&lt;p&gt;Following the recommended practices, we are using HTTPS to enhance security. For some strange reason, we discovered that
+a single method in the entire API was sending a 301 status code, telling the client to request the resource to the same
+path, but using HTTP.&lt;/p&gt;
+
+&lt;p&gt;As you can imagine, this was pretty annoying. We aren’t using redirections anywhere, why Symfony was doing this? Well,
+it was a trailing slash:&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OurCompany\BundleName\Controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FOS\RestBundle\Controller\Annotations\Get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FOS\RestBundle\Controller\Annotations\NamePrefix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FOS\RestBundle\Controller\FOSRestController&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Sensio\Bundle\FrameworkExtraBundle\Configuration\Security&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\HttpFoundation\Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Symfony\Component\HttpFoundation\Response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;sd&quot;&gt;/**
+ * Class ExamplesController
+ * @package OurCompany\BundleName\Controller
+ *
+ * @NamePrefix(&quot;example_&quot;)
+ */&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;ExampleController&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;FOSRestController&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;sd&quot;&gt;/**
+     * @Get(&quot;/example/{exampleId}/subexamples/&quot;)
+     * @Security(&quot;has_role('ROLE_USER')&quot;)
+     *
+     * @param Request $request
+     * @return Response
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getSubexamplesAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exampleId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Whatever
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;So, the bug was in the &lt;code class=&quot;highlighter-rouge&quot;&gt;@Get&lt;/code&gt; annotation on the &lt;code class=&quot;highlighter-rouge&quot;&gt;ExampleController::getSubexamplesAction&lt;/code&gt; method. The trailing slash was
+breaking the normal behavior of the application. The corrected code looks like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+
+    &lt;span class=&quot;sd&quot;&gt;/**
+     * @Get(&quot;/example/{exampleId}/subexamples&quot;)
+     * @Security(&quot;has_role('ROLE_USER')&quot;)
+     *
+     * @param Request $request
+     * @return Response
+     */&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getSubexamplesAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exampleId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Whatever
+&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Symfony" /><category term="Symfony2" /><category term="PHP" /><category term="FOSRestBundle" /><category term="REST" /><summary type="html">This post will be very short, it’s only a little advice. I’m currently working on the development of a REST API with Symfony 2, and to save time we’re using the FOS REST Bundle.</summary></entry><entry><title type="html">Old Posts</title><link href="https://blog.coderspirit.xyz/blog/2015/10/11/old-posts/" rel="alternate" type="text/html" title="Old Posts" /><published>2015-10-11T19:00:00+02:00</published><updated>2015-10-11T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2015/10/11/old-posts</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/10/11/old-posts/">&lt;p&gt;This blog is a continuation of labs.viricmind.org, my first tech blog. I’ve lost the domain many months ago, so I can’t
+continue it using the same name. Luckily most of it is accessible through archive.org:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://web.archive.org/web/%2A/http://labs.viricmind.org&quot;&gt;https://web.archive.org/web/*/http://labs.viricmind.org&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;My previous blog was written in Spanish, but this time I’ll continue writting in English. Sometimes I’ll consider to
+translate my posts to Spanish, but the English version will always be present.&lt;/p&gt;
+
+&lt;p&gt;I have to improve this blog a lot, but it will take some time. I’ve thought on the following points:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Adding links to my onlie profiles (Twitter, LinkedIN, Github, Stackoverflow, Kaggle, etc.)&lt;/li&gt;
+  &lt;li&gt;Changing the code syntax highlighting. The Sculpin.io default color scheme for code highlighting makes me cry.&lt;/li&gt;
+  &lt;li&gt;Adding a comments system. I know it’s pretty straightforward to use &lt;strong&gt;Disqus&lt;/strong&gt;, but I’m not fully convinced because
+privacy reasons. I’ve been reading many weeks ago about he possibility of integrating &lt;strong&gt;Discourse&lt;/strong&gt; as a comments
+system inside static blogs. We’ll see…&lt;/li&gt;
+  &lt;li&gt;Adding “in-house” analytics, maybe using something like &lt;strong&gt;Piwik&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Finding (or programming) a “better” blog theme.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Archive" /><category term="Web Archive" /><summary type="html">This blog is a continuation of labs.viricmind.org, my first tech blog. I’ve lost the domain many months ago, so I can’t continue it using the same name. Luckily most of it is accessible through archive.org:</summary></entry></feed>

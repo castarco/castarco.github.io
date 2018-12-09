@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Toy problem: The Traveler's Dilemma</title>
+  <meta name="description" content="The Traveler’s Dilemma is a generalization of thePrisoner’s Dilemma.">
+  <meta name="author" content="Andrés Correa Casablanca">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Toy problem: The Traveler's Dilemma">
+  <meta name="twitter:description" content="The Traveler’s Dilemma is a generalization of thePrisoner’s Dilemma.">
+  
+  <meta name="twitter:creator" content="castarco">
+  
+  <meta name="twitter:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Toy problem: The Traveler's Dilemma">
+  <meta property="og:description" content="The Traveler’s Dilemma is a generalization of thePrisoner’s Dilemma.">
+  <meta property="og:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css?1544390472091909253">
+  <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2017/01/05/toy-problem-the-traverlers-dilemma/">
+  <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['¬€','€¬']]}});
+  </script>
+  <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Coder Spirit">
+          <img src="/images/profile.png" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Coder Spirit</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Coder Spirit blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/castarco" title="@castarco on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/castarco" title="castarco on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/castarco" title="castarco on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="5 Jan 2017" class="post-meta__date date">5 Jan 2017</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#Mathematics">Mathematics</a> <a href="/tags/#Statistics">Statistics</a> <a href="/tags/#Economics">Economics</a> <a href="/tags/#Game Theory">Game Theory</a> </span>
+      
+    </div>
+    <h1 class="post-title">Toy problem: The Traveler's Dilemma</h1>
+  </header>
+
+  <section class="post">
+    <p>The <a href="https://en.wikipedia.org/wiki/Traveler's_dilemma">Traveler’s Dilemma</a> is a generalization of the
+<a href="https://en.wikipedia.org/wiki/Prisoner's_dilemma">Prisoner’s Dilemma</a>.</p>
+
+<p>The starting point of the problem is the following one: two people have lost identical baggage, and the airline company
+offers them a monetary compensation.</p>
+
+<p>This two individuals have to tell the company which is the value of the lost baggage, and the company will pay the
+lowest of the two mentioned values… with an extra complication: the humblest one will receive an extra compensation
+of ¬€R$€¬, and the most ambitious will receive the stated value minus ¬€R$€¬.</p>
+
+<p>There are many variations of this problem, but we’ll use a prices range between ¬€0$€¬ and ¬€100$€¬ (both included), the
+prize for being humble will be ¬€2$€¬, and the punishment for being too ambitious will be ¬€1$€¬ instead of ¬€2$€¬</p>
+
+<p>(I did some computations and I don’t want to repeat them with more “standard” parameters).</p>
+
+<p>The main interesting point of this dilemma is that, if we apply naive “rationality”, we fall in “prices war”: I start
+with ¬€100$€¬ as a good starting point, and then I think that if I choose ¬€99$€¬, then I could win ¬€101$€¬, but
+probably my oponent will think the same way, so maybe choosing ¬€98$€¬ is a better option, because then I can win
+¬€100$€¬ instead of ¬€99$€¬, but my oponent will think the same way… and if we continue thinking, we’ll eventually
+reach a proposal of ¬€1$€¬ or ¬€0$€¬…</p>
+
+<h2 id="alternative-rationality">Alternative rationality</h2>
+
+<p>Of course, real people aren’t so “rational”, and tend to propose higher prices than the lower bound. There are many
+theories about why people are “irrational”, and of course many of these theories also try to improve our insight on the
+strategies used in this sort of games
+<a href="http://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0072427&amp;type=printable">¹</a>
+<a href="https://sci-hub.ac/10.1257/0002828054201431">²</a>.</p>
+
+<p>Personally, I don’t like tagging as “irrational” some strategies when those strategies are far better than the ones
+tagged as “rational”.</p>
+
+<p>Many years ago a simple solution crossed my mind after reading for the first time about this dilemma. The main idea was
+simple: The classic “solution” has a good point (the “nested thoughts”), and a crucial error (the real target: earning
+money, is forgotten and replaced by a surrogate one: earning more money than the opponent).</p>
+
+<p>So I used a probabilistic approach. We start with “a priori” distribution on the “decision space” for the opponent
+decision, we compute the reward for every possible decision taking into account the “a priori” distribution… and then,
+we construct a new distribution based on the computed rewards. As you can imagine, we need to do this iteratively until
+the distribution converges.</p>
+
+<p>If you’ve payed attention, you’ll notice that there are some loose ends:</p>
+
+<ul>
+  <li>Will affect the chosen “a priori” distribution to the final solution?</li>
+  <li>It’s almost obvious that we have to use a monotonous growing function over the rewards to construct the next
+distribution, but… there are a lot of functions, which one?</li>
+</ul>
+
+<p>Fortunately, the “a priori” distribution doesn’t matter… (with a few exceptions), nor does the function! My exposition
+isn’t rigorous at all, but is supported by “empirical” data.</p>
+
+<p>The only problematic distributions are the ones where the probabilities are concentrated on the lowest ¬€R€¬ possible
+values (in our case, when only ¬€0$€¬ and ¬€1$€¬ have probabilities greater than zero).</p>
+
+<p>I started with the function ¬€f(x)=x€¬, and tried it with many random “a priori” distributions, obtaining the same final
+solution every time:</p>
+
+<p><img src="/images/2017/20170105_x_dist.png" alt="final_solution_f_x" /></p>
+
+<p>In this solution, the best options are ¬€97$€¬ and ¬€98$€¬ as the baggage prices. If we choose a higher degree
+polynomial the best options will change, but not much, let’s see what happens with ¬€f(x)=x^{32}€¬, in this case the
+best option is to pick ¬€97$€¬ as the baggage price:</p>
+
+<p><img src="/images/2017/20170105_x32_dist.png" alt="final_solution_f_x32" /></p>
+
+<p>The distribution changes very smoothly respect to the polynomial exponent (this is why I’ve chosen a “big” exponent). We
+have a soft change, but in any case, a significant change. This leads us to the question of how to choose the function
+to transform the reward into a probability distribution.</p>
+
+<p>What seems more “rational” to me is to maximize the reward expectations, this is, approximately (but not exactly):</p>
+
+<script type="math/tex; mode=display">\sum^{100}_{x=0}x \cdot p\left(x\right)</script>
+
+<p>Where</p>
+
+<script type="math/tex; mode=display">p\left(x\right)=\frac{f\left(x\right)}{\sum^{100}_{x=0}f\left(x\right)}</script>
+
+<p>A good way to maximize the expected reward is to consider polynomials with very high exponents. Here you can see a graph
+of the expected reward as a function of the polynomial exponent:</p>
+
+<p><img src="/images/2017/20170105_reward_vs_exp.png" alt="Reward vs exponent" /></p>
+
+<p>It is tempting to use a more drastic approach, giving a probability of 1 to the price with the highest associated
+reward, and 0 to the other prices, but this approach is sensitive to the “a priori” distribution… and we don’t know
+anything about our opponent, so our strategy should not depend on the initial chosen distribution.</p>
+
+<h2 id="real-world-experiment">“Real world” experiment</h2>
+
+<p>I’m pretty sure that the exposed approach is near optimal, but can we expect a similar behavior from people? I don’t
+know, and I haven’t the time to conduct the required experiments.</p>
+
+<p>So I’ve used <code class="highlighter-rouge">sklearn</code> to implement two <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">multilayer perceptron</a>
+instances. In first place, I’ve trained them using white noise to simulate a completely random behavior. I could use
+only 4 white noise samples because using more noise samples makes impossible the training convergence.</p>
+
+<p>Every playing round, the perceptrons receive the results from the previous round and use them to decide which is their
+next movement. The first round the perceptrons receive white noise because there is no previous historical data.</p>
+
+<p>We generate new samples every round, but every “player” keeps a completely subjective view of the world (the players
+don’t learn from the errors of the other players).</p>
+
+<p>I didn’t find a way to generate training samples completely decoupled from my first intuition. So, to reduce coupling,
+every player only learns part of the available info each round (if the player proposed the lowest number p, then it
+learns the associated rewards of the prices greater than p, and the associated rewards of the prices lesser than p
+otherwise).</p>
+
+<p>The results are the following:</p>
+
+<p><img src="/images/2017/20170105_ai_competition.png" alt="AI competition" /></p>
+
+<p>As you can see, the perceptrons proposed prices converge to ¬€94€¬, which is similar to our previous values.</p>
+
+<p>A more interesting experiment might be training perceptrons to learn the best strategy depending on ¬€R€¬ rather than
+depending on past movements (because depending on past movements only has sense when your opponent is always the same).
+Anyway, this is work for another article.</p>
+
+<p><strong>UPDATE:</strong> I’ve found these two interesting articles deepening into the exposed ideas, but with much more detail and
+rigour:</p>
+
+<ul>
+  <li><a href="http://www.people.virginia.edu/~cah2k/tdweb.pdf">Anomalous Behavior in a Traveler’s Dilemma?</a></li>
+  <li><a href="http://www.econ.cam.ac.uk/dae/repec/cam/pdf/cwpe1058.pdf">A Reason for Unreason: Returns-Based Beliefs in Game Theory</a></li>
+</ul>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'https://blog.coderspirit.xyz/blog/2017/01/05/toy-problem-the-traverlers-dilemma/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '/blog/2017/01/05/toy-problem-the-traverlers-dilemma'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//coderspirit.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1544390472091909253"></script>
+
+
+    </div>
+  </body>
+</html>
