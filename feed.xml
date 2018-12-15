@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2018-12-15T17:10:04+01:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2018-12-15T17:30:07+01:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
 </subtitle><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><entry><title type="html">Introduction to the Blockchain (Cryptocurrencies)</title><link href="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/" rel="alternate" type="text/html" title="Introduction to the Blockchain (Cryptocurrencies)" /><published>2018-12-15T16:00:00+01:00</published><updated>2018-12-15T16:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/">&lt;p&gt;So… I wanted to write this article since 6 weeks ago, when I started to delve
 into cryptocurrencies development, and today is the day :) .&lt;/p&gt;
 
@@ -86,8 +86,8 @@ uses them all the time.&lt;/p&gt;
 or another. While in Bitcoin the scripting capabilities were limited on purpose
 to be non-Turing complete for security reasons,
 &lt;a href=&quot;https://en.wikipedia.org/wiki/Vitalik_Buterin&quot;&gt;Vitalik Butterin&lt;/a&gt; proposed a way
-to execute smart contracts in a secure way without limiting their capabilities
-(it’s worth to say that this came at a price, but I’ll leave this point for some
+to securely execute smart contracts in without limiting their capabilities (it’s
+worth to say that this came at a price, but I’ll leave this point for some
 future article).&lt;/p&gt;
 
 &lt;p&gt;Here I end my first and very brief post, but as a bonus I’ll link two
