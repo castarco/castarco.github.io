@@ -1,5 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2018-12-09T22:21:12+01:00</updated><id>https://blog.coderspirit.xyz/</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
-</subtitle><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><entry><title type="html">Web development jobs diagram</title><link href="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/" rel="alternate" type="text/html" title="Web development jobs diagram" /><published>2018-10-08T16:45:00+02:00</published><updated>2018-10-08T16:45:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/">&lt;p&gt;Yesterday evening I created this diagram to show how some web development jobs
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2018-12-15T17:10:04+01:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</subtitle><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><entry><title type="html">Introduction to the Blockchain (Cryptocurrencies)</title><link href="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/" rel="alternate" type="text/html" title="Introduction to the Blockchain (Cryptocurrencies)" /><published>2018-12-15T16:00:00+01:00</published><updated>2018-12-15T16:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/">&lt;p&gt;So… I wanted to write this article since 6 weeks ago, when I started to delve
+into cryptocurrencies development, and today is the day :) .&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; First and foremost, I’m not a blockchain and/or cryptocurrencies
+fanboy, neither a hater. I think the right way to approach this topic is through
+highly critical thinking, a lot of patience and will to learn.&lt;/p&gt;
+
+&lt;p&gt;There’s a lot of potential on this field, yet a lot of empty promises too, and
+to discern what’s serious from what’s not one needs to dig deep… and believe
+me, it’s a tough task. The field is deeper than one could imagine without having
+previous exposition: the number of open questions &amp;amp; open problems is high, and
+this is in part due to its interdisciplinary nature (cryptography, distributed
+systems, networking, software &amp;amp; networks security, economics…).&lt;/p&gt;
+
+&lt;p&gt;My aim here is not to write a tutorial, but to explain my own learning process,
+and in order to do that I’ll continue writing more articles to talk about very
+specific topics in almost self-contained texts.&lt;/p&gt;
+
+&lt;p&gt;Having said that, I’ll center my attention on the cryptocurrencies landscape
+rather than focusing on the more fuzzy “blockchain” term, because that’s what
+I’m working on, and that’s where my learning experience is mostly focused.&lt;/p&gt;
+
+&lt;p&gt;Let’s start then ☺. The story doesn’t really start with Bitcoin, but that will
+be our first stop because it’s where all the pieces where put together for the
+first time.&lt;/p&gt;
+
+&lt;p&gt;Knowing about the following concepts is a pre-condition to advance through the
+next steps without problems:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Hash_function&quot;&gt;Hash function&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Public-key_cryptography&quot;&gt;Asymmetric cryptography&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Digital_signature&quot;&gt;Digital signature&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Merkle_tree&quot;&gt;Merkle tree&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Peer-to-peer&quot;&gt;P2P Network&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I truly recommend to read this two articles in order:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.hashcash.org/papers/hashcash.pdf&quot;&gt;Hashcash - A Denial of Service Counter-Measure, 2002, Adam Back&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bitcoin.org/bitcoin.pdf&quot;&gt;Bitcoin: A Peer-to-Peer Electronic Cash System, 2008, Satoshi Nakamoto&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The first one introduces what’s nowadays commonly known as “Proof of Work”, and
+it was mainly designed to make spamming more difficult, using it for electronic
+currencies was a novel idea at the time (but introduced prior to the Bitcoin’s
+outbreak).&lt;/p&gt;
+
+&lt;p&gt;The second article is considered the foundational article of the blockchain &amp;amp;
+cryptocurrencies fields. It introduces the “Nakamoto consensus” idea (consensus
+between nodes achieved through “proof of work”) and the “blockchain” idea. It’s
+worth to say that the word “blockchain” is not used in that paper,
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Satoshi_Nakamoto&quot;&gt;Satoshi Nakamoto&lt;/a&gt; used
+“proof-of-work chain” instead.&lt;/p&gt;
+
+&lt;p&gt;The first Bitcoin implementation arrived some months after the article
+publication, and it was done applying other relatively new inventions that were
+not explicitly mentioned in the foundational article:
+&lt;em&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Smart_contract&quot;&gt;smart contracts&lt;/a&gt;&lt;/em&gt;, an
+&lt;a href=&quot;http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html&quot;&gt;idea proposed by Nick Szabo in 1994&lt;/a&gt;
+and extended in
+&lt;a href=&quot;http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_2.html&quot;&gt;1996&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I have to say that the “smart contracts” concept was for me one of the hardest
+points to understand when I started. I had previous knowledge about how the
+blocks were chained, about the proof of work… but not about that. And it’s
+easy to see why: it’s not mentioned at all in the Bitcoin paper, Nick Szabo’s
+didn’t give too many clues about how they should work, and it’s difficult to
+find good explanations about what they really are and how they work (most of
+what you’ll find in the Internet is pure bullshit, empty words).&lt;/p&gt;
+
+&lt;p&gt;One book where I found a pretty good explanation is
+&lt;a href=&quot;http://shop.oreilly.com/product/0636920049524.do&quot;&gt;&lt;em&gt;“Mastering Bitcoin, 2nd Edition”&lt;/em&gt;&lt;/a&gt;,
+written by &lt;em&gt;Andreas Antonopoulos&lt;/em&gt;. You can find an online and free version in
+Github: &lt;a href=&quot;https://github.com/bitcoinbook/bitcoinbook&quot;&gt;bitcoinbook/bitcoinbook&lt;/a&gt;,
+I truly recommend to read it if you’re just starting.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Notice:&lt;/strong&gt; Might be the case that at this point you are surprised, could be
+that you read somewhere, or that somebody told you that the smart contracts were
+introduced in &lt;em&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Ethereum&quot;&gt;Ethereum&lt;/a&gt;&lt;/em&gt;… but that’s
+plainly wrong. Bitcoin also allows to implement smart contracts, and in fact it
+uses them all the time.&lt;/p&gt;
+
+&lt;p&gt;The key difference is on the capabilities that the scripts have in one platform
+or another. While in Bitcoin the scripting capabilities were limited on purpose
+to be non-Turing complete for security reasons,
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Vitalik_Buterin&quot;&gt;Vitalik Butterin&lt;/a&gt; proposed a way
+to execute smart contracts in a secure way without limiting their capabilities
+(it’s worth to say that this came at a price, but I’ll leave this point for some
+future article).&lt;/p&gt;
+
+&lt;p&gt;Here I end my first and very brief post, but as a bonus I’ll link two
+interesting articles about who could be the mysterious Satoshi Nakamoto:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@altcoinbuzz/why-i-think-nick-szabo-is-satoshi-nakamoto-even-though-he-denies-it-8c999841fbbb&quot;&gt;Why I think Nick Szabo is Satoshi Nakamoto&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.forbes.com/sites/andygreenberg/2014/03/25/satoshi-nakamotos-neighbor-the-bitcoin-ghostwriter-who-wasnt/#f3c0e4c4a37d&quot;&gt;Nakamoto’s Neighbor&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Blockchain" /><category term="Cryptocurrencies" /><category term="Bitcoin" /><summary type="html">So… I wanted to write this article since 6 weeks ago, when I started to delve into cryptocurrencies development, and today is the day :) .</summary></entry><entry><title type="html">Web development jobs diagram</title><link href="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/" rel="alternate" type="text/html" title="Web development jobs diagram" /><published>2018-10-08T16:45:00+02:00</published><updated>2018-10-08T16:45:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/10/08/web-development-jobs-landscape/">&lt;p&gt;Yesterday evening I created this diagram to show how some web development jobs
 are “connected”, I hope it can be useful for people looking what to do, but also
 for HR people wanting to understand the web development landscape.&lt;/p&gt;
 
@@ -341,7 +437,7 @@ path, but using HTTP.&lt;/p&gt;
 &lt;p&gt;As you can imagine, this was pretty annoying. We aren’t using redirections anywhere, why Symfony was doing this? Well,
 it was a trailing slash:&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 
 &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;OurCompany\BundleName\Controller&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 
@@ -371,17 +467,16 @@ it was a trailing slash:&lt;/p&gt;
      */&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getSubexamplesAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exampleId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// Whatever
-&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;// Whatever&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;So, the bug was in the &lt;code class=&quot;highlighter-rouge&quot;&gt;@Get&lt;/code&gt; annotation on the &lt;code class=&quot;highlighter-rouge&quot;&gt;ExampleController::getSubexamplesAction&lt;/code&gt; method. The trailing slash was
 breaking the normal behavior of the application. The corrected code looks like this:&lt;/p&gt;
 
-&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
+&lt;div class=&quot;language-php highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?php&lt;/span&gt;
 
     &lt;span class=&quot;sd&quot;&gt;/**
      * @Get(&quot;/example/{exampleId}/subexamples&quot;)
@@ -392,27 +487,6 @@ breaking the normal behavior of the application. The corrected code looks like t
      */&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getSubexamplesAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Request&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$exampleId&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;c1&quot;&gt;// Whatever
-&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Symfony" /><category term="Symfony2" /><category term="PHP" /><category term="FOSRestBundle" /><category term="REST" /><summary type="html">This post will be very short, it’s only a little advice. I’m currently working on the development of a REST API with Symfony 2, and to save time we’re using the FOS REST Bundle.</summary></entry><entry><title type="html">Old Posts</title><link href="https://blog.coderspirit.xyz/blog/2015/10/11/old-posts/" rel="alternate" type="text/html" title="Old Posts" /><published>2015-10-11T19:00:00+02:00</published><updated>2015-10-11T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2015/10/11/old-posts</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/10/11/old-posts/">&lt;p&gt;This blog is a continuation of labs.viricmind.org, my first tech blog. I’ve lost the domain many months ago, so I can’t
-continue it using the same name. Luckily most of it is accessible through archive.org:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://web.archive.org/web/%2A/http://labs.viricmind.org&quot;&gt;https://web.archive.org/web/*/http://labs.viricmind.org&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;My previous blog was written in Spanish, but this time I’ll continue writting in English. Sometimes I’ll consider to
-translate my posts to Spanish, but the English version will always be present.&lt;/p&gt;
-
-&lt;p&gt;I have to improve this blog a lot, but it will take some time. I’ve thought on the following points:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Adding links to my onlie profiles (Twitter, LinkedIN, Github, Stackoverflow, Kaggle, etc.)&lt;/li&gt;
-  &lt;li&gt;Changing the code syntax highlighting. The Sculpin.io default color scheme for code highlighting makes me cry.&lt;/li&gt;
-  &lt;li&gt;Adding a comments system. I know it’s pretty straightforward to use &lt;strong&gt;Disqus&lt;/strong&gt;, but I’m not fully convinced because
-privacy reasons. I’ve been reading many weeks ago about he possibility of integrating &lt;strong&gt;Discourse&lt;/strong&gt; as a comments
-system inside static blogs. We’ll see…&lt;/li&gt;
-  &lt;li&gt;Adding “in-house” analytics, maybe using something like &lt;strong&gt;Piwik&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;Finding (or programming) a “better” blog theme.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Archive" /><category term="Web Archive" /><summary type="html">This blog is a continuation of labs.viricmind.org, my first tech blog. I’ve lost the domain many months ago, so I can’t continue it using the same name. Luckily most of it is accessible through archive.org:</summary></entry></feed>
+        &lt;span class=&quot;c1&quot;&gt;// Whatever&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>Andrés Correa Casablanca</name><email>castarco@litipk.com</email></author><category term="Symfony" /><category term="Symfony2" /><category term="PHP" /><category term="FOSRestBundle" /><category term="REST" /><summary type="html">This post will be very short, it’s only a little advice. I’m currently working on the development of a REST API with Symfony 2, and to save time we’re using the FOS REST Bundle.</summary></entry></feed>

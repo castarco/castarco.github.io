@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Introduction to the Blockchain (Cryptocurrencies)</title>
+  <meta name="description" content="So… I wanted to write this article since 6 weeks ago, when I started to delveinto cryptocurrencies development, and today is the day :) .">
+  <meta name="author" content="Andrés Correa Casablanca">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Introduction to the Blockchain (Cryptocurrencies)">
+  <meta name="twitter:description" content="So… I wanted to write this article since 6 weeks ago, when I started to delveinto cryptocurrencies development, and today is the day :) .">
+  
+  <meta name="twitter:creator" content="castarco">
+  
+  <meta name="twitter:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Introduction to the Blockchain (Cryptocurrencies)">
+  <meta property="og:description" content="So… I wanted to write this article since 6 weeks ago, when I started to delveinto cryptocurrencies development, and today is the day :) .">
+  <meta property="og:image" content="https://blog.coderspirit.xyz//images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" href="/css/main.css?1544890204671724993">
+  <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2018/12/15/introduction-to-blockchain/">
+  <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['¬€','€¬']]}});
+  </script>
+  <script type="text/javascript" async
+          src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+  
+<header class="panel-cover" style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+        <a href="/" title="link to home of Coder Spirit">
+          <img src="/images/profile.png" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Coder Spirit</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Coder Spirit blog" class="blog-button">Blog</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+          
+            
+              <!-- Twitter -->
+              <li class="navigation__item">
+                <a href="http://twitter.com/castarco" title="@castarco on Twitter" target="_blank">
+                  <i class="icon icon-social-twitter"></i>
+                  <span class="label">Twitter</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/castarco" title="castarco on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- GitHub -->
+              <li class="navigation__item">
+                <a href="https://www.github.com/castarco" title="castarco on GitHub" target="_blank">
+                  <i class="icon icon-social-github"></i>
+                  <span class="label">GitHub</span>
+                </a>
+              </li>
+            
+
+            
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+            
+
+            <!-- RSS -->
+            <li class="navigation__item">
+              <a href="/feed.xml" title="Subscribe" target="_blank">
+                <i class="icon icon-rss"></i>
+                <span class="label">RSS</span>
+              </a>
+            </li>
+          
+            </ul>
+          </nav>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="15 Dec 2018" class="post-meta__date date">15 Dec 2018</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#Blockchain">Blockchain</a> <a href="/tags/#Cryptocurrencies">Cryptocurrencies</a> <a href="/tags/#Bitcoin">Bitcoin</a> </span>
+      
+    </div>
+    <h1 class="post-title">Introduction to the Blockchain (Cryptocurrencies)</h1>
+  </header>
+
+  <section class="post">
+    <p>So… I wanted to write this article since 6 weeks ago, when I started to delve
+into cryptocurrencies development, and today is the day :) .</p>
+
+<p><strong>Disclaimer:</strong> First and foremost, I’m not a blockchain and/or cryptocurrencies
+fanboy, neither a hater. I think the right way to approach this topic is through
+highly critical thinking, a lot of patience and will to learn.</p>
+
+<p>There’s a lot of potential on this field, yet a lot of empty promises too, and
+to discern what’s serious from what’s not one needs to dig deep… and believe
+me, it’s a tough task. The field is deeper than one could imagine without having
+previous exposition: the number of open questions &amp; open problems is high, and
+this is in part due to its interdisciplinary nature (cryptography, distributed
+systems, networking, software &amp; networks security, economics…).</p>
+
+<p>My aim here is not to write a tutorial, but to explain my own learning process,
+and in order to do that I’ll continue writing more articles to talk about very
+specific topics in almost self-contained texts.</p>
+
+<p>Having said that, I’ll center my attention on the cryptocurrencies landscape
+rather than focusing on the more fuzzy “blockchain” term, because that’s what
+I’m working on, and that’s where my learning experience is mostly focused.</p>
+
+<p>Let’s start then ☺. The story doesn’t really start with Bitcoin, but that will
+be our first stop because it’s where all the pieces where put together for the
+first time.</p>
+
+<p>Knowing about the following concepts is a pre-condition to advance through the
+next steps without problems:</p>
+<ul>
+  <li><a href="https://en.wikipedia.org/wiki/Hash_function">Hash function</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Public-key_cryptography">Asymmetric cryptography</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Digital_signature">Digital signature</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Merkle_tree">Merkle tree</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/Peer-to-peer">P2P Network</a></li>
+</ul>
+
+<p>I truly recommend to read this two articles in order:</p>
+
+<ul>
+  <li><a href="http://www.hashcash.org/papers/hashcash.pdf">Hashcash - A Denial of Service Counter-Measure, 2002, Adam Back</a></li>
+  <li><a href="https://bitcoin.org/bitcoin.pdf">Bitcoin: A Peer-to-Peer Electronic Cash System, 2008, Satoshi Nakamoto</a></li>
+</ul>
+
+<p>The first one introduces what’s nowadays commonly known as “Proof of Work”, and
+it was mainly designed to make spamming more difficult, using it for electronic
+currencies was a novel idea at the time (but introduced prior to the Bitcoin’s
+outbreak).</p>
+
+<p>The second article is considered the foundational article of the blockchain &amp;
+cryptocurrencies fields. It introduces the “Nakamoto consensus” idea (consensus
+between nodes achieved through “proof of work”) and the “blockchain” idea. It’s
+worth to say that the word “blockchain” is not used in that paper,
+<a href="https://en.wikipedia.org/wiki/Satoshi_Nakamoto">Satoshi Nakamoto</a> used
+“proof-of-work chain” instead.</p>
+
+<p>The first Bitcoin implementation arrived some months after the article
+publication, and it was done applying other relatively new inventions that were
+not explicitly mentioned in the foundational article:
+<em><a href="https://en.wikipedia.org/wiki/Smart_contract">smart contracts</a></em>, an
+<a href="http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart.contracts.html">idea proposed by Nick Szabo in 1994</a>
+and extended in
+<a href="http://www.fon.hum.uva.nl/rob/Courses/InformationInSpeech/CDROM/Literature/LOTwinterschool2006/szabo.best.vwh.net/smart_contracts_2.html">1996</a>.</p>
+
+<p>I have to say that the “smart contracts” concept was for me one of the hardest
+points to understand when I started. I had previous knowledge about how the
+blocks were chained, about the proof of work… but not about that. And it’s
+easy to see why: it’s not mentioned at all in the Bitcoin paper, Nick Szabo’s
+didn’t give too many clues about how they should work, and it’s difficult to
+find good explanations about what they really are and how they work (most of
+what you’ll find in the Internet is pure bullshit, empty words).</p>
+
+<p>One book where I found a pretty good explanation is
+<a href="http://shop.oreilly.com/product/0636920049524.do"><em>“Mastering Bitcoin, 2nd Edition”</em></a>,
+written by <em>Andreas Antonopoulos</em>. You can find an online and free version in
+Github: <a href="https://github.com/bitcoinbook/bitcoinbook">bitcoinbook/bitcoinbook</a>,
+I truly recommend to read it if you’re just starting.</p>
+
+<p><strong>Notice:</strong> Might be the case that at this point you are surprised, could be
+that you read somewhere, or that somebody told you that the smart contracts were
+introduced in <em><a href="https://en.wikipedia.org/wiki/Ethereum">Ethereum</a></em>… but that’s
+plainly wrong. Bitcoin also allows to implement smart contracts, and in fact it
+uses them all the time.</p>
+
+<p>The key difference is on the capabilities that the scripts have in one platform
+or another. While in Bitcoin the scripting capabilities were limited on purpose
+to be non-Turing complete for security reasons,
+<a href="https://en.wikipedia.org/wiki/Vitalik_Buterin">Vitalik Butterin</a> proposed a way
+to execute smart contracts in a secure way without limiting their capabilities
+(it’s worth to say that this came at a price, but I’ll leave this point for some
+future article).</p>
+
+<p>Here I end my first and very brief post, but as a bonus I’ll link two
+interesting articles about who could be the mysterious Satoshi Nakamoto:</p>
+<ul>
+  <li><a href="https://medium.com/@altcoinbuzz/why-i-think-nick-szabo-is-satoshi-nakamoto-even-though-he-denies-it-8c999841fbbb">Why I think Nick Szabo is Satoshi Nakamoto</a></li>
+  <li><a href="https://www.forbes.com/sites/andygreenberg/2014/03/25/satoshi-nakamotos-neighbor-the-bitcoin-ghostwriter-who-wasnt/#f3c0e4c4a37d">Nakamoto’s Neighbor</a></li>
+</ul>
+
+  </section>
+  <section id="disqus_thread"></section><!-- /#disqus_thread -->
+</article>
+<script type="text/javascript">
+  var disqus_config = function () {
+    this.page.url = 'https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '/blog/2018/12/15/introduction-to-blockchain'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+
+  (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//coderspirit.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+   })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1544890204671724993"></script>
+
+
+    </div>
+  </body>
+</html>

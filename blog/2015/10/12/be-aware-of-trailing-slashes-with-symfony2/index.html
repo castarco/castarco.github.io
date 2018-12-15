@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1544390472091909253">
+  <link rel="stylesheet" href="/css/main.css?1544890204671724993">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2015/10/12/be-aware-of-trailing-slashes-with-symfony2/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -177,7 +177,7 @@ path, but using HTTP.</p>
 <p>As you can imagine, this was pretty annoying. We aren’t using redirections anywhere, why Symfony was doing this? Well,
 it was a trailing slash:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
 <span class="k">namespace</span> <span class="nx">OurCompany\BundleName\Controller</span><span class="p">;</span>
 
@@ -207,17 +207,16 @@ it was a trailing slash:</p>
      */</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">getSubexamplesAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="c1">// Whatever
-</span>    <span class="p">}</span>
+        <span class="c1">// Whatever</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>So, the bug was in the <code class="highlighter-rouge">@Get</code> annotation on the <code class="highlighter-rouge">ExampleController::getSubexamplesAction</code> method. The trailing slash was
 breaking the normal behavior of the application. The corrected code looks like this:</p>
 
-<div class="language-php highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
     <span class="sd">/**
      * @Get("/example/{exampleId}/subexamples")
@@ -228,10 +227,9 @@ breaking the normal behavior of the application. The corrected code looks like t
      */</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">getSubexamplesAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
     <span class="p">{</span>
-        <span class="c1">// Whatever
-</span>    <span class="p">}</span>
-</code></pre>
-</div>
+        <span class="c1">// Whatever</span>
+    <span class="p">}</span>
+</code></pre></div></div>
 
   </section>
   <section id="disqus_thread"></section><!-- /#disqus_thread -->
@@ -260,7 +258,7 @@ breaking the normal behavior of the application. The corrected code looks like t
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1544390472091909253"></script>
+<script type="text/javascript" src="/js/main.js?1544890204671724993"></script>
 
 
     </div>
