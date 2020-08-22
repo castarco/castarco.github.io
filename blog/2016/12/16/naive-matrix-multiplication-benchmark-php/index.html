@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1544891550515993226">
+  <link rel="stylesheet" href="/css/main.css?1598104925081196942">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2016/12/16/naive-matrix-multiplication-benchmark-php/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -124,7 +124,7 @@
             
               <!-- Email -->
               <li class="navigation__item">
-                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                <a href="mailto:contact@coderspirit.xyz" title="Email contact@coderspirit.xyz" target="_blank">
                   <i class="icon icon-mail"></i>
                   <span class="label">Email</span>
                 </a>
@@ -167,15 +167,15 @@
   </header>
 
   <section class="post">
-    <p>In my last post (<a href="/blog/2016/12/01/php-sds-first-thoughts">PHP-SDS First thoughts</a>) I introduced the library <code class="highlighter-rouge">PHP-SDS</code>.
+    <p>In my last post (<a href="/blog/2016/12/01/php-sds-first-thoughts">PHP-SDS First thoughts</a>) I introduced the library <code class="language-plaintext highlighter-rouge">PHP-SDS</code>.
 Today I’ll talk about some performance benchmarks that I’ve been doing in order to optimize the polyfill code.</p>
 
 <p>The benchmark script has measured 8 different versions of the naive matrix multiplication algorithm:</p>
 
 <ul>
-  <li>Using <code class="highlighter-rouge">array</code> vs Using <code class="highlighter-rouge">Ds\Vector</code>.</li>
+  <li>Using <code class="language-plaintext highlighter-rouge">array</code> vs Using <code class="language-plaintext highlighter-rouge">Ds\Vector</code>.</li>
   <li>Contiguous values vs Nested rows</li>
-  <li><code class="highlighter-rouge">I,J,K</code> iteration order vs <code class="highlighter-rouge">I,K,J</code> iteration order.</li>
+  <li><code class="language-plaintext highlighter-rouge">I,J,K</code> iteration order vs <code class="language-plaintext highlighter-rouge">I,K,J</code> iteration order.</li>
 </ul>
 
 <p>I didn’t try to parallelize anything in any way, since PHP isn’t a well suited language to do this sort of things. I
@@ -186,24 +186,24 @@ the naive algorithm).</p>
 <p>Scripts used to benchmark and present data:</p>
 
 <ul>
-  <li><a href="https://gist.github.com/castarco/5b051f9e7df04a2de87d3268f01ea461"><code class="highlighter-rouge">matrix_benchmark.php</code></a></li>
-  <li><a href="https://gist.github.com/castarco/8591dc20e2740215709ede9566eaa826"><code class="highlighter-rouge">PHPMatrixBenchmarkPlot.ipynb</code></a></li>
+  <li><a href="https://gist.github.com/castarco/5b051f9e7df04a2de87d3268f01ea461"><code class="language-plaintext highlighter-rouge">matrix_benchmark.php</code></a></li>
+  <li><a href="https://gist.github.com/castarco/8591dc20e2740215709ede9566eaa826"><code class="language-plaintext highlighter-rouge">PHPMatrixBenchmarkPlot.ipynb</code></a></li>
 </ul>
 
 <h2 id="expectations-vs-reality">Expectations vs Reality</h2>
 
 <p>In the first place, I should explain what my expectations were before the experiment. I thought that the best
-combination would be (<code class="highlighter-rouge">Ds\Vector</code>, contiguous values, <code class="highlighter-rouge">I,K,J</code>)…</p>
+combination would be (<code class="language-plaintext highlighter-rouge">Ds\Vector</code>, contiguous values, <code class="language-plaintext highlighter-rouge">I,K,J</code>)…</p>
 
-<p>But the reality didn’t match my expectations, the best combination was (<code class="highlighter-rouge">array</code>, contiguous values, <code class="highlighter-rouge">I,K,J</code> ).</p>
+<p>But the reality didn’t match my expectations, the best combination was (<code class="language-plaintext highlighter-rouge">array</code>, contiguous values, <code class="language-plaintext highlighter-rouge">I,K,J</code> ).</p>
 
 <p><img src="/images/2016/20161216_matrix_benchmark.png" alt="Matrix Benchmark" /></p>
 
-<p>Why I thought that <code class="highlighter-rouge">Ds\Vector</code> would offer better performance than <code class="highlighter-rouge">array</code> for matrix multiplications? The two main
-reason were the smaller memory footprint, and the better performance of <code class="highlighter-rouge">Ds\Vector</code> on other operations.</p>
+<p>Why I thought that <code class="language-plaintext highlighter-rouge">Ds\Vector</code> would offer better performance than <code class="language-plaintext highlighter-rouge">array</code> for matrix multiplications? The two main
+reason were the smaller memory footprint, and the better performance of <code class="language-plaintext highlighter-rouge">Ds\Vector</code> on other operations.</p>
 
-<p>I imagined that less memory usage would lead to less cache misses, but probably I missinterpreted <strong>WHY</strong> <code class="highlighter-rouge">Ds\Vector</code>
-uses less memory than array. The reason was not that <code class="highlighter-rouge">Ds\Vector</code> uses less bytes per item, but that <code class="highlighter-rouge">Ds\Vector</code> uses a
+<p>I imagined that less memory usage would lead to less cache misses, but probably I missinterpreted <strong>WHY</strong> <code class="language-plaintext highlighter-rouge">Ds\Vector</code>
+uses less memory than array. The reason was not that <code class="language-plaintext highlighter-rouge">Ds\Vector</code> uses less bytes per item, but that <code class="language-plaintext highlighter-rouge">Ds\Vector</code> uses a
 “smarter”¹ algorithm to allocate memory regions in order to grow o shrink itself.</p>
 
 <h2 id="why-ikj-runs-faster-than-ijk">Why I,K,J runs faster than I,J,K?</h2>
@@ -218,15 +218,15 @@ some redundant read operations). This way we have a <a href="https://en.wikipedi
 
 <h2 id="final-thoughts">Final thoughts</h2>
 
-<p>There are some benchmarks that I’d like to do in order to have a more precise image of what’s happening with <code class="highlighter-rouge">Ds\Vector</code>.
-I’ll measure isolated <code class="highlighter-rouge">offsetGet</code> and <code class="highlighter-rouge">offsetSet</code> operations, and a combination of both (using <code class="highlighter-rouge">+=</code> for example).</p>
+<p>There are some benchmarks that I’d like to do in order to have a more precise image of what’s happening with <code class="language-plaintext highlighter-rouge">Ds\Vector</code>.
+I’ll measure isolated <code class="language-plaintext highlighter-rouge">offsetGet</code> and <code class="language-plaintext highlighter-rouge">offsetSet</code> operations, and a combination of both (using <code class="language-plaintext highlighter-rouge">+=</code> for example).</p>
 
 <p>Returning to my beloved matrix… In a fantastic <strong>@nikic</strong>’s post
 (<a href="https://nikic.github.io/2014/12/22/PHPs-new-hashtable-implementation.html">PHP’s new hastable implementation</a>), we can
 see that packed PHP arrays consume ~32 bytes per item. The Matrix use-case is “good” enough¹ to allow us storing raw
 values without using wrappers.</p>
 
-<p>Typically, <code class="highlighter-rouge">long</code> &amp; <code class="highlighter-rouge">double</code> values take 8 bytes in 64 bit systems, so using a compiled extension we should be able to
+<p>Typically, <code class="language-plaintext highlighter-rouge">long</code> &amp; <code class="language-plaintext highlighter-rouge">double</code> values take 8 bytes in 64 bit systems, so using a compiled extension we should be able to
 divide the memory footprint by 4 (and store 4 times more items per cache line). If we allow less precision (using 32
 bits instead of 64), then we can use less CPU time and memory.</p>
 
@@ -235,7 +235,7 @@ bits instead of 64), then we can use less CPU time and memory.</p>
 <h2 id="notes">Notes</h2>
 
 <ol>
-  <li>Because it can rely on some assumptions that aren’t true for <code class="highlighter-rouge">array</code>.</li>
+  <li>Because it can rely on some assumptions that aren’t true for <code class="language-plaintext highlighter-rouge">array</code>.</li>
 </ol>
 
   </section>
@@ -261,11 +261,11 @@ bits instead of 64), then we can use less CPU time and memory.</p>
       </div>
 
       <footer class="footer">
-  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+  <span class="footer__copyright">&copy; 2020 Andrés Correa Casablanca. All rights reserved.</span>
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1544891550515993226"></script>
+<script type="text/javascript" src="/js/main.js?1598104925081196942"></script>
 
 
     </div>

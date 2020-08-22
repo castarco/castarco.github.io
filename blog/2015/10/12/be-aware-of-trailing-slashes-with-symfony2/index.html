@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1544891550515993226">
+  <link rel="stylesheet" href="/css/main.css?1598104925081196942">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2015/10/12/be-aware-of-trailing-slashes-with-symfony2/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -124,7 +124,7 @@
             
               <!-- Email -->
               <li class="navigation__item">
-                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                <a href="mailto:contact@coderspirit.xyz" title="Email contact@coderspirit.xyz" target="_blank">
                   <i class="icon icon-mail"></i>
                   <span class="label">Email</span>
                 </a>
@@ -179,33 +179,33 @@ it was a trailing slash:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-<span class="k">namespace</span> <span class="nx">OurCompany\BundleName\Controller</span><span class="p">;</span>
+<span class="kn">namespace</span> <span class="nn">OurCompany\BundleName\Controller</span><span class="p">;</span>
 
-<span class="k">use</span> <span class="nx">FOS\RestBundle\Controller\Annotations\Get</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">FOS\RestBundle\Controller\Annotations\NamePrefix</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">FOS\RestBundle\Controller\FOSRestController</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">FOS\RestBundle\Controller\Annotations\Get</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">FOS\RestBundle\Controller\Annotations\NamePrefix</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">FOS\RestBundle\Controller\FOSRestController</span><span class="p">;</span>
 
-<span class="k">use</span> <span class="nx">Sensio\Bundle\FrameworkExtraBundle\Configuration\Security</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Sensio\Bundle\FrameworkExtraBundle\Configuration\Security</span><span class="p">;</span>
 
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+<span class="kn">use</span> <span class="nc">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
 
-<span class="sd">/**
+<span class="cd">/**
  * Class ExamplesController
  * @package OurCompany\BundleName\Controller
  *
  * @NamePrefix("example_")
  */</span>
-<span class="k">class</span> <span class="nc">ExampleController</span> <span class="k">extends</span> <span class="nx">FOSRestController</span>
+<span class="kd">class</span> <span class="nc">ExampleController</span> <span class="kd">extends</span> <span class="nc">FOSRestController</span>
 <span class="p">{</span>
-    <span class="sd">/**
+    <span class="cd">/**
      * @Get("/example/{exampleId}/subexamples/")
      * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @return Response
      */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSubexamplesAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getSubexamplesAction</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// Whatever</span>
     <span class="p">}</span>
@@ -213,19 +213,19 @@ it was a trailing slash:</p>
 
 </code></pre></div></div>
 
-<p>So, the bug was in the <code class="highlighter-rouge">@Get</code> annotation on the <code class="highlighter-rouge">ExampleController::getSubexamplesAction</code> method. The trailing slash was
+<p>So, the bug was in the <code class="language-plaintext highlighter-rouge">@Get</code> annotation on the <code class="language-plaintext highlighter-rouge">ExampleController::getSubexamplesAction</code> method. The trailing slash was
 breaking the normal behavior of the application. The corrected code looks like this:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-    <span class="sd">/**
+    <span class="cd">/**
      * @Get("/example/{exampleId}/subexamples")
      * @Security("has_role('ROLE_USER')")
      *
      * @param Request $request
      * @return Response
      */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSubexamplesAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="n">getSubexamplesAction</span><span class="p">(</span><span class="kt">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$exampleId</span><span class="p">)</span>
     <span class="p">{</span>
         <span class="c1">// Whatever</span>
     <span class="p">}</span>
@@ -254,11 +254,11 @@ breaking the normal behavior of the application. The corrected code looks like t
       </div>
 
       <footer class="footer">
-  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+  <span class="footer__copyright">&copy; 2020 Andrés Correa Casablanca. All rights reserved.</span>
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1544891550515993226"></script>
+<script type="text/javascript" src="/js/main.js?1598104925081196942"></script>
 
 
     </div>

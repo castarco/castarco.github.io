@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1544891550515993226">
+  <link rel="stylesheet" href="/css/main.css?1598104925081196942">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2017/01/05/toy-problem-the-traverlers-dilemma/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -124,7 +124,7 @@
             
               <!-- Email -->
               <li class="navigation__item">
-                <a href="mailto:castarco@litipk.com" title="Email castarco@litipk.com" target="_blank">
+                <a href="mailto:contact@coderspirit.xyz" title="Email contact@coderspirit.xyz" target="_blank">
                   <i class="icon icon-mail"></i>
                   <span class="label">Email</span>
                 </a>
@@ -239,11 +239,11 @@ to transform the reward into a probability distribution.</p>
 
 <p>What seems more “rational” to me is to maximize the reward expectations, this is, approximately (but not exactly):</p>
 
-<script type="math/tex; mode=display">\sum^{100}_{x=0}x \cdot p\left(x\right)</script>
+\[\sum^{100}_{x=0}x \cdot p\left(x\right)\]
 
 <p>Where</p>
 
-<script type="math/tex; mode=display">p\left(x\right)=\frac{f\left(x\right)}{\sum^{100}_{x=0}f\left(x\right)}</script>
+\[p\left(x\right)=\frac{f\left(x\right)}{\sum^{100}_{x=0}f\left(x\right)}\]
 
 <p>A good way to maximize the expected reward is to consider polynomials with very high exponents. Here you can see a graph
 of the expected reward as a function of the polynomial exponent:</p>
@@ -259,7 +259,7 @@ anything about our opponent, so our strategy should not depend on the initial ch
 <p>I’m pretty sure that the exposed approach is near optimal, but can we expect a similar behavior from people? I don’t
 know, and I haven’t the time to conduct the required experiments.</p>
 
-<p>So I’ve used <code class="highlighter-rouge">sklearn</code> to implement two <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">multilayer perceptron</a>
+<p>So I’ve used <code class="language-plaintext highlighter-rouge">sklearn</code> to implement two <a href="https://en.wikipedia.org/wiki/Multilayer_perceptron">multilayer perceptron</a>
 instances. In first place, I’ve trained them using white noise to simulate a completely random behavior. I could use
 only 4 white noise samples because using more noise samples makes impossible the training convergence.</p>
 
@@ -315,11 +315,11 @@ rigour:</p>
       </div>
 
       <footer class="footer">
-  <span class="footer__copyright">&copy; 2018 Andrés Correa Casablanca. All rights reserved.</span>
+  <span class="footer__copyright">&copy; 2020 Andrés Correa Casablanca. All rights reserved.</span>
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1544891550515993226"></script>
+<script type="text/javascript" src="/js/main.js?1598104925081196942"></script>
 
 
     </div>
