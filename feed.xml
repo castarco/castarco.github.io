@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2020-09-26T22:26:28+02:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2020-09-26T22:35:16+02:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
 </subtitle><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><entry><title type="html">Rust 2021</title><link href="https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021/" rel="alternate" type="text/html" title="Rust 2021" /><published>2020-09-26T22:00:00+02:00</published><updated>2020-09-26T22:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021/">&lt;p&gt;First of all, a disclaimer: I’m quite new in the Rust community. Moreover, I’m
 not even active in the Rust community. Not because of any particular reason,
 somehow I usually don’t get involved into any sort of community. I wish I did,
@@ -78,7 +78,7 @@ showing them that there’s real demand for it.&lt;/p&gt;
 
 &lt;p&gt;I started learning Rust in part because of its “safety” properties. Rust really
 shines on this aspect, but I think it could be even better, and go beyond “just”
-memory safety. If there’s anything that allow us to reduce the probability of
+memory safety. If there’s anything that allows us to reduce the probability of
 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;panic&lt;/code&gt; at runtime due to logic errors, it can be worth considering it.&lt;/p&gt;
 
 &lt;p&gt;One case that comes to my mind is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Range&lt;/code&gt; type. As an amateur I noticed some
@@ -95,7 +95,7 @@ will help to improve this aspect, although that’s only a starting point.&lt;/p
 
 &lt;h2 id=&quot;new-ideas-for-safe-programming&quot;&gt;“New” ideas for safe programming&lt;/h2&gt;
 
-&lt;p&gt;I’m not claiming that waht I’m gonna propose is new (or even worth pursuing!).
+&lt;p&gt;I’m not claiming that what I’m gonna propose is new (or even worth pursuing!).
 The research on programming languages has generated tons of very interesting
 proposals that usually take years, if not decades, to be introduced into the
 industry. So I guess someone already had this “same” idea, and probably
