@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1601151139428668491">
+  <link rel="stylesheet" href="/css/main.css?1601151824257968247">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2020/09/26/rust-2021/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -263,16 +263,16 @@ will help to improve this aspect, although that’s only a starting point.</p>
 
 <h2 id="new-ideas-for-safe-programming">“New” ideas for safe programming</h2>
 
-<p>Now I’ll go for a slightly crazy idea I have in mind. I’m not claiming that
-it is new. The research on programming languages has generated tons of very
-interesting proposals that usually take years, if not decades, to be introduced
-into the industry. So I guess someone already had this “same” idea, and
-probably expressed it in a better way as well.</p>
+<p>I’m not claiming that waht I’m gonna propose is new (or even worth pursuing!).
+The research on programming languages has generated tons of very interesting
+proposals that usually take years, if not decades, to be introduced into the
+industry. So I guess someone already had this “same” idea, and probably
+expressed it in a better way as well.</p>
 
-<p>Before exposing the idea, let’s check how we would create some types that add
+<p>Before explaining that, let’s check how we would create some types that add
 extra information about some properties of scalar values.</p>
 
-<p>The “newtype” pattern is probably the best approach to start:</p>
+<p>The “newtype” pattern is probably the best way to start:</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">struct</span> <span class="nf">Prime</span><span class="p">(</span><span class="nb">i32</span><span class="p">);</span>
 
@@ -291,8 +291,8 @@ extra information about some properties of scalar values.</p>
 checks inside the information carried by the type, unless we create a specific
 type for each combination of properties that we need.</p>
 
-<p>What I have in mind is some sort of “runtime type tags”, that can be attached to
-values without conflicting with each other.</p>
+<p>What I have in mind is some sort of “runtime type tags”, that can be “attached”
+to values without conflicting with each other.</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// This attribute would forbid having a parametric enum, and also would force</span>
 <span class="c">// the compiler to generate an error if there is no associated "tagger".</span>
@@ -445,7 +445,7 @@ helps people to create new bonds and keep them over time.</p>
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1601151139428668491"></script>
+<script type="text/javascript" src="/js/main.js?1601151824257968247"></script>
 
 
     </div>
