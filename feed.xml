@@ -1,14 +1,258 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2020-08-22T16:43:24+02:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
-</subtitle><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><entry><title type="html">Introducing Avatar-CLI</title><link href="https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli/" rel="alternate" type="text/html" title="Introducing Avatar-CLI" /><published>2020-08-22T10:50:00+02:00</published><updated>2020-08-22T10:50:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli/">&lt;p&gt;&lt;img src=&quot;/images/2020/20200822_avatar_logo.png&quot; alt=&quot;Avatar-CLI Logo&quot; height=&quot;340px&quot; width=&quot;340px&quot; display=&quot;inline&quot; align=&quot;left&quot; margin=&quot;0px 0px&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://blog.coderspirit.xyz/feed.xml" rel="self" type="application/atom+xml" /><link href="https://blog.coderspirit.xyz/" rel="alternate" type="text/html" /><updated>2020-09-26T22:12:19+02:00</updated><id>https://blog.coderspirit.xyz/feed.xml</id><title type="html">Coder Spirit</title><subtitle>I'm Andrés Correa Casablanca. I work as a software engineer, but I have a scientist in my heart. I love mathematics, algorithms, AI, and machine learning.
+</subtitle><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><entry><title type="html">Rust 2021</title><link href="https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021/" rel="alternate" type="text/html" title="Rust 2021" /><published>2020-09-26T22:00:00+02:00</published><updated>2020-09-26T22:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2020/09/26/rust-2021/">&lt;p&gt;First of all, a disclaimer: I’m quite new in the Rust community. Moreover, I’m
+not even active in the Rust community. Not because of any particular reason,
+somehow I usually don’t get involved into any sort of community. I wish I did,
+but I lack the patience, focus and social skills.&lt;/p&gt;
 
-&lt;p&gt;It has been a long time since the last time I wrote an article in this blog, but
-today I had something I wanted to share with you.&lt;/p&gt;
+&lt;p&gt;Having said that, I’m learning and using the technology, and I usually read the
+news and articles written by other people involved in the project. I still
+consider myself a newbie, so I don’t expect that anyone takes my opinion
+seriously on how I wish Rust should evolve this next year. Not even myself!&lt;/p&gt;
 
-&lt;h2 id=&quot;a-short-summary&quot;&gt;A short summary&lt;/h2&gt;
+&lt;h2 id=&quot;the-rust-foundation&quot;&gt;The Rust Foundation&lt;/h2&gt;
 
-&lt;p&gt;These past weeks I’ve been working on a personal project called
+&lt;p&gt;This is something I was wishing for, and I’m happy it’s gonna happen soon, but
+there are some details I consider important.&lt;/p&gt;
+
+&lt;p&gt;I’m not the first one to say this: I think the Rust Foundation should be based
+in the European Union and not in the USA. With all its contradictions (and dark
+history), Europe still feels like a more open minded, tolerant, diverse and
+safer place to be. In Europe there’s also more respect for human rights and
+citizens’ privacy. I want the Rust community to fully embrace these values.&lt;/p&gt;
+
+&lt;p&gt;There’s another reason for me beyond the “values” point. I want the Rust
+community to be as big and open as possible, and this includes the “enemy” too.
+USA seems to have a tradition on imposing bans and economic sanctions on their
+“enemies”, and we have seen this attitude towards China recently.&lt;/p&gt;
+
+&lt;p&gt;I won’t judge if these measures were reasonable or not, but I honestly fear that
+they can negatively impact the Rust community as well, fragmenting it, or making
+almost impossible for developers living in China to join it (or to just stay if
+they were already in).&lt;/p&gt;
+
+&lt;p&gt;Europe is not neutral, but at least is &lt;em&gt;more neutral&lt;/em&gt; than the USA.&lt;/p&gt;
+
+&lt;h2 id=&quot;learning-materials--certifications&quot;&gt;Learning materials &amp;amp; certifications&lt;/h2&gt;
+
+&lt;p&gt;The Rust project has plenty of useful official documentation:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.rust-lang.org/learn&quot;&gt;Learning webpage&lt;/a&gt;: links to many “books”.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://rust-lang.github.io/rfcs/&quot;&gt;The RFCs book&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Besides the “books”, there are some basic courses out there, and even some more
+advanced materials, like the course
+on &lt;a href=&quot;https://github.com/ferrous-systems/embedded-trainings-2020&quot;&gt;embedded programing with Rust, by Ferrous Systems&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But I still miss some “general” courses that help developers to dive deep into
+more advanced topics, and that also help them to assess their own knowledge and
+ultimately obtain a proof in the form of a certification to improve their
+hireability.&lt;/p&gt;
+
+&lt;p&gt;I see this as a potential source of income for the new Rust Foundation. This is
+important not just from the financial perspective, but also when we consider the
+need for some degree of independence from very big corporations.&lt;/p&gt;
+
+&lt;h2 id=&quot;improved-support-from-online-cicd--related-services&quot;&gt;Improved support from online CI/CD (&amp;amp; related) services&lt;/h2&gt;
+
+&lt;p&gt;Rust has plenty of powerful tools to ensure good code quality, but there’s need
+for more tooling if we want to spread its usage. Most online CI/CD platforms
+don’t have yet explicit support for Rust.&lt;/p&gt;
+
+&lt;p&gt;We can see it when Github is not able to show us the dependencies trees, or when
+it doesn’t tell us about known security problems in our dependencies (while it’s
+able to do that for other tech stacks).&lt;/p&gt;
+
+&lt;p&gt;In the case of CI/CD pipelines, I only saw explicit support for Rust in
+TravisCI (which is useful in case you want to use complex build matrices).&lt;/p&gt;
+
+&lt;p&gt;Same applies to many online static analysis services, whether they are focused
+on code quality, or security. Among dozens of those services, I didn’t see a
+single one providing explicit support for Rust.&lt;/p&gt;
+
+&lt;p&gt;I think we should convince these companies to consider giving explicit support
+to Rust developers in their products. Here is my first small contribution,
+showing them that there’s real demand for it.&lt;/p&gt;
+
+&lt;h2 id=&quot;safe-programming&quot;&gt;“Safe” programming&lt;/h2&gt;
+
+&lt;p&gt;I started learning Rust in part because of its “safety” properties. Rust really
+shines on this aspect, but I think it could be even better, and go beyond “just”
+memory safety. If there’s anything that allow us to reduce the probability of
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;panic&lt;/code&gt; at runtime due to logic errors, it can be worth considering it.&lt;/p&gt;
+
+&lt;p&gt;One case that comes to my mind is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Range&lt;/code&gt; type. As an amateur I noticed some
+inconveniences, but I lacked a deep understanding to disect them and describe
+the real problems behind these sensations. And then I found this 
+&lt;a href=&quot;https://ridiculousfish.com/blog/posts/least-favorite-rust-type.html&quot;&gt;interesting article&lt;/a&gt;
+on how we could improve it.&lt;/p&gt;
+
+&lt;p&gt;Another thing that interests me is range-checked arithmetic (something in the
+lines of what
+&lt;a href=&quot;https://en.wikipedia.org/wiki/Ada_%28programming_language%29&quot;&gt;Ada&lt;/a&gt; provides,
+with things like bounded integer types). I’m truly hopeful that “const generics”
+will help to improve this aspect, although that’s only a starting point.&lt;/p&gt;
+
+&lt;h2 id=&quot;new-ideas-for-safe-programming&quot;&gt;“New” ideas for safe programming&lt;/h2&gt;
+
+&lt;p&gt;Now I’ll go for a slightly crazy idea I have in mind. I’m not claiming that
+it is new. The research on programming languages has generated tons of very
+interesting proposals that usually take years, if not decades, to be introduced
+into the industry. So I guess someone already had this “same” idea, and
+probably expressed it in a better way as well.&lt;/p&gt;
+
+&lt;p&gt;Before exposing the idea, let’s check how we would create some types that add
+extra information about some properties of scalar values.&lt;/p&gt;
+
+&lt;p&gt;The “newtype” pattern is probably the best approach to start:&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Option&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;is_prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nf&quot;&gt;Some&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;None&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With this approach we cannot easily combine the “primality check” with other
+checks inside the information carried by the type, unless we create a specific
+type for each combination of properties that we need.&lt;/p&gt;
+
+&lt;p&gt;What I have in mind is some sort of “runtime type tags”, that can be attached to
+values without conflicting with each other.&lt;/p&gt;
+
+&lt;div class=&quot;language-rust highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;// This attribute would forbid having a parametric enum, and also would force&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// the compiler to generate an error if there is no associated &quot;tagger&quot;.&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;#[type_tag(for_scalar_type&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;i32]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Composite&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// Type-Tagger functions should be &quot;const&quot;, and consume only inmutable&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// references.&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;#[type_tagger(for_scalar_type&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;i32]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tagger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;#[type_tag(for_scalar_type&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;i32]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Bounded&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;BelowBounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;AboveBounds&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;// I assume that a big part of const generics is implemented&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;impl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;#[type_tagger(for_scalar_type&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;i32]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;pub&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;tagger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BelowBounds&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bounded&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Min&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Max&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AboveBounds&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;// The proposed syntax is just temptative. I'm not sure what would be the best&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// way to indicate that a value has been &quot;tagged&quot;, but it should support&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;// multiple tags for a single value.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;returns_prime_numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TypeTagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;only_accepts_prime_numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TypeTagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;only_accepts_prime_numbers_between_0_and_10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TypeTagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TypeTagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bounded&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;only_accepts_numbers_outside_0_10_interval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TypeTagged&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Bounded&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// ...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;example1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;// In this case, it's possible to compute the tag at compilation time&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// because the tagger is const fn, and because x value is known.&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;attach_const_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;attach_const_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;// This should work as we know the type tag at compile time&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;only_accepts_prime_numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;example2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// We can add multiple tags to an existing value without mutating it.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// These macro calls will implicitly call the tagger methods, and save the&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// generated type tags in the stack.&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;attach_runtime_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;attach_runtime_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Parity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// This runtime &quot;type tag&quot; will be dropped from the stack once we leave&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;// this context&lt;/span&gt;
+        &lt;span class=&quot;nd&quot;&gt;attach_runtime_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BoundedNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;// This line would generate an compile-time error, since we don't know the&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// associated type tags at compile time.&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;only_accepts_prime_numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;// This should work. The type tags would be read from the stack and used to&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// choose between branches in this match expression.&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// Notice that macros are not enough to implement this, some support at the&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// language level is required in order to ensure that the type signature of&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// the called function is respected.&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;get_runtime_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nn&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Prime&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;only_accepts_prime_numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+        &lt;span class=&quot;nn&quot;&gt;Primality&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Composite&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;c&quot;&gt;// Assuming that 'Squarity' was defined, this should generate a compile-time&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;// error, because we didn't add a Squarity type tag to x in this context.&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;get_runtime_type_tag!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Squarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nn&quot;&gt;Squarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Square&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+        &lt;span class=&quot;nn&quot;&gt;Squarity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NoSquare&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To be honest, I’m not even sure if something like this is a good idea. The main
+point is to make the type system more expressive, allowing to define constraints
+on scalar values in a more flexible way.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;From all the mentioned stuff, what worries me most is how the Rust community
+will manage to evolve in an increasingly fragmented world. Economic conflicts
+are too common, and new wars would not surprise the vast majority of us.&lt;/p&gt;
+
+&lt;p&gt;We have to do our best to create a welcoming, diverse and respectful space that
+helps people to create new bonds and keep them over time.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Software Engineering" /><category term="Culture" /><category term="Opinion" /><summary type="html">First of all, a disclaimer: I’m quite new in the Rust community. Moreover, I’m not even active in the Rust community. Not because of any particular reason, somehow I usually don’t get involved into any sort of community. I wish I did, but I lack the patience, focus and social skills.</summary></entry><entry><title type="html">Introducing Avatar-CLI</title><link href="https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli/" rel="alternate" type="text/html" title="Introducing Avatar-CLI" /><published>2020-08-22T10:50:00+02:00</published><updated>2020-08-22T10:50:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2020/08/22/introducing-avatar-cli/">&lt;p&gt;These past weeks I’ve been working on a personal project called
 &lt;a href=&quot;https://gitlab.com/avatar-cli/avatar-cli&quot;&gt;Avatar-CLI&lt;/a&gt;, a cli tool meant to ease
 the usage of other containerized cli programs as if they were native.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/2020/20200822_avatar_logo.png&quot; alt=&quot;Avatar-CLI Logo&quot; height=&quot;340px&quot; width=&quot;340px&quot; display=&quot;inline&quot; align=&quot;left&quot; margin=&quot;0px 0px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Why I felt the need for such kind of tool? Well, this idea came to me around 3
 years ago, while I was working in a team where some developers were using Linux,
@@ -123,7 +367,7 @@ articles like this one talking about the project.&lt;/p&gt;
 
 &lt;p&gt;Having said that, if you want to be involved, please contact me and let me know,
 I’m hoping that more people will join soon and transform Avatar-CLI into a
-community project :) .&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Software Engineering" /><category term="Tooling" /><category term="Docker" /><category term="Rust" /><category term="Tooling" /><summary type="html"></summary></entry><entry><title type="html">Introduction to the Blockchain (Cryptocurrencies)</title><link href="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/" rel="alternate" type="text/html" title="Introduction to the Blockchain (Cryptocurrencies)" /><published>2018-12-15T16:00:00+01:00</published><updated>2018-12-15T16:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/">&lt;p&gt;So… I wanted to write this article since 6 weeks ago, when I started to delve
+community project :) .&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Software Engineering" /><category term="Tooling" /><category term="Avatar-CLI" /><category term="Docker" /><category term="Rust" /><category term="Tooling" /><summary type="html">These past weeks I’ve been working on a personal project called Avatar-CLI, a cli tool meant to ease the usage of other containerized cli programs as if they were native.</summary></entry><entry><title type="html">Introduction to the Blockchain (Cryptocurrencies)</title><link href="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/" rel="alternate" type="text/html" title="Introduction to the Blockchain (Cryptocurrencies)" /><published>2018-12-15T16:00:00+01:00</published><updated>2018-12-15T16:00:00+01:00</updated><id>https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2018/12/15/introduction-to-blockchain/">&lt;p&gt;So… I wanted to write this article since 6 weeks ago, when I started to delve
 into cryptocurrencies development, and today is the day :) .&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; First and foremost, I’m not a blockchain and/or cryptocurrencies
@@ -517,38 +761,4 @@ abstraction leaks:&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Is my intention to modify the PHP-Jiffy library at the same time of the new MongoDB’s extension release, so it will be
-very useful for people who likes moving fast to new software versions.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Backend Development" /><category term="PHP" /><category term="Timestamps" /><category term="Doctrine" /><category term="MongoDB" /><summary type="html">PHP does not offer any native class to implement timestamps with milliseconds or microseconds precision, the only “native” way to do it is working with the weird microtime function and/or the \MongoDate class (available through the mongo extension).</summary></entry><entry><title type="html">Added Isso commenting system</title><link href="https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system/" rel="alternate" type="text/html" title="Added Isso commenting system" /><published>2015-10-18T19:00:00+02:00</published><updated>2015-10-18T19:00:00+02:00</updated><id>https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system</id><content type="html" xml:base="https://blog.coderspirit.xyz/blog/2015/10/18/added-isso-commenting-system/">&lt;p&gt;Since today is possible to post comments in this blog :) . I’ve integrated the &lt;a href=&quot;http://posativ.org/isso/&quot;&gt;Isso&lt;/a&gt;
-commenting system in order to allow readers to send comments.&lt;/p&gt;
-
-&lt;h3 id=&quot;my-reasons&quot;&gt;My reasons&lt;/h3&gt;
-
-&lt;p&gt;I’ve chosen this software because I don’t want to help big companies to destroy our privacy. If people want to tell to
-the world everything about themselves then I’m not opposed to that, but I don’t want to force the people who are worried
-about protecting its privacy.&lt;/p&gt;
-
-&lt;p&gt;Disqus is a great option to add comments in static blogs, but it requires registration and allows user tracking around
-the web.&lt;/p&gt;
-
-&lt;h3 id=&quot;about-the-underlying-technology&quot;&gt;About the underlying technology&lt;/h3&gt;
-
-&lt;p&gt;Isso is programmed in Python and runs in the server as a daemon, and it can be integrated with the following “http
-handlers”: &lt;strong&gt;Gevent&lt;/strong&gt; (this isn’t an http handling library, but a generic non-blocking IO handling library), &lt;strong&gt;uWSGI&lt;/strong&gt;,
-&lt;strong&gt;Gunicorn&lt;/strong&gt;, &lt;strong&gt;mod_wsgi&lt;/strong&gt; (for Apache), and &lt;strong&gt;mod_fastcgi&lt;/strong&gt; (also for Apache).&lt;/p&gt;
-
-&lt;p&gt;For simplicity, I’ve chosen to use &lt;strong&gt;Gevent&lt;/strong&gt;, it’s the easiest option (no settings :D), but maybe I’ll change the
-settings in the future in favour of uWSGI because its flexibility.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Gunicorn&lt;/strong&gt; is not an option because I need to optimize every service in my server (my server is VERY tiny), and the
-prefork model isn’t enough efficient.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;mod_wsgi&lt;/strong&gt;, and &lt;strong&gt;mod_fastcgi&lt;/strong&gt; require some configuration and are too coupled with the Apache server, so I won’t
-consider them neither.&lt;/p&gt;
-
-&lt;h3 id=&quot;some-points-that-i-dislike&quot;&gt;Some points that I dislike&lt;/h3&gt;
-
-&lt;p&gt;I’m very grateful for the existence of Isso, but I it needs some rework: The management system is too complicated and
-rigid, there is lack of documentation, and there aren’t new releases since 7 months ago (I think this is because there
-is a work in progress on a big refactor).&lt;/p&gt;
-
-&lt;p&gt;Because this, I’m considering to study the Isso’s code in order to be able to contribute, or to fork the project if my
-needs don’t match with the project’s aims.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Meta" /><category term="Blog" /><category term="Isso" /><category term="Privacy" /><summary type="html">Since today is possible to post comments in this blog :) . I’ve integrated the Isso commenting system in order to allow readers to send comments.</summary></entry></feed>
+very useful for people who likes moving fast to new software versions.&lt;/p&gt;</content><author><name>Andrés Correa Casablanca</name><email>contact@coderspirit.xyz</email></author><category term="Backend Development" /><category term="PHP" /><category term="Timestamps" /><category term="Doctrine" /><category term="MongoDB" /><summary type="html">PHP does not offer any native class to implement timestamps with milliseconds or microseconds precision, the only “native” way to do it is working with the weird microtime function and/or the \MongoDate class (available through the mongo extension).</summary></entry></feed>
