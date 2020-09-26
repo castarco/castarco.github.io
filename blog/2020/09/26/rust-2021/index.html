@@ -48,7 +48,7 @@
   <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
   <meta name="theme-color" content="#ffffff">
 
-  <link rel="stylesheet" href="/css/main.css?1601151824257968247">
+  <link rel="stylesheet" href="/css/main.css?1601151988275514450">
   <link rel="canonical" href="https://blog.coderspirit.xyz//blog/2020/09/26/rust-2021/">
   <link rel="alternate" type="application/rss+xml" title="Coder Spirit" href="/feed.xml">
   <script type="text/x-mathjax-config">
@@ -296,7 +296,7 @@ to values without conflicting with each other.</p>
 
 <div class="language-rust highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// This attribute would forbid having a parametric enum, and also would force</span>
 <span class="c">// the compiler to generate an error if there is no associated "tagger".</span>
-<span class="nd">#[type_tag(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32]</span><span class="p">)]</span>
+<span class="nd">#[type_tag(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32)]</span>
 <span class="k">enum</span> <span class="n">Primality</span> <span class="p">{</span>
     <span class="n">Prime</span><span class="p">,</span>
     <span class="n">Composite</span>
@@ -305,13 +305,13 @@ to values without conflicting with each other.</p>
 <span class="k">impl</span> <span class="n">Primality</span> <span class="p">{</span>
     <span class="c">// Type-Tagger functions should be "const", and consume only inmutable</span>
     <span class="c">// references.</span>
-    <span class="nd">#[type_tagger(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32]</span><span class="p">)]</span>
+    <span class="nd">#[type_tagger(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32)]</span>
     <span class="k">pub</span> <span class="k">const</span> <span class="k">fn</span> <span class="nf">tagger</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="o">&amp;</span><span class="nb">i32</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="n">Primality</span> <span class="p">{</span>
         <span class="c">// ...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nd">#[type_tag(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32]</span><span class="p">)]</span>
+<span class="nd">#[type_tag(for_scalar_type</span> <span class="nd">=</span> <span class="nd">i32)]</span>
 <span class="k">enum</span> <span class="n">BoundedNumber</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">Min</span><span class="p">:</span> <span class="nb">i32</span><span class="p">,</span> <span class="k">const</span> <span class="n">Max</span><span class="p">:</span> <span class="nb">i32</span><span class="o">&gt;</span> <span class="p">{</span>
     <span class="n">Bounded</span><span class="p">,</span>
     <span class="n">BelowBounds</span><span class="p">,</span>
@@ -445,7 +445,7 @@ helps people to create new bonds and keep them over time.</p>
 </footer>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" src="/js/main.js?1601151824257968247"></script>
+<script type="text/javascript" src="/js/main.js?1601151988275514450"></script>
 
 
     </div>
