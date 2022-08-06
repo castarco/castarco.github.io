@@ -1,0 +1,16 @@
+---
+import MainPage from "../../layouts/MainPage.astro";
+import { getCustomStaticPathsGetter } from "../../pagination";
+
+export async function getStaticPaths({ paginate }) {
+	const __getStaticPaths = await getCustomStaticPathsGetter(
+		await Astro.glob('../../__posts__/*.mdx'),
+		'tail'
+	);
+	return __getStaticPaths({ paginate })
+}
+
+const { page } = Astro.props;
+---
+
+<MainPage page={page}></MainPage>
