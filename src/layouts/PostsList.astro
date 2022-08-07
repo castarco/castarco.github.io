@@ -1,0 +1,22 @@
+---
+import PostPreview from "../components/PostPreview.astro";
+import type { PostMdxInstance } from "../utils";
+
+export interface Props {
+	posts: PostMdxInstance[]
+}
+
+const { posts } = Astro.props as Props
+
+---
+
+<div class="wrapper">
+	<main>
+		<section aria-label="Posts List">
+			{posts.map(({ frontmatter }) => (
+			<PostPreview title={frontmatter.title} description={frontmatter.description} publishDate={frontmatter.publishDate}
+				url={frontmatter.path} />
+			))}
+		</section>
+	</main>
+</div>

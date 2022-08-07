@@ -1,0 +1,8 @@
+.wrapper {
+	@apply bg-slate-700;
+	@apply container mx-auto;
+	@apply max-w-4xl;
+
+	margin-left: auto;
+	margin-right: auto;
+}
