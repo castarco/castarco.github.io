@@ -11,15 +11,15 @@ const { page } = Astro.props as Props
 ---
 
 <footer class="wrapper bottom-footer">
-	<nav>
+	<nav class="w-full">
 		<ul class="flex flex-row flex-none justify-center w-full">
 			{page.url.prev !== undefined
-				? <li><a href={page.url.prev}>Previous</a></li>
-				: null
+			? <li><a href={page.url.prev}>Previous</a></li>
+			: null
 			}
 			{page.url.next !== undefined
-				? <li><a href={page.url.next}>Next</a></li>
-				: null
+			? <li><a href={page.url.next}>Next</a></li>
+			: null
 			}
 		</ul>
 	</nav>

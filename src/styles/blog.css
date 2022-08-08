@@ -17,11 +17,14 @@ body {
 }
 
 .wrapper {
-	@apply container mx-auto;
-	@apply max-w-4xl;
+	@apply container flex max-w-4xl mx-auto;
+}
 
-	margin-left: auto;
-	margin-right: auto;
+@media (max-width: 58rem) {
+	.wrapper {
+		@apply mx-4;
+		max-width: calc(100% - 2rem);
+	}
 }
 
 .main-header {
