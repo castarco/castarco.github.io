@@ -1,8 +1,98 @@
+:root {
+  --color-egg-white: #ededed;
+	--color-sun-yellow: #ffc94b;
+	--color-cream-orange: #f9a66c;
+	--color-solarized-red: #f17a7e;
+	--color-sad-blue: #4a6163;
+
+
+
+	color: var(--color-sad-blue);
+	font-family: 'Fira Code', Roboto, monospace;
+	font-weight: 100;
+}
+
+body {
+	background-color: var(--color-egg-white);
+}
+
 .wrapper {
-	@apply bg-slate-700;
 	@apply container mx-auto;
 	@apply max-w-4xl;
 
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.main-header {
+	@apply pt-4 pb-2 mb-3 flex;
+
+	border-bottom: 2px dashed var(--color-sun-yellow);
+}
+
+.header-logo {
+	height: 64px;
+	width: 64px;
+}
+
+.title-wrapper {
+	display: flex;
+	flex-direction: column-reverse;
+	margin-left: 16px;
+	margin-bottom: -8px;
+}
+
+.title-wrapper span {
+	color: var(--color-cream-orange);
+
+	font-size: 58px;
+	font-weight: 600;
+}
+
+nav {
+	@apply flex;
+}
+
+nav ul {
+	@apply flex gap-12 mb-4;
+	list-style: none;
+}
+
+nav ul li {
+	display: inline-block;
+}
+
+nav ul li a {
+	color: var(--color-solarized-red);
+	font-size: 20px;
+	font-weight: 600;
+}
+
+nav ul li a:hover {
+	text-decoration: underline;
+}
+
+article.post-preview {
+	@apply mb-4;
+}
+
+article.post-preview header h2 {
+	color: var(--color-cream-orange);
+
+	font-size: 24px;
+	font-weight: 600;
+}
+
+article.post-preview p {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+footer.bottom-footer {
+	@apply mt-8 pt-2;
+	border-top: 2px dashed var(--color-sun-yellow);
+}
+
+footer.bottom-footer nav ul {
+	@apply gap-16;
 }

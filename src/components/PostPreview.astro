@@ -9,10 +9,10 @@ export interface Props {
 const { title, description, publishDate, url } = Astro.props as Props
 ---
 
-<article>
+<article class="post-preview">
 	<header>
-		<time>{publishDate}</time>
-		<a href={url}><h2>{title}</h2></a>
+		<h2><a href={url}>{title}</a></h2>
+		<!-- <time>{publishDate}</time> -->
 	</header>
 	<p>{description}</p>
 </article>

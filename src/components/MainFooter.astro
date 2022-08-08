@@ -10,9 +10,9 @@ const { page } = Astro.props as Props
 
 ---
 
-<footer class="wrapper">
+<footer class="wrapper bottom-footer">
 	<nav>
-		<ul>
+		<ul class="flex flex-row flex-none justify-center w-full">
 			{page.url.prev !== undefined
 				? <li><a href={page.url.prev}>Previous</a></li>
 				: null
