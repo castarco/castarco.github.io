@@ -1,11 +1,12 @@
 import type { MarkdownInstance, Page, PaginateFunction, Props } from "astro";
+import { PAGE_SIZE } from "./config";
 
 export type PostFrontmatter = {
 	title: string;
 	description: string;
 	publishDate: Date;
 	url: string;
-	path: string;
+	tags?: string[];
 };
 
 export type PostMdxInstance = MarkdownInstance<PostFrontmatter>;
@@ -42,6 +43,26 @@ const removePrefixFromUrl = (
 	return newUrl === "" ? "/" : newUrl;
 };
 
+export const getSortedPosts = (unsortedPosts: PostMdxInstance[]) => {
+	return unsortedPosts
+		.map((p) => {
+			const dateStr = p.url.split("/").slice(2, 5).join("/");
+
+			return {
+				...p,
+				frontmatter: {
+					...p.frontmatter,
+					publishDate: new Date(p.frontmatter.publishDate ?? dateStr),
+				},
+			};
+		})
+		.sort(
+			(a, b) =>
+				b.frontmatter.publishDate.valueOf() -
+				a.frontmatter.publishDate.valueOf()
+		);
+};
+
 export const getCustomStaticPathsGetter = (
 	unsortedPosts: PostMdxInstance[],
 	mode: "all" | "onlyFirst" | "tail" = "all",
@@ -49,31 +70,9 @@ export const getCustomStaticPathsGetter = (
 	applyPrefix: boolean
 ): CustomPaginator => {
 	return async ({ paginate }) => {
-		const allPosts = unsortedPosts
-			.map((p) => {
-				const baseSlug = p.url.split("/").slice(-1)[0];
-				const lastSlugPiece = baseSlug.substring(11, baseSlug.length - 4);
+		const allPosts = getSortedPosts(unsortedPosts);
 
-				const dateStr = baseSlug.substring(0, 10).replaceAll("-", "/");
-
-				const path = `/blog/${dateStr}/${lastSlugPiece}`;
-
-				return {
-					...p,
-					frontmatter: {
-						...p.frontmatter,
-						publishDate: new Date(dateStr),
-						path,
-					},
-				};
-			})
-			.sort(
-				(a, b) =>
-					b.frontmatter.publishDate.valueOf() -
-					a.frontmatter.publishDate.valueOf()
-			);
-
-		const pages = paginate(allPosts, { pageSize: 2 }).map((p) => {
+		const pages = paginate(allPosts, { pageSize: PAGE_SIZE }).map((p) => {
 			const props = p.props as Props & { page: Page };
 			const page = props.page;
 

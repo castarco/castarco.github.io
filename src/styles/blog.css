@@ -99,3 +99,69 @@ footer.bottom-footer {
 footer.bottom-footer nav ul {
 	@apply gap-16;
 }
+
+h1.section-title {
+	color: var(--color-cream-orange);
+	font-size: 48px;
+	font-weight: 600;
+}
+
+h1.optional-title {
+	color: var(--color-sad-blue);
+	font-size: 48px;
+	font-weight: 600;
+	margin-bottom: 8px;
+}
+
+main article h1 {
+	margin-bottom: -16px;
+}
+
+main article time {
+	color: var(--color-solarized-red);
+
+	margin-top: -20px;
+	font-size: 12px;
+	font-weight: 600;
+}
+
+.article-content {
+	margin-top: 1rem;
+	font-size: 18px;
+}
+
+.article-content a {
+	color: var(--color-solarized-red);
+}
+
+.article-content p {
+	@apply mb-4;
+}
+
+.article-content h2 {
+	color: var(--color-cream-orange);
+	font-size: 24px;
+	font-weight: 400;
+}
+
+.article-content ol {
+	@apply mb-4;
+	list-style: decimal;
+	padding-left: 32px;
+}
+
+.article-content ul {
+	@apply mb-4;
+	list-style: circle;
+	padding-left: 32px;
+}
+
+.tags-list {
+	@apply list-none flex gap-4 mt-4 flex-wrap;
+}
+
+.tag {
+	@apply inline-block text-lg px-2 py-1 rounded-xl;
+	background-color: var(--color-sad-blue);
+	color: var(--color-egg-white);
+}

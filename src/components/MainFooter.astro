@@ -14,11 +14,11 @@ const { page } = Astro.props as Props
 	<nav class="w-full">
 		<ul class="flex flex-row flex-none justify-center w-full">
 			{page.url.prev !== undefined
-			? <li><a href={page.url.prev}>Previous</a></li>
+			? <li><a href={page.url.prev} rel="prev">Previous</a></li>
 			: null
 			}
 			{page.url.next !== undefined
-			? <li><a href={page.url.next}>Next</a></li>
+			? <li><a href={page.url.next} rel="next">Next</a></li>
 			: null
 			}
 		</ul>

@@ -4,7 +4,7 @@ import { getCustomStaticPathsGetter } from "../../utils";
 
 export async function getStaticPaths({ paginate }) {
 	const __getStaticPaths = await getCustomStaticPathsGetter(
-		await Astro.glob('../../__posts__/*.mdx'),
+		await Astro.glob('../blog/*/*/*/*.mdx'),
 		'tail',
 		'/old',
 		false

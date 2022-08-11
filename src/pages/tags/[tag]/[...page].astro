@@ -1,5 +1,30 @@
 ---
+import { PAGE_SIZE } from "../../../config";
+import MainPage from "../../../layouts/MainPage.astro";
+import { getSortedPosts, PostMdxInstance } from "../../../utils";
+
 export async function getStaticPaths({ paginate }) {
-	return []
+	const unsortedPosts = (await Astro.glob('../../blog/*/*/*/*.mdx')) as PostMdxInstance[];
+	const sortedPosts = getSortedPosts(unsortedPosts);
+
+	const allTags = new Set<string>()
+	sortedPosts.forEach(post => {
+		if (post.frontmatter.tags) {
+			post.frontmatter.tags.forEach(tag => allTags.add(tag.toLowerCase()))
+		}
+	})
+
+	return Array.from(allTags).map((tag) => {
+		const filteredPosts = sortedPosts.filter((post) => post.frontmatter.tags.includes(tag))
+		return paginate(filteredPosts, {
+			params: { tag },
+			pageSize: PAGE_SIZE
+		});
+	});
 }
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
 ---
+
+<MainPage title={`Tag: ${tag}`} page={page}></MainPage>

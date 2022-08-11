@@ -8,25 +8,26 @@ import { PostPage } from "../utils";
 import PostsList from "./PostsList.astro";
 
 export interface Props {
+	title?: string
 	page: PostPage
 }
 
-let title = "Coder Spirit";
-let description = "Geeky Computer Science stuff.";
+const { page, title } = Astro.props as Props
 
-const { page } = Astro.props as Props
+const headTitle = title ?? "Coder Spirit";
+const description = "Geeky Computer Science stuff.";
 
 ---
 
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} />
+	<BaseHead title={headTitle} description={description} />
 </head>
 
 <body>
 	<MainHeader />
-	<PostsList posts={page.data} />
+	<PostsList title={title} posts={page.data} />
 	<MainFooter page={page} />
 </body>
 
