@@ -90,9 +90,7 @@ export const getCustomStaticPathsGetter = (
 					page: {
 						...page,
 						url: {
-							current: applyPrefix
-								? addPrefixToUrl(prefix, page.url.current)
-								: page.url.current,
+							current: page.url.current,
 							prev: applyPrefix
 								? addPrefixToUrl(prefix, page.url.prev)
 								: removePrefixFromUrl(prefix, page.url.prev),
