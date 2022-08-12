@@ -1,0 +1,42 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import MainHeader from "../components/MainHeader.astro";
+import SimpleFooter from "../components/SimpleFooter.astro";
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+		publishDate: string;
+	};
+}
+
+const {
+	content: { title, description, publishDate },
+} = Astro.props as Props;
+
+const date = publishDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
+---
+
+<html lang="en">
+
+<head>
+	<BaseHead title={title} description={description} />
+</head>
+
+<body>
+	<MainHeader />
+	<div class="wrapper">
+		<main>
+			<article>
+				<h1 class="section-title">{title}</h1>
+				<time>{date}</time>
+				<div class="article-content"><slot /></div>
+			</article>
+		</main>
+	</div>
+	<!--Use wrapper... -->
+	<SimpleFooter />
+</body>
+
+</html>

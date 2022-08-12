@@ -1,0 +1,76 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Blog Reboot, Part 1"
+description: "How & why I decided to rebuild my blog again from scratch..."
+
+lang: english
+topic: tech
+tags: [meta, blog, astrojs]
+---
+
+So... I did it again. I rebuilt my blog from scratch, again. This is (at least)
+the 4th time I do that.
+
+## A long trip
+
+I don't recall if I started writting at Blogspot and then moved to Blogger, or
+the other way around. It doesn't matter, it was a good start, but it sucked.
+
+So I eventually jumped to the much more powerful `wordpress.com`, and at some
+point I felt it wasn't enough. I wanted to customise my blog even more, and to
+get rid of their annoying advertisements.
+
+That's when I decided to host my own wordpress instance
+([archived here](https://web.archive.org/web/20150101164015/http://labs.viricmind.org/)),
+and... oh boy.
+
+The maintenance cost was tremendous: updating wordpress, its plugins, the
+customised theme I created, PHP, Apache (Nginx some time later), the operating
+system underneath... and yet, that wasn't enough.
+
+Every now and then a new zero-day bug would come up, and it turns out some ISIS
+operatives (yep, **fucking ISIS**, no kidding here) hacked my blog to deface it
+and place their disgusting propaganda.
+
+So there was I again, looking for alternatives.
+
+## Static Sites Generation
+
+I decided to go for static site generation. The appeal was evident, they could
+be hosted at a much lesser cost, and the attack surface was much smaller too.
+
+[Pelican](https://getpelican.com/) was my 1st choice, but it didn't cut it.
+Although not much better, [Jekyll](https://jekyllrb.com/) was my final choice
+back then, as it was nicely integrated with Github Pages.
+
+My problem with Pelican & Jekyll, though, is that both of them are a
+dependencies nightmare because of how much of a disgrace is package management
+in Python and Ruby ecosystems. And it only gets worse when your computer stops
+working and you have to configure a new one, or when you have to switch between
+machines for any other reason.
+
+Besides, keeping track of tooling versions can be a problem too. That's why,
+even if I used [Zola](https://www.getzola.org) for some other websites (such as
+[Avatar-CLI](https://avatar-cli.dev)'s one) because it's just a single binary, I
+wasn't entirely content with it.
+
+## Hi, Astro!
+
+Here we go, I rewrote my blog on top of [Astro](https://astro.build/). I
+considered using [Ink's theme](https://astro-ink.vercel.app/), which seems nice,
+but this time I took the opportunity to practice some of my long forgotten &
+rusty frontend abilities (I copied from it anyway).
+
+And what can I say? so far, it has been awesome. I can easily pin all versions
+under Git version control, it's wonderfully integrated with
+[SolidJS](https://www.solidjs.com/), [TailwindCSS](https://tailwindcss.com/),
+and for a static site generation tool, it's really flexible (like no others I
+tried before).
+
+There's a lot I still want to to, leaving aside the clearly improvable style,
+I want to apply some optimisations to CSS, JS, & fonts; configuring the RSS
+& sitemap generation... but I also have other experiments in mind, like
+integrating [Lyra](https://lyrajs.io/) to statically index the site's content.
+
+So, I'm leaving it here for today, I'm looking forward to write about all that
+stuff!

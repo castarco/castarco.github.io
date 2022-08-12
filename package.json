@@ -9,11 +9,11 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^0.4.0",
-    "@astrojs/preact": "^0.5.2",
-    "astro": "^1.0.0-rc.3"
-  },
-  "dependencies": {
-    "preact": "^10.7.3"
+    "@astrojs/mdx": "^0.6.0",
+    "@astrojs/solid-js": "^0.4.1",
+    "@astrojs/tailwind": "^0.2.5",
+    "astro": "^1.0.0-rc.6",
+    "solid-js": "^1.4.3",
+    "typescript": "^4.7.4"
   }
 }

@@ -1,0 +1,43 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import MainHeader from "../../components/MainHeader.astro";
+import SimpleFooter from "../../components/SimpleFooter.astro";
+
+const title = "Coder Spirit";
+const description = "Geeky Computer Science stuff.";
+
+const unsortedPosts = await Astro.glob('../blog/*/*/*/*.mdx');
+const tagCounters: Record<string, number> = {}
+
+for (const post of unsortedPosts) {
+	for (const tag of (post.frontmatter.tags ?? [])) {
+		tagCounters[tag] = 1 + (tagCounters[tag] ?? 0)
+	}
+}
+
+const tags = Object.entries(tagCounters).sort(([,c1], [,c2]) => c2 - c1)
+
+---
+
+<html lang="en">
+
+<head>
+	<BaseHead title={title} description={description} />
+</head>
+
+<body>
+	<MainHeader />
+	<div class="wrapper">
+		<main>
+			<h1 class="section-title">Tags</h1>
+			<ul class="tags-list">
+				{tags.map(([tag, counter]) => (
+				<li><a class="tag" href={`/tags/${tag}`}>{tag} ({counter})</a></li>
+				))}
+			</ul>
+		</main>
+	</div>
+	<SimpleFooter />
+</body>
+
+</html>

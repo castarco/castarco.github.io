@@ -1,0 +1,34 @@
+---
+import type { MarkdownInstance, Page } from "astro";
+
+import BaseHead from "../components/BaseHead.astro";
+import MainFooter from "../components/MainFooter.astro";
+import MainHeader from "../components/MainHeader.astro";
+import { PostPage } from "../utils";
+import PostsList from "./PostsList.astro";
+
+export interface Props {
+	title?: string
+	page: PostPage
+}
+
+const { page, title } = Astro.props as Props
+
+const headTitle = title ?? "Coder Spirit";
+const description = "Geeky Computer Science stuff.";
+
+---
+
+<html lang="en">
+
+<head>
+	<BaseHead title={headTitle} description={description} />
+</head>
+
+<body>
+	<MainHeader />
+	<PostsList title={title} posts={page.data} />
+	<MainFooter page={page} />
+</body>
+
+</html>

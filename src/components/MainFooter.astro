@@ -1,0 +1,26 @@
+---
+import Page from "../pages/[...page].astro";
+import type { PostPage } from "../utils";
+
+export interface Props {
+	page: PostPage
+}
+
+const { page } = Astro.props as Props
+
+---
+
+<footer class="wrapper bottom-footer">
+	<nav class="w-full">
+		<ul class="flex flex-row flex-none justify-center w-full">
+			{page.url.prev !== undefined
+			? <li><a href={page.url.prev} rel="prev">Previous</a></li>
+			: null
+			}
+			{page.url.next !== undefined
+			? <li><a href={page.url.next} rel="next">Next</a></li>
+			: null
+			}
+		</ul>
+	</nav>
+</footer>
