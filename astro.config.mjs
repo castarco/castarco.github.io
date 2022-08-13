@@ -6,6 +6,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [mdx(), solid(), tailwind()],
-  site: `http://astro.build`
+	integrations: [mdx(), solid(), tailwind()],
+	trailingSlash: 'always',
+	site: `https://blog.coderspirit.dev`
 });
