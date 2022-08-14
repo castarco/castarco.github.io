@@ -4,7 +4,7 @@ import { PAGE_SIZE } from "./config";
 export type PostFrontmatter = {
 	title: string;
 	description: string;
-	publishDate: Date;
+	pubDate: Date;
 	url: string;
 	tags?: string[];
 };
@@ -52,14 +52,14 @@ export const getSortedPosts = (unsortedPosts: PostMdxInstance[]) => {
 				...p,
 				frontmatter: {
 					...p.frontmatter,
-					publishDate: new Date(p.frontmatter.publishDate ?? dateStr),
+					pubDate: new Date(p.frontmatter.pubDate ?? dateStr),
 				},
 			};
 		})
 		.sort(
 			(a, b) =>
-				b.frontmatter.publishDate.valueOf() -
-				a.frontmatter.publishDate.valueOf()
+				b.frontmatter.pubDate.valueOf() -
+				a.frontmatter.pubDate.valueOf()
 		);
 };
 

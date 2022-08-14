@@ -2,17 +2,17 @@
 export interface Props {
 	title: string
 	description: string
-	publishDate: Date
+	pubDate: Date
 	url: string
 }
 
-const { title, description, publishDate, url } = Astro.props as Props
+const { title, description, pubDate, url } = Astro.props as Props
 ---
 
 <article class="post-preview">
 	<header>
 		<h2><a href={url}>{title}</a></h2>
-		<!-- <time>{publishDate}</time> -->
+		<!-- <time>{pubDate}</time> -->
 	</header>
 	<p>{description}</p>
 </article>

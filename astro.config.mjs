@@ -1,11 +1,11 @@
 import { defineConfig } from "astro/config";
-
 import mdx from "@astrojs/mdx";
 import solid from "@astrojs/solid-js";
 import tailwind from "@astrojs/tailwind";
-
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+
+import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,7 +16,8 @@ export default defineConfig({
 		}),
 		solid(),
 		tailwind(),
+		sitemap(),
 	],
-  trailingSlash: 'always',
-	site: `http://blog.coderspirit.xyz`,
+	trailingSlash: "always",
+	site: `https://coder-spirit.github.io`,
 });
