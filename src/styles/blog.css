@@ -92,7 +92,7 @@ article.post-preview p {
 }
 
 footer.bottom-footer {
-	@apply mt-8 pt-2;
+	@apply mt-8 mb-8 pt-2;
 	border-top: 2px dashed var(--color-sun-yellow);
 }
 
@@ -144,6 +144,12 @@ main article time {
 	font-weight: 400;
 }
 
+.article-content h3 {
+	color: var(--color-cream-orange);
+	font-size: 22px;
+	font-weight: 400;
+}
+
 .article-content ol {
 	@apply mb-4;
 	list-style: decimal;
@@ -154,6 +160,14 @@ main article time {
 	@apply mb-4;
 	list-style: circle;
 	padding-left: 32px;
+}
+
+.article-content img {
+	@apply rounded-xl block mx-auto;
+}
+
+img.left-img {
+	@apply rounded-xl block w-1/4 float-left mr-4;
 }
 
 .tags-list {
