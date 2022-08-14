@@ -16,7 +16,7 @@ const { title, posts } = Astro.props as Props
 		{title ? <h1 class="optional-title">{title}</h1> : null}
 		<section aria-label="Posts List">
 			{posts.map(({ frontmatter, url }) => (
-			<PostPreview title={frontmatter.title} description={frontmatter.description} publishDate={frontmatter.publishDate}
+			<PostPreview title={frontmatter.title} description={frontmatter.description} pubDate={frontmatter.pubDate}
 				url={url} />
 			))}
 		</section>

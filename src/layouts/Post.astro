@@ -7,15 +7,15 @@ export interface Props {
 	content: {
 		title: string;
 		description: string;
-		publishDate: string;
+		pubDate: string;
 	};
 }
 
 const {
-	content: { title, description, publishDate },
+	content: { title, description, pubDate },
 } = Astro.props as Props;
 
-const date = publishDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
+const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
 ---
 
 <html lang="en">
@@ -30,7 +30,7 @@ const date = publishDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
 		<main>
 			<article>
 				<h1 class="section-title">{title}</h1>
-				<time>{date}</time>
+				<time>{publishDate}</time>
 				<div class="article-content"><slot /></div>
 			</article>
 		</main>
