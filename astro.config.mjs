@@ -17,5 +17,6 @@ export default defineConfig({
 		solid(),
 		tailwind(),
 	],
+  trailingSlash: 'always',
 	site: `http://blog.coderspirit.xyz`,
 });
