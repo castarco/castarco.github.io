@@ -19,5 +19,5 @@ export default defineConfig({
 		sitemap(),
 	],
 	trailingSlash: "always",
-	site: `https://coder-spirit.github.io`,
+	site: `https://blog.coderspirit.xyz`,
 });
