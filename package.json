@@ -9,12 +9,12 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/mdx": "^0.9.0",
+    "@astrojs/mdx": "^0.10.0",
     "@astrojs/sitemap": "^1.0.0",
     "@astrojs/solid-js": "^1.0.0",
     "@astrojs/tailwind": "^1.0.0",
     "@fontsource/fira-code": "^4.5.11",
-    "astro": "^1.0.5",
+    "astro": "^1.0.7",
     "rehype-katex": "^6.0.2",
     "remark-math": "^5.1.1",
     "solid-js": "^1.4.8",
