@@ -52,6 +52,17 @@ body {
 	font-weight: 600;
 }
 
+@media (max-width: 34rem) {
+	.header-logo {
+		height: 48px;
+		width: 48px;
+	}
+
+	.title-wrapper span {
+		font-size: 42px;
+	}
+}
+
 nav {
 	@apply flex;
 }
@@ -59,6 +70,25 @@ nav {
 nav ul {
 	@apply flex gap-12 mb-4;
 	list-style: none;
+}
+
+@media (max-width: 28rem) {
+	nav ul {
+		@apply flex gap-6 mb-4;
+	}
+}
+
+@media (max-width: 23rem) {
+	nav ul {
+		@apply flex gap-4 mb-4;
+	}
+}
+
+@media (max-width: 21rem) {
+	nav ul {
+		@apply flex gap-2 mb-4;
+		/* list-style: none; */
+	}
 }
 
 nav ul li {
