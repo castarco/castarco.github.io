@@ -3,9 +3,9 @@ name: CI/CD
 on:
   push:
     branches: [ main ]
-  pull_request:
-    # The branches below must be a subset of the branches above
-    branches: [ main ]
+  # pull_request:
+  #   # The branches below must be a subset of the branches above
+  #   branches: [ main ]
 
 defaults:
   run:
@@ -28,7 +28,7 @@ jobs:
           node-version: 18
       - run: yarn install
       - run: yarn build
-      
+
       # Deploys page
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3.0.0
