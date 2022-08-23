@@ -605,9 +605,9 @@
     "@types/unist" "*"
 
 "@types/node@*":
-  version "18.7.10"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.10.tgz#f642dc9ded1bdd8c2cd847246466e71182b0fd67"
-  integrity sha512-SST7B//wF7xlGoLo1IEVB0cQ4e7BgXlDk5IaPgb5s0DlYLjb4if07h8+0zbQIvahfPNXs6e7zyT0EH1MqaS+5g==
+  version "18.7.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.11.tgz#486e72cfccde88da24e1f23ff1b7d8bfb64e6250"
+  integrity sha512-KZhFpSLlmK/sdocfSAjqPETTMd0ug6HIMIAwkwUpU79olnZdQtMxpQP+G1wDzCH7na+FltSIhbaZuKdwZ8RDrw==
 
 "@types/node@^17.0.5":
   version "17.0.45"
@@ -914,9 +914,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001370, caniuse-lite@^1.0.30001373:
-  version "1.0.30001381"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001381.tgz#e62955310e6e69cdf4b40bc5bc0895aa24bc4b8b"
-  integrity sha512-fEnkDOKpvp6qc+olg7+NzE1SqyfiyKf4uci7fAU38M3zxs0YOyKOxW/nMZ2l9sJbt7KZHcDIxUnbI0Iime7V4w==
+  version "1.0.30001382"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001382.tgz#4d37f0d0b6fffb826c8e5e1c0f4bf8ce592db949"
+  integrity sha512-2rtJwDmSZ716Pxm1wCtbPvHtbDWAreTPxXbkc5RkKglow3Ig/4GNGazDI9/BVnXbG/wnv6r3B5FEbkfg9OcTGg==
 
 ccount@^2.0.0:
   version "2.0.1"
@@ -1143,9 +1143,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.4.202:
-  version "1.4.225"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.225.tgz#3e27bdd157cbaf19768141f2e0f0f45071e52338"
-  integrity sha512-ICHvGaCIQR3P88uK8aRtx8gmejbVJyC6bB4LEC3anzBrIzdzC7aiZHY4iFfXhN4st6I7lMO0x4sgBHf/7kBvRw==
+  version "1.4.227"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.227.tgz#28e46e2a701fed3188db3ca7bf0a3a475e484046"
+  integrity sha512-I9VVajA3oswIJOUFg2PSBqrHLF5Y+ahIfjOV9+v6uYyBqFZutmPxA6fxocDUUmgwYevRWFu1VjLyVG3w45qa/g==
 
 emmet@^2.3.0:
   version "2.3.6"
@@ -2914,9 +2914,9 @@ preferred-pm@^3.0.3:
     which-pm "2.0.0"
 
 prismjs@^1.28.0:
-  version "1.28.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.28.0.tgz#0d8f561fa0f7cf6ebca901747828b149147044b6"
-  integrity sha512-8aaXdYvl1F7iC7Xm1spqSaY/OJBpYW3v+KJ+F17iYxvdc8sfjW194COK5wVhMZX45tGteiBQgdvD/nhxcRwylw==
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.29.0.tgz#f113555a8fa9b57c35e637bba27509dcf802dd12"
+  integrity sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==
 
 prompts@^2.4.2:
   version "2.4.2"
