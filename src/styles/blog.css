@@ -8,7 +8,7 @@
 
 
 	color: var(--color-sad-blue);
-	font-family: 'Fira Code', Roboto, monospace;
+	font-family: Oxygen, sans-serif;
 	font-weight: 100;
 }
 
@@ -49,6 +49,7 @@ body {
 	color: var(--color-cream-orange);
 
 	font-size: 58px;
+	font-family: 'Fira Code', monospace;
 	font-weight: 600;
 }
 
@@ -102,7 +103,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	text-decoration: underline;
+	text-decoration: underline dashed;
 }
 
 article.post-preview {
@@ -132,6 +133,7 @@ footer.bottom-footer nav ul {
 
 h1.section-title {
 	color: var(--color-cream-orange);
+	font-family: 'Fira Code', monospace;
 	font-size: 48px;
 	font-weight: 600;
 }
@@ -139,12 +141,14 @@ h1.section-title {
 h1.optional-title {
 	color: var(--color-sad-blue);
 	font-size: 48px;
+	font-family: 'Fira Code', monospace;
 	font-weight: 600;
 	margin-bottom: 8px;
 }
 
 main article h1 {
 	margin-bottom: -16px;
+	font-family: 'Fira Code', monospace;
 }
 
 main article time {
@@ -160,8 +164,35 @@ main article time {
 	font-size: 18px;
 }
 
+.language-id {
+	visibility: hidden;
+	display: none;
+}
+
+.astro-code {
+	@apply p-2 rounded-xl mb-4 border-2 border-dashed;
+	border-color: var(--color-cream-orange);
+}
+
+code {
+	font-family: 'Fira Code', monospace;
+}
+
+.article-content code:not(.code-container code,.astro-code code) {
+	border-radius: 4px;
+	border-color: var(--color-cream-orange);
+	border-width: 1px;
+	border-style: dashed;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
 .article-content a {
 	color: var(--color-solarized-red);
+}
+
+.article-content a:hover {
+	text-decoration: underline wavy;
 }
 
 .article-content p {
@@ -170,6 +201,7 @@ main article time {
 
 .article-content h2 {
 	color: var(--color-cream-orange);
+	font-family: 'Fira Code', monospace;
 	font-size: 24px;
 	font-weight: 400;
 }
