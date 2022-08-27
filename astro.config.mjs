@@ -10,9 +10,10 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
 	markdown: {
-		syntaxHighlight: 'shiki',
+		syntaxHighlight: "shiki",
 		shikiConfig: {
 			theme: "material-darker",
+			wrap: true,
 		},
 	},
 	integrations: [
