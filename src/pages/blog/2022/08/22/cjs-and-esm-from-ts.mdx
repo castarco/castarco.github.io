@@ -1,0 +1,281 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Generating CJS & ESM packages from TypeScript"
+description: "Although it's easy to generate CJS or ESM code from TS, generating both at the same time is a more complicated endeavour."
+pubDate: 2022/08/22
+
+topic: tech
+lang: english
+tags: [javascript, typescript, esm, cjs, tooling]
+---
+
+Although ES modules [were introduced with ES6](https://gist.github.com/jkrems/769a8cd8806f7f57903b641c74b5f08a)
+(first spec details around 2015, browser support around 2017, final spec details
+around 2018, full suport in Node 12.17.0 around 2020), we still live in a world
+where CommonJS dominates the JS landscape, and it's difficult to imagine the day
+when it will be gone.
+
+Some developers are becoming impatient and are trying to
+["force"](https://github.com/rickbergfalk/postgrator/blob/master/CHANGELOG.md#february-21-2022)
+[it](https://github.com/node-fetch/node-fetch/releases/tag/v3.0.0)
+[on](https://github.com/sindresorhus/execa/releases/tag/v6.0.0)
+[the](https://github.com/wooorm/franc/releases/tag/6.0.0)
+[rest](https://github.com/remarkjs/remark/releases/tag/14.0.0)
+[of](https://github.com/d3/d3/releases/tag/v7.0.0)
+[us](https://github.com/sindresorhus/ow/releases/tag/v1.0.0). That's a bad idea.
+I'll try to tell you why, and what we can try to do in case we're developing
+TypeScript libraries consumed by 3rd parties.
+
+## Why ESM-Only is a bad idea today
+
+While it is true that we should try to migrate our code to ESM, rushing it on
+open source libraries might be counterproductive.
+
+Users are not entirely free to choose their dependencies, sometimes they won't
+be able to find alternatives. They can find themselves in some of the next
+situations:
+
+- Your lib is ESM-only, but all their other dependencies also support ESM. Happy
+  path! 🍾🎉
+- Your lib is ESM-only, but some other dependency is still CJS-only...
+  - If they can replace the CJS-only deps, good 😐...
+  - But that's not always possible! 💩 So now they're stuck with an old version
+    of your library, possibly missing not only new features, but also bug and
+    security fixes 💣.
+- Your lib is ESM-only... and they are in charge of a library that intends to
+  offer CJS & ESM support at the same time during a transition period.
+  - If they can replace your lib, good... but you lost users 🤷.
+  - If not, well, they either break their compatibility promise to their users,
+    or have to risk missing bug & security fixes for a long time on some of
+    their transitive dependencies 💣.
+
+All of these problems are not only in our imagination, we've suffered them in
+some of our projects, and some library maintainers wrote about
+[their cases](https://formidable.com/blog/2022/victory-esm/).
+
+Overall, the ESM-only approach won't help to speed up the transition, but only
+to make it less smooth, and much more painful... probably even slower!
+
+Nobody remembers anymore the [pains](https://lwn.net/Articles/843660/) of the Python3
+[migration](https://stackoverflow.blog/2019/11/14/why-is-the-migration-to-python-3-taking-so-long/)?
+It was too slow, yes, but the main failure was that for some years
+there was no proper transition path! (Nope, the
+[`six`](https://pypi.org/project/six/) library wasn't enough).
+
+## Generating ESM code from TypeScript, 1st try
+
+The simplest way is to apply the following steps:
+
+1. Add the `"type": "module"` entry to our `package.json` file.
+2. Set the following values in your `tsconfig.json` file:
+   ```json
+   {
+   	"compilerOptions": {
+   		"module": "ES2022",
+   		"target": "ES2022",
+   		"moduleResolution": "Node16"
+   	}
+   }
+   ```
+3. In your relative imports, always remember to add the module file extension:
+
+   ```ts
+   // Instead of
+   import { something } from "./relative/path";
+
+   // Write
+   import { something } from "./relative/path.js";
+   ```
+
+I said this was the simplest way, but not the best one. Unfortunately, you're
+going to suffer some of its shortcommings quite soon.
+
+- Setting `package.json`'s `type` to `module` causes all JS files to be
+  interpreted as ESM. If we do nothing about it, then we loose support for CJS.
+  - Even if we create 2 different `tsconfig.json` files, one to emit CJS, and
+    another one to emit ESM, we need a way to tell them apart so we can load
+    them properly.
+- We might suffer some problems with our test runner (such as Jest) or other
+  tools we use. These can be caused by:
+  - the `type` property specified on our `package.json` file.
+  - the `moduleResolution` property specified in our `tsconfig.json` file.
+
+## Weird TS features that seem useful... but aren't
+
+Because NodeJS has supported CommonJS since forever, it had to introduce a
+way to know when to load files as ESM. It has 2 mechanisms:
+
+- We are already familiar with the 1st one (setting `package.json`'s `type` to
+  `module`)
+- The second mechanism is to use the extensions `.cjs` and `.mjs`, and is
+  complementary to the 1st one (overrides the default set by `package.json`'s
+  `type`).
+
+TypeScript, in recent versions, added a new feature: We can use the extensions
+`.cts` and `.mts` for our source files, and they get compiled to `.cjs` or `.mjs`.
+Although this sounds potentially useful, it is only if we don't need to
+generate both variants at the same time. Not our case.
+
+## Generating ESM & CJS at the same time, 2nd try
+
+First, let's focus on our `package.json` file:
+
+```json
+{
+	// "main" & "module" are redundant, but we add them "just in case".
+	"main": "./dist/cjs/index.cjs", // CJS entry point
+	"module": "./dist/esm/index.mjs", // ESM entry point
+	"types": "./dist/esm/index.d.ts", // Exported types
+
+	// This is where the real magic happens. It tells Node and other
+	// tools how to load our code when running in CJS or ESM mode.
+	"exports": {
+		// We could move what we have inside "." directly into "exports",
+		// but doing it like this is more general, and allows us to be more
+		// specific about how do we load specific paths from our package.
+		".": {
+			"import": "./dist/esm/index.mjs",
+			"require": "./dist/cjs/index.cjs",
+			"node": "./dist/cjs/index.cjs" // Equivalent to "require"
+		},
+
+		// Example taken from "@lyrasearch/plugin-astro":
+		"./clientside": {
+			"import": "./dist/esm/clientside.mjs",
+			"require": "./dist/cjs/clientside.cjs",
+			"node": "./dist/cjs/clientside.cjs"
+		}
+	}
+}
+```
+
+Ok, the consumers are already able to load the code properly, but we
+still have to generate it.
+
+Let's create two different configuration files for our TypeScript
+compiler:
+
+```json
+// tsconfig.cjs.json
+{
+	// We'll keep all the common details in a base file
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "ES2022",
+		"outDir": "./dist/cjs"
+	}
+}
+```
+
+```json
+// tsconfig.esm.json
+{
+	// We'll keep all the common details in a base file
+	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"module": "ES2022",
+		// For moduleResolution, we could use NodeNext or Node16 as well,
+		// but some tools that are still not fully compatible :( .
+		"moduleResolution": "Node",
+		"target": "ES2022",
+		"outDir": "./dist/esm"
+	}
+}
+```
+
+Now, we can call tsc specifying which config file has to be used:
+
+```bash
+tsc -p ./tsconfig.cjs.json # For CJS generation
+tsc -p ./tsconfig.esm.json # For ESM generation
+```
+
+Are we done yet? Almost!
+
+## Final details, 3rd try
+
+Remember that ESM files need their `import` statements to specify the module
+file extension, as follows:
+
+```ts
+// Instead of
+import { something } from "./relative/path";
+
+// Write
+import { something } from "./relative/path.js";
+```
+
+At this point, most of us don't have to do anything else. BUT.
+
+If for any reason you want to support Node versions older than 12.7.0, then
+you'll have to apply some extra dirty tricks because the `exports` field in the
+`package.json` field was not yet supported before that version.
+
+If you decide to use `.mjs` & `.cjs` extensions, they you'll have problems with
+the previous changes suggested for the `import` statements. This can be solved
+by not adding the extensions in the TS source code, and then applying a later
+post-processing step, with tools such as `awk` or `sed`.
+
+Here you can see an ugly script I wrote some time ago. It does its job, but I
+regret having written it, my sole reason for it was that I was using `.cjs` &
+`.mjs` extensions, which are not really necessary if we properly configure our
+`package.json` file.
+
+```sh
+#!/bin/sh
+# build_esm.sh
+
+set -e;
+
+# Compile
+tsc -p ./tsconfig.esm.json;
+
+# Sed works differently depending on whether it's the BSD or GNU variant
+if [ "$(sed --version 2>/dev/null | grep GNU | wc -l)" -gt "0" ]; then
+	SED_VARIANT="GNU"
+else
+	SED_VARIANT="BSD"
+fi
+
+# Process source files
+for i in $( ls ./dist/esm/*.js ); do
+	# Rename source files
+	mv $i ${i%.*}.mjs;
+
+	if [ "${SED_VARIANT}" = "BSD" ]; then
+		# Fix map references inside source files
+		sed -E -i '' 's/\/\/#[[:space:]]sourceMappingURL=(.+)\.js\.map/\/\/# sourceMappingURL=\1.mjs.map/g' "${i%.*}.mjs";
+
+		# Fix imports in ESM files (we first remove existing extensions)
+		sed -E -i '' 's/[[:space:]]+from[[:space:]]+'"'"'\.\/(.+)\.m?js'"'"';/ from '"'"'.\/\1'"'"';/g' "${i%.*}.mjs";
+		sed -E -i '' 's/[[:space:]]+from[[:space:]]+'"'"'\.\/(.+)'"'"';/ from '"'"'.\/\1.mjs'"'"';/g' "${i%.*}.mjs";
+	else
+		# Fix map references inside source files
+		sed -Ei 's/\/\/# sourceMappingURL=(.+)\.js\.map/\/\/# sourceMappingURL=\1.mjs.map/g' "${i%.*}.mjs";
+
+		# Fix imports in ESM files (we first remove existing extensions)
+		sed -Ei 's/\s+from\s+'"'"'\.\/(.+)\.m?js'"'"';/ from '"'"'.\/\1'"'"';/g' "${i%.*}.mjs";
+		sed -Ei 's/\s+from\s+'"'"'\.\/(.+)'"'"';/ from '"'"'.\/\1.mjs'"'"';/g' "${i%.*}.mjs";
+	fi;
+done;
+
+# Process source maps
+for i in $( ls ./dist/esm/*.js.map ); do
+	# Rename sourcemap files
+	ii="${i%.*}"
+	mv $i "${ii%.*}.mjs.map";
+
+	# Fix source file refences inside maps
+	if [ "${SED_VARIANT}" = "BSD" ]; then
+		sed -E -i '' 's/"file":"(.+)\.js"/"file":"\1.mjs"/g' "${ii%.*}.mjs.map";
+	else
+		sed -Ei 's/"file":"(.+)\.js"/"file":"\1.mjs"/g' "${ii%.*}.mjs.map";
+	fi;
+done
+```
+
+As you can see, this doesn't look good 🤢 (and I say it being me who wrote it),
+so try to stay away from this kind of hacks. It could be simpler if GNU & BSD
+command line tools didn't had so many subtle differences, but that would be too
+easy, right?
