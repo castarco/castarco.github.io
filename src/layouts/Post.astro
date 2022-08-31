@@ -8,11 +8,12 @@ export interface Props {
 		title: string;
 		description: string;
 		pubDate: string;
+		enableMath?: boolean;
 	};
 }
 
 const {
-	content: { title, description, pubDate },
+	content: { title, description, pubDate, enableMath },
 } = Astro.props as Props;
 
 const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
@@ -21,7 +22,7 @@ const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} />
+	<BaseHead title={title} description={description} enableMath={enableMath} />
 </head>
 
 <body>
