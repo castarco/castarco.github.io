@@ -1,0 +1,112 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Simulating brownian motion on Godot"
+description: "How Brownian motion can be simulated in Godot engine."
+pubDate: 2022/09/21
+
+topic: tech
+lang: english
+tags: [godot, simulation, fake-life]
+---
+
+[Some of days ago](https://castarco.itch.io/fakelife/devlog/429445/first-release-pre-alpha)
+I started to work on a small hobby project called [FakeLife](https://castarco.itch.io/fakelife),
+a biologic evolution simulator. One feature I wanted to introduce is
+[Brownian Motion](https://en.wikipedia.org/wiki/Brownian_motion) for the small
+inanimate particles that are suspended in the medium and serve as nutrients for
+our fake algae (but also for the algae, as they can't move by themselves).
+
+Before I explain my approach, a small disclaimer: it is not physically faithful,
+I take some shortcuts because I'm only looking for a visually pleasant effect
+and some "credible" source of randomness for the entire system.
+
+## Aproach 1: Dust/Mineral particles
+
+The current version of FakeLife starts with a 16536 floating mineral particles
+represented by a single pixel. Without careful optimizations this can impose a
+heavy burden on our CPU.
+
+I'm a newbie on [Godot](https://godotengine.org/) development, and all of its
+abstractions make it difficult to implement highly performant code, so I opted
+for cutting corners.
+
+Although I'm using
+[RigidBody2D](https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html?highlight=rigidbody2d#rigidbody2d)
+so I can detect collisions with algae, I chose to leave aside the interactions
+with the physics engine (stuff such as mass, linear velocity, momentum) because
+it seems to be a bit slower than keeping track of the velocity by myself, and I
+don't need that much realism for those particles.
+
+There's a catch though (besides leaving realism behind): detecting collisions is
+a bit less reliable because the physics engine only has access to instant
+positions, but not velocity. In any case, it's not a big problems in the context
+of this project.
+
+Ok, let's see the relevant code of my `MineralGrain` node, it couldn't be simpler!:
+
+```julia
+var velocity: Vector2 = Vector2(0.0, 0.0)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if randf() > 0.5:
+		velocity = (
+			velocity + Vector2.UP.rotated(TAU * randf())
+		).limit_length(12.0)
+	position = (position + velocity * delta).posmod(Globals.MAP_SIZE)
+```
+
+Some details worth mentioning, so you can be more aware of the tradeoffs I made:
+
+- [TAU rules over PI](https://treelight.com/essays/ideas/the-way-of-the-tau-better-than-pi/),
+  always.
+- We could update the velocity every frame, we have a conditional clause only to
+  do less work. The relevant part is that we always pick a random direction.
+- The `velocity` variable is NOT the `linear_velocity` variable that is actually
+  controlled by the physics engine, I do that on purpose, to squeeze some frames
+  per second.
+- The random changes in velocity direction are not evenly distributed accross
+  time, they actually depend on the framerate... this is not good, but it's not
+  terrible either.
+- Instead of simulating friction, I just damp the maximum velocity a particle
+  can have, as this is simpler & faster to compute.
+- There are no collisions between the mineral particles, they can overlap in the
+  2D space they inhabit. My parents even need a magnifying glass to see them.
+- The final `.posmod` call is there just so particles can jump from one end of
+  the map to the opposite side. This operation is actually quite expensive, if
+  you don't need it, I suggest to replace it by a damping operation.
+
+## Approach 2: Algae
+
+In the case of algae I opted for a bit of extra realism, as they are much less
+abundant, and I also need the collisions detection to be more reliable. As they
+consume mineral particles, they grow in size and mass, and we can see how the
+effects of brownian motion start to fade away.
+
+As in the case of our mineral grain, we also use a `RigidBody2D` instance to
+define our Algae node, but this time we'll use it's physics-related properties:
+
+```julia
+func _physics_process(delta: float) -> void:
+	apply_central_impulse(Vector2.UP.rotated(TAU * randf()) * delta)
+```
+
+That's it! We can adjust norm of the impulse vector, or the mass of our algae
+if we want to make our small algae more or less wobbly, but that's the basic
+idea behind it.
+
+As you can see, instead of directly affecting position, or even
+`linear_velocity`, we apply a force that will translate into an acceleration,
+and eventually into a velocity change & position change.
+
+The computations chain is much longer, and it will take into account many more
+details, such as mass, friction, collisions between algae or other big objects,
+etc. So it is consequentially more CPU-intensive.
+
+## Wrapping up
+
+In following articles I'll talk about some Godot-related optimizations I've
+applied to make the simulation a bit faster and other aspects of FakeLife.
+
+See you soon!
