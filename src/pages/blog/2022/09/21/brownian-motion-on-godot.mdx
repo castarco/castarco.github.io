@@ -20,6 +20,24 @@ Before I explain my approach, a small disclaimer: it is not physically faithful,
 I take some shortcuts because I'm only looking for a visually pleasant effect
 and some "credible" source of randomness for the entire system.
 
+## Preparation
+
+We'll see two different approaches to the problem, but 1st, let's focus on what
+they have in common.
+
+We want to disable the effects of gravity on our
+[`RigidBody2D`](https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html?highlight=rigidbody2d#rigidbody2d)
+instances, as we can assume that we're observing a petry dish from above.
+
+- If we're doing that from code, we have to set the `gravity_scale` property to
+  `0`.
+- We can also set that property to `0` using the inspector tab in the Godot IDE.
+  <img
+  	src="/images/blog/20220921_gravity_scale.png"
+  	alt="RigidBody2D inspector tab"
+  	class="rounded-xl mb-4"
+  />
+
 ## Aproach 1: Dust/Mineral particles
 
 The current version of FakeLife starts with a 16536 floating mineral particles
@@ -30,12 +48,11 @@ I'm a newbie on [Godot](https://godotengine.org/) development, and all of its
 abstractions make it difficult to implement highly performant code, so I opted
 for cutting corners.
 
-Although I'm using
-[RigidBody2D](https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html?highlight=rigidbody2d#rigidbody2d)
-so I can detect collisions with algae, I chose to leave aside the interactions
-with the physics engine (stuff such as mass, linear velocity, momentum) because
-it seems to be a bit slower than keeping track of the velocity by myself, and I
-don't need that much realism for those particles.
+Although I'm using `RigidBody2D` so I can detect collisions with algae, I chose
+to leave aside the interactions with the physics engine (stuff such as mass,
+linear velocity, momentum) because it seems to be a bit slower than keeping
+track of the velocity by myself, and I don't need that much realism for those
+particles.
 
 There's a catch though (besides leaving realism behind): detecting collisions is
 a bit less reliable because the physics engine only has access to instant
@@ -108,5 +125,11 @@ etc. So it is consequentially more CPU-intensive.
 
 In following articles I'll talk about some Godot-related optimizations I've
 applied to make the simulation a bit faster and other aspects of FakeLife.
+
+In the meantime, I recommend you to check out other cool life/evolution
+simulation projects:
+
+- [The Bibites](https://leocaussan.itch.io/the-bibites)
+- [The Life Engine](https://thelifeengine.net/)
 
 See you soon!
