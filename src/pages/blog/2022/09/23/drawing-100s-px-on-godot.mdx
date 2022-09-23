@@ -1,0 +1,119 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Drawing 1000s of moving pixels on Godot"
+description: "How to draw thousands of moving pixels on Godot, and a bit more."
+pubDate: 2022/09/23
+
+topic: tech
+lang: english
+tags: [godot, performance, simulation, fake-life]
+---
+
+Yesterday I released a
+[new version of FakeLife (v0.0.2)](https://castarco.itch.io/fakelife/devlog/430853/v002-available)
+that includes some performance improvements I want to talk about.
+
+## Introduction
+
+The 1st feature I implemented for FakeLife was having 16k floating mineral
+grains (represented by a single pixel) following
+[Brownian motion](/blog/2022/09/21/brownian-motion-on-godot/). Each one of them
+was managed by a [`Sprite`](https://docs.godotengine.org/en/stable/classes/class_sprite.html)
+node loaded with a 1x1px PNG texture, and it was FAST (~235fps for 16k objects on
+a 1024x1024px canvas).
+
+Sadly, shortly after I introduced algae that needed to detect collisions against
+mineral grains, and this detail made it quite difficult to maintain the previous
+frame rate. I had to use a
+[`RigidBody2D`](https://docs.godotengine.org/en/stable/tutorials/physics/physics_introduction.html?highlight=rigidbody2d#rigidbody2d)
+node, and nest the `Sprite` inside it, together with another
+[`CollisionShape2D`](https://docs.godotengine.org/en/stable/classes/class_collisionshape2d.html) node.
+
+Suddenly the frame rate had dropped to ~29fps 🐌.
+
+## A failed attempt: Drawing primitives
+
+It is known that having too many nodes in our scene can make Godot struggle
+because of the added overhead. That's why some people propose bypassing them and
+programming
+[directly against Godot's servers](https://docs.godotengine.org/en/stable/tutorials/performance/using_servers.html).
+I didn't try that yet, because I'm still learning Godot and I prefer to first
+master its high level concepts.
+
+What I did try (given that I couldn't get rid of the `RigidBody2D` because I
+needed collisions) is to replace the PNG `Sprite` by relying on drawing
+primitives, specifically `draw_primitive`, that allows us to draw single pixels.
+
+The drawing primitives must be placed inside the special
+[`CanvasItem`](https://docs.godotengine.org/en/stable/classes/class_canvasitem.html)'s
+function `_draw` (which our objects inherit from), it looks like this:
+
+```julia
+func _draw() -> void:
+  # It's trivial to set its coordinates to (0,0), because Godot takes care of
+  # later applying a transformation/translation matrix.
+  draw_primitive(
+    PoolVector2Array([Vector2(0.0, 0.0)]), # position
+    PoolColorArray([Color.darkslategray]), # color
+    PoolVector2Array([Vector2(0.0, 0.0)])  # UVs (not needed in this context)
+  )
+```
+
+Of course we can create constants for these parameters, so we don't have to
+construct the objects every time, but this detail is not what should worry us
+right now.
+
+It turns out this solution is terrible, it's even slower than loading PNG
+textures! In my case, the frame rate dropped to 12fps.
+
+Why is that? Well, it turns out that `Sprite` takes advantage of
+[calls batching](https://docs.godotengine.org/en/stable/tutorials/performance/batching.html),
+while `draw_primitive`
+[doesn't](https://godotengine.org/article/gles2-renderer-optimization-2d-batching)
+(at least for single pixels).
+
+## Second attempt: Rectangles
+
+If `draw_primitive` doesn't take advantage of batching, do we have any other
+"low level" function that does? Yes, `draw_rect`:
+
+```julia
+# We cache these 2 objects, as we'll reuse them a lot
+const rect = Rect2(0.0, 0.0, 1.0, 1.0)
+const color = Color(0.25, 0.25, 0.25)
+
+func _draw() -> void:
+	draw_rect(rect, color) # Takes advantage of batching :D
+```
+
+The performance gain is noticeable, but humble. We go from ~29fps to ~32fps,
+that's a 10% improvement. Not bad.
+
+To recap:
+`draw_rect` faster than `nested Sprite` faster than `draw_primitive`.
+
+## Other considerations
+
+As explained in my [previous article](/blog/2022/09/21/brownian-motion-on-godot/),
+I avoided using the Godot's physics engine because of its performance impact.
+
+There are some cards I still have in my sleeve in order to further improve the
+simulation's frame rate:
+
+- Using Godot's servers, instead of having an individual node per particle.
+- Implementing some scripts in C# instead of using GDScript. I don't have much
+  faith in this approach, but it could be interesting to try, even if it's just
+  for the learning experience.
+- Going even further, [Rust bindings](https://godot-rust.github.io/) perhaps?
+
+[Bevy Engine](https://bevyengine.org/) is an option I'm also considering, but
+I prefer to work first with a less performant engine to be sure that I'm not
+doing anything terribly wrong from a computational complexity perspective.
+
+## End
+
+That's it for today! In next articles I'll probably write about some other
+problems I've had to face while developing FakeLife, such as designing genes
+that allow for the creation of multicellular organisms as an adaptive response.
+
+See you soon!
