@@ -33,14 +33,13 @@ think this pattern is always harmful, only sometimes. When and why, then?
 ### Side effects at module load time
 
 Although not likely to happen (because most of us have learnt the hard way that
-it's a bad idea to perform side affects at module load time), that's the
+it's a bad idea to perform side effects at module load time), that's the
 simplest problematic case we can explain.
 
-When we _"need"_ to perform some side effects to be performed at load time
-(whatever it is the _"reason"_: singletons, resource initialisation, monkey
-patching...) in one of the submodules that is star-exported on our "barrel",
-we'll be unable to avoid them when importing anything that is completely
-unrelated from that same barrel.
+When we _"need"_ to perform some side effects at load time (whatever the reason:
+singletons, resource initialisation, monkey patching...) in one of the
+submodules that is star-exported on our "barrel", we'll be unable to avoid them
+when importing anything that is completely unrelated from that same barrel.
 
 As an example, if we just wanted to import a utility function, we might be
 triggering some resource initialisation that had no relation to that task
@@ -128,9 +127,9 @@ explicitly importing something that it's just a type without a runtime
 counterpart (basically, not `enum` nor `class`), then we can expect `tsc` to
 optimize away that import from the generated JS code.
 
-Sadly, `tsc` is not that smart when it comes to "start-exports" or
-"star-imports", and we won't be able to optimize it away. It is true that the
-compiler can improve in the future, but I wouldn't hold my breath for now.
+Sadly, `tsc` is not that smart when it comes to "start-exports", and we won't be
+able to optimize it away. It is true that the compiler can improve in the
+future, but I wouldn't hold my breath for now.
 
 ## Indirect problems
 
