@@ -133,6 +133,8 @@ future, but I wouldn't hold my breath for now.
 
 ## Indirect problems
 
+### Circular references
+
 The barrel pattern makes it easier to introduce accidental circular references.
 It is true that the fault in this case doesn't really fall on the pattern, but
 I prefer to not have footguns at my disposal.
@@ -142,6 +144,17 @@ I've seen too many times how some people decide to import "symbols" from
 source modules; the error here is not the barrel itself (because it's thought to
 be consumed from "outside"), but consuming "internal" code as if it was an
 external library.
+
+### Some dev tools become slower
+
+When we use barrel exports in our code, static analysis becomes more complex.
+Some tools have explicit support for it, but others strugle to provide good
+results, or to give them in an acceptable amount of time.
+
+It's worth noticing that not only static analysis tools can perform worse when
+in presence of barrel exports, test runners such as Jest can also see their
+performance [badly hurt](https://github.com/facebook/jest/issues/11234),
+affecting our productivity, and the associated costs of our CI pipelines.
 
 ## Conclusion
 
