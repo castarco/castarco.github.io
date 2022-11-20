@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+Disallow:
+
+Sitemap: https://blog.coderspirit.xyz/sitemap-index.xml
