@@ -17,12 +17,13 @@ const {
 } = Astro.props as Props;
 
 const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} enableMath={enableMath} />
+	<BaseHead title={title} description={description} enableMath={enableMath} canonical={canonicalURL} />
 </head>
 
 <body>
