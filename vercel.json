@@ -1,0 +1,13 @@
+{
+	"redirects": [
+		{
+			"source": "/blog/2017/08/18/our-composer-json-is-wrong/",
+			"destination": "/blog/2017/09/18/our-composer-json-is-wrong/"
+		},
+		{
+			"source": "/blog/2018/10/08/web-development-jobs-landscape/",
+			"destination": "/blog/2018/12/15/web-development-jobs-landscape/"
+		}
+	],
+	"trailingSlash": true
+}
