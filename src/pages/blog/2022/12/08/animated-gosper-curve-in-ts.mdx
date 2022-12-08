@@ -1,0 +1,409 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Animated Gosper Curves in JS"
+description: "An introduction to generative art by example, with animated Gosper Curves."
+pubDate: 2022/12/08
+
+enableMath: true
+
+topic: tech
+lang: english
+tags: [generative-art, mathematics, typescript, html]
+---
+
+import GosperCurve from "../../../../../components/demos/GosperCurve.astro"
+
+This post is the continuation of a
+[very old article](http://localhost:3000/blog/2016/04/03/gosper-curve/) I wrote
+more than 6 years ago. Back then I used Python instead of JavaScript/TypeScript,
+and I didn't bother about properly explaining how this works nor any other
+lesson we can learn from this example. Well, I'm here today to remediate that.
+
+<GosperCurve />
+
+## L-Systems
+
+The animated image you can see above is an example of a
+[Gosper curve](https://en.wikipedia.org/wiki/Gosper_curve), which is an
+interesting particular case of an
+[L-System](https://en.wikipedia.org/wiki/L-system) that also happens to be a
+[space filling curve](https://en.wikipedia.org/wiki/Space-filling_curve).
+
+We can understand an L-System as a tuple $(A, i, P)$, where:
+
+- $A$ denotes an alphabet (that is, a finite collection of symbols). Example:
+  `a, b, +, -`
+- $i$ denotes an initial state (in the form of a string of 1 or more symbols).
+  Example: `a`
+- $P$ denotes a [production rule](<https://en.wikipedia.org/wiki/Production_(computer_science)>),
+  or more plainly for our particular case: a function that takes a symbol from
+  our alphabet $A$ and returns us a string of symbols from that same alphabet.
+  Example:
+  - `-` ➞ `-`
+  - `+` ➞ `+`
+  - `a` ➞ `a-b--b+a++aa+b-`
+  - `b` ➞ `+a-bb--b-a++a+b`
+
+If we take our initial state $i$ (`a`) and recursively apply $P$ until a certain
+predefined depth, we end up with a string that can be interpreted as
+instructions to draw our curve!
+
+If all this formalism leaves you cold, don't fret, we'll jump straight to the
+code right now! 🎮.
+
+## How we structure code
+
+There are three very important functions we need to generate our image:
+
+- The 1st one is precisely our "production rule" (the function in charge of
+  generating the "drawing instructions").
+- The 2nd is the one responsible of interpreting the generated instructions and
+  translate them into an ordered list of points on our canvas, that will act as
+  the vertices of our drawing.
+- The 3rd function is responsible for taking the ordered list of points and draw
+  coloured lines between them, giving us the final result.
+
+Summary:<br/>
+start ➞ generate "instructions string" ➞ generate points in space ➞ draw the gosper curve
+
+## The Production function
+
+This code is in TypeScript, but it's pretty straightforward to simplify it and
+obtain plain JavaScript.
+
+```typescript
+type ChainStep = 'a' | 'b' | '+' | '-'
+type Chain = ChainStep[]
+
+const generateChain = (
+	level: number = 0,
+	baseChain: Chain = ['a']
+): Chain => {
+	if (level === 0) {
+		return baseChain.slice(0)
+	}
+
+	const newChain = baseChain.flatMap(rule => {
+		if (rule === 'a') {
+			return [
+				'a','-','b','-','-','b','+','a','+','+','a','a','+','b','-',
+			] as const
+		} else if (rule === 'b') {
+			return [
+				'+','a','-','b','b','-','-','b','-','a','+','+','a','+','b',
+			] as const
+		}
+
+		return rule
+	})
+
+	return generateChain(level - 1, newChain)
+}
+```
+
+The `baseChain` parameter corresponds to our initial state $i$, while `level`
+is used to indicate how deep is going to go our recursive function. The deeper,
+the more complex our final drawing will be.
+
+## Generating points
+
+To generate our list of points, we'll need a couple of helper functions (so we
+can rotate vectors and add them to points), plus some constants.
+
+```typescript
+type Vector2D = readonly [number, number]
+type VectorsIndex = 0 | 1 | 2 | 3 | 4 | 5
+
+const DEG60 = Math.PI / 3 // 60º as radians
+const SQUARE_SIDE = 512   // The size of our canvas
+
+// This formula might seem tricky, as it was obtained empirically, although
+// it has some solid grounding:
+// - Each time we go one level further, each segment is divided into 7 more
+//   segments.
+// - Even at level 0, we only want it to be 3/4 of the square side
+// - Powering the divisor to the square root of level is the most difficult
+//   to justify bit, but it is because we're in a 2d space. If we were in
+//   3d, then we would write LEVEL / 3.
+const SEGMENT_SIZE = (0.75 * SQUARE_SIDE) / 7.0 ** (LEVEL * 0.5)
+
+const toRight = [SEGMENT_SIZE, 0] as const
+const toLeft = [-SEGMENT_SIZE, 0] as const
+
+// See rotation matrix:
+// https://en.wikipedia.org/wiki/Rotation_matrix#In_two_dimensions
+const rotate2D = ([x, y]: Vector2D, angle: number): Vector2D => {
+	const cosA = Math.cos(angle)
+	const sinA = Math.sin(angle)
+	return [x * cosA - y * sinA, x * sinA + y * cosA] as const
+}
+
+const addVector2D = ([x0, y0]: Vector2D, [x1, y1]: Vector2D): Vector2D => {
+	return [x0 + x1, y0 + y1] as const
+}
+
+const inferPointsFromChain = (chain: Chain, firstPoint: Vector2D) => {
+	const vectorsCircle = [
+		toRight,
+		rotate2D(toRight, +DEG60), // toNorthEast
+		rotate2D(toLeft, -DEG60),  // toNorthWest
+		toLeft,
+		rotate2D(toLeft, +DEG60),  //toSouthWest
+		rotate2D(toRight, -DEG60), // toSouthEast
+	] as const
+
+	let vectorsIndex: VectorsIndex = 0
+	let currentPoint = firstPoint
+
+	const points = [firstPoint]
+	for (const step of chain) {
+		// `a` & `b` indicate us to "advance"
+		// `+` & `-` indicate us to "change direction"
+		if (['a', 'b'].includes(step)) {
+			currentPoint = addVector2D(
+				currentPoint,
+				vectorsCircle[vectorsIndex]
+			)
+			points.push(currentPoint)
+		} else if (step === '+') {
+			vectorsIndex = ((vectorsIndex + 1) % 6) as VectorsIndex
+		} else if (step === '-') {
+			// Wee need to add 6 because fmod in JS can return negative
+			vectorsIndex = ((vectorsIndex - 1 + 6) % 6) as VectorsIndex
+		}
+	}
+
+	return points
+}
+```
+
+### Extra tweaks for our generated points
+
+To make things easier, we also create a wrapper function that calls the two
+previously defined functions, and re-aligns our generated points to ensure they
+are centered in our canvas:
+
+```typescript
+const computeGosperCurveByRules = () => {
+	const gosperPoints = inferPointsFromChain(
+		generateChain(LEVEL),
+		// This 2nd parameter could actually be any point in space because
+		// we'll re-align all the points afterwards. This was here before we
+		// introduced the re-alignment code.
+		[0.625 * SQUARE_SIDE, 0.90625 * SQUARE_SIDE] as const, // starting point
+	);
+
+	let maxX = 0;
+	let minX = SQUARE_SIDE;
+	let maxY = 0;
+	let minY = SQUARE_SIDE;
+
+	for (const [x, y] of gosperPoints) {
+		maxX = Math.max(x, maxX);
+		maxY = Math.max(y, maxY);
+		minX = Math.min(x, minX);
+		minY = Math.min(y, minY);
+	}
+	const width = maxX - minX;
+	const height = maxY - minY;
+
+	const shift = [
+		(SQUARE_SIDE - width) / 2 - minX,
+		(SQUARE_SIDE - height) / 2 - minY,
+	] as const;
+
+	return gosperPoints.map((p) => addVector2D(p, shift));
+}
+```
+
+## Preparing the canvas and dealing with HiDPI
+
+Ok! that was a lot of code, and we didn't draw anything yet. But we're getting
+close. Now that we know how to generate a list of points, it's time to draw
+them.
+
+For that, we'll prepare our canvas, and we'll also take care of ensuring that
+our image doesn't become blurring in HiDPI screens. In our HTML, we'll place
+our canvas object (we could create it in JS as well, of course):
+
+```html
+<canvas id='gosperCanvas' height='512px' width='512px'>
+	Animated Gosper Curve
+</canvas>
+```
+
+I wrote the following function after noticing that my generatd image was
+slightly blurry, and it is inspired by this
+[article](https://web.archive.org/web/20220318005156/https://www.html5rocks.com/en/tutorials/canvas/hidpi/)
+and this [StackOverflow post](https://stackoverflow.com/a/15666143).
+
+```typescript
+function prepareHiDPIContext(canvas: HTMLCanvasElement) {
+	const dpr = window.devicePixelRatio || 1;
+
+	// Get canvas' size in CSS pixels
+	const rect = canvas.getBoundingClientRect();
+
+	// Give the canvas pixel dimensions of their CSS size * the device pixel ratio
+	canvas.width = rect.width * dpr;
+	canvas.height = rect.height * dpr;
+
+	// Scale down the canvas by the same amount we increased its resolution
+	canvas.style.width = `${rect.width}px`;
+	canvas.style.height = `${rect.height}px`;
+
+	const ctx = canvas.getContext("2d")!;
+
+	// Scale all drawing operations by dpr, to avoid having to deal with it in
+	// the drawing-focused code.
+	ctx.scale(dpr, dpr);
+
+	return ctx;
+}
+```
+
+You can see the difference between implementing the rescaling trick or not:
+
+<img
+	src="/images/blog/20221208_comparison.webp"
+	alt="lalala"
+	class="rounded-xl mb-4"
+/>
+
+## Painting!
+
+This piece of code is relatively big, so I'll try to explain it before you start
+with it, to make it easier to understand.
+
+One relevant detail of this code is that we use an
+[HSL color space](https://en.wikipedia.org/wiki/HSL_and_HSV). We fix saturation
+and lightness, and let the "hue" change over time, but in discrete steps (I
+decided to have a relatively small palette, of just 128 colors, plus black).
+
+Another aspect I introduced is that colors change randomly, but they to change
+in the same direction to avoid too much flickery. To achieve that, I introduced
+a some "inertia" that makes the code a bit more complicated, but not by much.
+
+```typescript
+// we limit the amount of color tones used in or drawing
+const NUM_TONES = 128;
+
+// just a cached coefficient
+const HUES_MULTIPLIER = 360 / NUM_TONES;
+
+// used to control lines thickness
+const GAP = SEGMENT_SIZE * Math.cos(DEG30);
+
+const getRandomInt = (max: number) => {
+	return Math.floor(Math.random() * max)
+}
+
+const paint = (canvasId: string) => {
+	let gosperPoints = computeGosperCurveByRules();
+
+	// We assign a randum hue to each one of our points
+	let hues = Array(gosperPoints.length)
+		.fill(0)
+		.map((_) => getRandomInt(NUM_TONES));
+
+	// Because we animate color transitions, and we want them to be random, but
+	// not too flickery, we introduce some "inertia"
+	let huesInertia = Array(gosperPoints.length)
+		.fill(0)
+		.map((_) => getRandomInt(9) - 4);
+
+	const gosperCanvas = document.getElementById(
+		canvasId,
+	) as HTMLCanvasElement;
+
+	const ctx = prepareHiDPIContext(gosperCanvas);
+
+	ctx.lineWidth = (GAP * 2) / 3;
+	ctx.lineCap = "round"; // our line caps are round
+	ctx.fillStyle = "#000"; // We set black background
+
+	// This inner function will take care of redrawing the gosper curve
+	const animate = () => {
+		// We update our hue inertia
+		huesInertia = huesInertia.map((i) => {
+			const r = Math.random();
+			if (r < 0.25) {
+				return Math.max(i - 1, -4);
+			} else if (r > 0.75) {
+				return Math.min(i + 1, 4);
+			} else {
+				return i;
+			}
+		});
+
+		// We update our hues
+		hues = hues.map((hue, index) => {
+			const inertia = huesInertia[index] as number;
+			if (inertia >= 3) {
+				return (hue + 1) % NUM_TONES;
+			} else if (inertia <= -3) {
+				return (hue - 1 + NUM_TONES) % NUM_TONES;
+			} else {
+				return hue;
+			}
+		});
+
+		ctx.fillRect(0, 0, 768, 768); // Clearing the canvas using black
+
+		let [currentX, currentY] = gosperPoints[0]!;
+		gosperPoints.slice(1).forEach(([x, y], i) => {
+			ctx.beginPath();
+			ctx.moveTo(currentX, currentY);
+			ctx.strokeStyle = `hsl(${hues[i]! * HUES_MULTIPLIER}, 95%, 75%)`;
+			ctx.lineTo(x, y);
+			ctx.stroke();
+			[currentX, currentY] = [x, y];
+		});
+
+		requestAnimationFrame(animate);
+	};
+
+	animate();
+}
+
+// Finally, we call the paint function
+paint('gosperCanvas')
+```
+
+That would be it! Now, there are still a couple of details that I didn't work
+on yet, but I would like to improve:
+- Making this animation to be responsive, to adapt when presented on small
+  screens, or when we resize our window. In the meantime, you could check this
+  [very interesting article](https://www.jgibson.id.au/blog/responsive-canvas/)
+  about the topic, from Joel Gibson.
+- Capturing the generated animations into GIF images and/or videos. I intend to
+  write about this, let's see if I really do it in the end 😅.
+
+## Final rant
+
+You might have noticed that I didn't use any library for the code shown in this
+article, and that I directly relied on `HTMLCanvasElement` functions. There are
+reasons for that.
+
+Before I started writting this post, I wrote the same code, but using
+[p5js](https://p5js.org/)... and I decided it wasn't good:
+- The provided TS typings are basically a patch, they don't properly cover all
+  the details of the library.
+- It's designed to always work in the global scope, making a lot of assumptions
+  about how we organize our code.
+- It doesn't play well with ES Modules.
+- It's **very heavy**. Using ESBuild, the generated bundle was above 950Kb
+  (versus less than 2Kb without it), and tree shaking basically doesn't work
+  with it, probably because of its incompatibility with ES Modules.
+
+## Some extras
+
+- You can check how I integrated the animation into this article by checking the
+  [MDX source code](https://github.com/castarco/castarco.github.io/tree/main/src/pages/blog/2022/12/08/animated-gosper-curve-in-ts.mdx).
+- You can check the
+  [Astro component](https://github.com/castarco/castarco.github.io/tree/main/src/components/demos/GosperCurve.astro)
+  that I created to be embedded into this article.
+- The Gosper Curve that I've shown here is actually not unique. There are many
+  other curves with similar but different shapes, and there's even a method to
+  find new ones. You can learn more by reading
+  [this article from Fukuda, Shimizu and Nakamura](https://web.archive.org/web/20060112165112/http://kilin.u-shizuoka-ken.ac.jp/museum/gosperex/343-024.pdf).

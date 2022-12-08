@@ -1,0 +1,230 @@
+---
+---
+<script>
+	type Vector2D = readonly [number, number];
+
+	type ChainStep = 'a' | 'b' | '+' | '-';
+	type Chain = ChainStep[];
+	type VectorsIndex = 0 | 1 | 2 | 3 | 4 | 5;
+
+	const DEG60 = Math.PI / 3;
+	const DEG30 = Math.PI / 6;
+	const SQUARE_SIDE = 512;
+	const NUM_TONES = 128;
+	const HUES_MULTIPLIER = 360 / NUM_TONES;
+	const LEVEL = 3;
+	const SEGMENT_SIZE = (0.75 * SQUARE_SIDE) / 7.0 ** (LEVEL * 0.5);
+	const GAP = SEGMENT_SIZE * Math.cos(DEG30);
+
+	const toRight = [SEGMENT_SIZE, 0] as const;
+	const toLeft = [-SEGMENT_SIZE, 0] as const;
+
+	// See rotation matrix:
+	// https://en.wikipedia.org/wiki/Rotation_matrix#In_two_dimensions
+	const rotate2D = ([x, y]: Vector2D, angle: number): Vector2D => {
+		const cosA = Math.cos(angle);
+		const sinA = Math.sin(angle);
+		return [x * cosA - y * sinA, x * sinA + y * cosA] as const;
+	};
+
+	const addVector2D = ([x0, y0]: Vector2D, [x1, y1]: Vector2D): Vector2D => {
+		return [x0 + x1, y0 + y1] as const;
+	};
+
+	const generateChain = (level: number = 0, baseChain: Chain = ['a']): Chain => {
+		if (level === 0) {
+			return baseChain.slice(0);
+		}
+
+		const newChain = baseChain.flatMap(rule => {
+			if (rule === 'a') {
+				return [
+					'a',
+					'-',
+					'b',
+					'-',
+					'-',
+					'b',
+					'+',
+					'a',
+					'+',
+					'+',
+					'a',
+					'a',
+					'+',
+					'b',
+					'-',
+				] as const
+			} else if (rule === 'b') {
+				return [
+					'+',
+					'a',
+					'-',
+					'b',
+					'b',
+					'-',
+					'-',
+					'b',
+					'-',
+					'a',
+					'+',
+					'+',
+					'a',
+					'+',
+					'b',
+				] as const
+			} else {
+				return rule
+			}
+		})
+
+		return generateChain(level - 1, newChain);
+	};
+
+	const inferPointsFromChain = (chain: Chain, firstPoint: Vector2D) => {
+		const vectorsCircle = [
+			toRight,
+			rotate2D(toRight, +DEG60), // toNorthEast,
+			rotate2D(toLeft, -DEG60), // toNorthWest,
+			toLeft,
+			rotate2D(toLeft, +DEG60), // toSouthWest,
+			rotate2D(toRight, -DEG60), // toSouthEast,
+		] as const;
+
+		let vectorsIndex: VectorsIndex = 0;
+		let currentPoint = firstPoint;
+
+		const points = [firstPoint];
+		for (const step of chain) {
+			if (['a', 'b'].includes(step)) {
+				currentPoint = addVector2D(currentPoint, vectorsCircle[vectorsIndex])
+				points.push(currentPoint);
+			} else if (step === '+') {
+				vectorsIndex = ((vectorsIndex + 1) % 6) as VectorsIndex;
+			} else if (step === '-') {
+				vectorsIndex = ((vectorsIndex - 1 + 6) % 6) as VectorsIndex;
+			}
+		}
+
+		return points;
+	};
+
+	const computeGosperCurveByRules = () => {
+		const gosperPoints = inferPointsFromChain(
+			generateChain(LEVEL),
+			[0.625 * SQUARE_SIDE, 0.90625 * SQUARE_SIDE] as const,
+		);
+
+		let maxX = 0;
+		let minX = SQUARE_SIDE;
+		let maxY = 0;
+		let minY = SQUARE_SIDE;
+
+		for (const [x, y] of gosperPoints) {
+			maxX = Math.max(x, maxX);
+			maxY = Math.max(y, maxY);
+			minX = Math.min(x, minX);
+			minY = Math.min(y, minY);
+		}
+		const width = maxX - minX;
+		const height = maxY - minY;
+
+		const shift = [
+			(SQUARE_SIDE - width) / 2 - minX,
+			(SQUARE_SIDE - height) / 2 - minY,
+		] as const;
+
+		return gosperPoints.map((p) => addVector2D(p, shift));
+	}
+
+	function prepareHiDPIContext(canvas: HTMLCanvasElement) {
+		const dpr = window.devicePixelRatio || 1;
+
+		// Get canvas' size in CSS pixels
+		const rect = canvas.getBoundingClientRect();
+
+		// Give the canvas pixel dimensions of their CSS size * the device pixel ratio
+		canvas.width = rect.width * dpr;
+		canvas.height = rect.height * dpr;
+
+		// Scale down the canvas by the same amount we increased its resolution
+		canvas.style.width = `${rect.width}px`;
+		canvas.style.height = `${rect.height}px`;
+
+		const ctx = canvas.getContext("2d")!;
+
+		// Scale all drawing operations by dpr, to avoid having to deal with it in
+		// the drawing-focused code.
+		ctx.scale(dpr, dpr);
+
+		return ctx;
+	}
+
+	const getRandomInt = (max: number) => {
+		return Math.floor(Math.random() * max)
+	}
+
+	const paint = (canvasId: string) => {
+		let gosperPoints = computeGosperCurveByRules();
+		let hues = Array(gosperPoints.length)
+			.fill(0)
+			.map((_) => getRandomInt(NUM_TONES));
+		let huesInertia = Array(gosperPoints.length)
+			.fill(0)
+			.map((_) => getRandomInt(9) - 4);
+
+		const gosperCanvas = document.getElementById(
+			canvasId,
+		) as HTMLCanvasElement;
+
+		const ctx = prepareHiDPIContext(gosperCanvas);
+
+		ctx.lineWidth = (GAP * 2) / 3;
+		ctx.lineCap = "round";
+		ctx.fillStyle = "#000";
+
+		const animate = () => {
+			huesInertia = huesInertia.map((i) => {
+				const r = Math.random();
+				if (r < 0.25) {
+					return Math.max(i - 1, -4);
+				} else if (r > 0.75) {
+					return Math.min(i + 1, 4);
+				} else {
+					return i;
+				}
+			});
+			hues = hues.map((hue, index) => {
+				const inertia = huesInertia[index] as number;
+				if (inertia >= 3) {
+					return (hue + 1) % NUM_TONES;
+				} else if (inertia <= -3) {
+					return (hue - 1 + NUM_TONES) % NUM_TONES;
+				} else {
+					return hue;
+				}
+			});
+
+			ctx.fillRect(0, 0, 768, 768);
+
+			let [currentX, currentY] = gosperPoints[0]!;
+			gosperPoints.slice(1).forEach(([x, y], i) => {
+				ctx.beginPath();
+				ctx.moveTo(currentX, currentY);
+				ctx.strokeStyle = `hsl(${hues[i]! * HUES_MULTIPLIER}, 95%, 75%)`;
+				ctx.lineTo(x, y);
+				ctx.stroke();
+				[currentX, currentY] = [x, y];
+			});
+
+			requestAnimationFrame(animate);
+		};
+
+		animate();
+	}
+
+	paint('gosperCanvas')
+</script>
+<canvas id='gosperCanvas' height='512px' width='512px'>
+	Animated Gosper Curve
+</canvas>
