@@ -1,9 +1,9 @@
 :root {
-  --color-egg-white: #ededed;
+  --color-egg-white: #fcfcfc;
 	--color-sun-yellow: #ffc94b;
-	--color-cream-orange: #f9a66c;
-	--color-solarized-red: #f17a7e;
-	--color-sad-blue: #4a6163;
+	--color-cream-orange: #fb9043;
+	--color-solarized-red: #f25f64;
+	--color-sad-blue: #205f64;
 
 	color: var(--color-sad-blue);
 	font-family: Oxygen, sans-serif;
@@ -162,6 +162,15 @@ main article time {
 	font-size: 18px;
 }
 
+.article-content strong {
+	font-weight: 600;
+}
+
+.article-content blockquote {
+	@apply border-2 border-dashed mb-4 pt-2 pl-3 pr-3;
+	border-color: var(--color-sun-yellow);
+}
+
 .language-id {
 	visibility: hidden;
 	display: none;
@@ -224,6 +233,10 @@ code {
 
 .article-content img {
 	@apply rounded-xl block mx-auto;
+}
+
+.article-content canvas {
+	@apply rounded-xl block mx-auto mb-4;
 }
 
 img.left-img {
