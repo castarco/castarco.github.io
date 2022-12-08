@@ -162,6 +162,15 @@ main article time {
 	font-size: 18px;
 }
 
+.article-content strong {
+	font-weight: 600;
+}
+
+.article-content blockquote {
+	@apply border-2 border-dashed mb-4 pt-2 pl-3 pr-3;
+	border-color: var(--color-sun-yellow);
+}
+
 .language-id {
 	visibility: hidden;
 	display: none;
