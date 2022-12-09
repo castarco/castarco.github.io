@@ -44,7 +44,7 @@ We can understand an L-System as a tuple $(A, i, P)$, where:
   - `a` ➞ `a-b--b+a++aa+b-`
   - `b` ➞ `+a-bb--b-a++a+b`
 
-If we take our initial state $i$ (`a`) and recursively apply $P$ until a certain
+If we take our initial state $i$ and recursively apply $P$ until a certain
 predefined depth, we end up with a string that can be interpreted as
 instructions to draw our curve!
 
@@ -53,14 +53,14 @@ code right now! 🎮.
 
 ## How we structure code
 
-There are three very important functions we need to generate our image:
+There are 3 very important functions we need to generate our image:
 
-- The 1st one is precisely our "production rule" (the function in charge of
+1. The 1st one is precisely our "production rule" (the function in charge of
   generating the "drawing instructions").
-- The 2nd is the one responsible of interpreting the generated instructions and
-  translate them into an ordered list of points on our canvas, that will act as
+2. The 2nd is the one responsible for interpreting the generated instructions and
+  translating them into an ordered list of points on our canvas, that will act as
   the vertices of our drawing.
-- The 3rd function is responsible for taking the ordered list of points and draw
+3. The 3rd function is responsible for taking the ordered list of points and draw
   coloured lines between them, giving us the final result.
 
 > Summary:<br/>
@@ -223,8 +223,8 @@ close. Now that we know how to generate a list of points, it's time to draw
 them.
 
 For that, we'll prepare our canvas, and we'll also take care of ensuring that
-our image doesn't become blurring in HiDPI screens. In our HTML, we'll place
-our canvas object (we could create it in JS as well, of course):
+our image doesn't become blurred on HiDPI screens. In our HTML, we'll place our
+canvas object (we could create it in JS as well, of course):
 
 ```html
 <canvas id='gosperCanvas' height='512px' width='512px'>
@@ -232,7 +232,7 @@ our canvas object (we could create it in JS as well, of course):
 </canvas>
 ```
 
-I wrote the following function after noticing that my generatd image was
+I wrote the following function after noticing that my generated image was
 slightly blurry, and it is inspired by this
 [article](https://web.archive.org/web/20220318005156/https://www.html5rocks.com/en/tutorials/canvas/hidpi/)
 and this [StackOverflow post](https://stackoverflow.com/a/15666143).
@@ -280,9 +280,9 @@ One relevant detail of this code is that we use an
 and lightness, and let the "hue" change over time, but in discrete steps (I
 decided to have a relatively small palette, of just 128 colors, plus black).
 
-Another aspect I introduced is that colors change randomly, but they to change
-in the same direction to avoid too much flickery. To achieve that, I introduced
-a some "inertia" that makes the code a bit more complicated, but not by much.
+Another aspect I introduced is that colors change randomly, but they change in
+the same direction to avoid too much flickery. To achieve that, I introduced
+some "inertia" that makes the code a bit more complicated, but not by much.
 
 ```typescript
 // we limit the amount of color tones used in or drawing
@@ -370,14 +370,14 @@ const paint = (canvasId: string) => {
 paint('gosperCanvas')
 ```
 
-That would be it! Now, there are still a couple of details that I didn't work
-on yet, but I would like to improve:
-- Making this animation to be responsive, to adapt when presented on small
+That would be it! Now, there are still a couple of details that I didn't work on
+yet, but I would like to improve:
+- Making this animation to be responsive, adapting when presented on small
   screens, or when we resize our window. In the meantime, you could check this
   [very interesting article](https://www.jgibson.id.au/blog/responsive-canvas/)
   about the topic, from Joel Gibson.
 - Capturing the generated animations into GIF images and/or videos. I intend to
-  write about this, let's see if I really do it in the end 😅.
+  write about this, let's see if I do it in the end 😅.
 
 ## Final rant
 
@@ -387,14 +387,14 @@ reasons for that.
 
 Before I started writting this post, I wrote the same code, but using
 [p5js](https://p5js.org/)... and I decided it wasn't good:
-- The provided TS typings are basically a patch, they don't properly cover all
+- The provided TS typings are a shabby patch, they don't properly cover all
   the details of the library.
 - It's designed to always work in the global scope, making a lot of assumptions
   about how we organize our code.
 - It doesn't play well with ES Modules.
 - It's **very heavy**. Using ESBuild, the generated bundle was above 950Kb
-  (versus less than 2Kb without it), and tree shaking basically doesn't work
-  with it, probably because of its incompatibility with ES Modules.
+  (versus less than 2Kb without it), and tree shaking doesn't work with it,
+  probably because of its incompatibility with ES Modules.
 
 ## Some extras
 
