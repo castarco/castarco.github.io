@@ -9,11 +9,12 @@ export interface Props {
 		description: string;
 		pubDate: string;
 		enableMath?: boolean;
+		ogImage?: { url: string; width?: number; height?: number }[]
 	};
 }
 
 const {
-	content: { title, description, pubDate, enableMath },
+	content: { title, description, pubDate, enableMath, ogImage },
 } = Astro.props as Props;
 
 const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
@@ -24,6 +25,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <head>
 	<BaseHead title={title} description={description} enableMath={enableMath} canonical={canonicalURL} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:type" content="article" />
+	<meta property="og:url" content={canonicalURL} />
+	<meta property="og:site_name" content="Coder Spirit" />
+	{ogImage && ogImage.map(img => (
+		<>
+		<meta property="og:image" content={img.url} />
+		{img.width && <meta property="og:image:width" content={`${img.width}`} />}
+		{img.height && <meta property="og:image:height" content={`${img.height}`} />}
+		</>
+	))}
 </head>
 
 <body>
