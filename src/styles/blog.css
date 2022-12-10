@@ -106,6 +106,32 @@ nav ul li a:hover {
 
 article.post-preview {
 	@apply mb-4;
+	display: flex;
+	flex-direction: row;
+}
+
+article.post-preview .publication-date {
+	display: block;
+	width: 4rem;
+	height: 3.5rem;
+	text-align: center;
+	border-color: var(--color-cream-orange);
+	border-style: dotted;
+	border-width: 1.5px;
+	@apply mr-4 mt-2 rounded-lg;
+}
+
+.publication-date time {
+	font-weight: 800;
+	color: var(--color-sad-blue);
+}
+
+.year {
+	font-size: 13px;
+}
+
+.post-preview-text {
+	flex: 1;
 }
 
 article.post-preview header h2 {
