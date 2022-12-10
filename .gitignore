@@ -17,6 +17,3 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
-
-# temporary
-.__old__
