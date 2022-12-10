@@ -100,7 +100,16 @@ nav ul li a {
 	font-weight: 600;
 }
 
-nav ul li a:hover {
+nav.article-tags ul {
+	@apply flex gap-2 mt-2;
+}
+
+nav.article-tags ul li a {
+	font-size: 12px;
+	@apply py-0 px-3;
+}
+
+nav.top-menu ul li a:hover {
 	text-decoration: underline dashed;
 }
 
@@ -277,4 +286,8 @@ img.left-img {
 	@apply inline-block text-lg px-2 py-1 rounded-xl;
 	background-color: var(--color-sad-blue);
 	color: var(--color-egg-white);
+}
+
+.tag:hover {
+	background-color: var(--color-solarized-red);
 }
