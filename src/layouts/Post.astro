@@ -10,11 +10,12 @@ export interface Props {
 		pubDate: string;
 		enableMath?: boolean;
 		ogImage?: { url: string; width?: number; height?: number }[]
+		tags?: string[]
 	};
 }
 
 const {
-	content: { title, description, pubDate, enableMath, ogImage },
+	content: { title, description, pubDate, enableMath, ogImage, tags },
 } = Astro.props as Props;
 
 const publishDate = pubDate ?? Astro.url.pathname.split('/').slice(2, 5).join('/')
@@ -46,6 +47,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 			<article>
 				<h1 class="section-title">{title}</h1>
 				<time>{publishDate}</time>
+				{tags && <nav class="article-tags"><ul>
+					{tags.map(tag => <li><a class="tag" rel="tag" href={`/tags/${tag}/`}>{tag}</a></li>)}
+				</ul></nav>}
 				<div class="article-content"><slot /></div>
 			</article>
 		</main>
