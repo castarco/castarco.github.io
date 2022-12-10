@@ -25,10 +25,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} enableMath={enableMath} canonical={canonicalURL} />
+	<BaseHead title={title} description={description} enableMath={enableMath} canonical={canonicalURL} ogType="article" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
-	<meta property="og:type" content="article" />
 	<meta property="og:url" content={canonicalURL} />
 	<meta property="og:site_name" content="Coder Spirit" />
 	{ogImage && ogImage.map(img => (
