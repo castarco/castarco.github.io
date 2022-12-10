@@ -46,13 +46,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 	<MainHeader />
 	<div class="wrapper">
 		<main>
-			<article>
-				<h1 class="section-title">{title}</h1>
-				<time datetime={publishDate}>{publishDate}</time>
+			<article class="h-entry">
+				<h1 class="section-title p-name">{title}</h1>
+				<time class="dt-published" datetime={publishDate}>{publishDate}</time>
 				{tags && <nav class="article-tags"><ul>
 					{tags.map(tag => <li><a class="tag" rel="tag" href={`/tags/${tag}/`}>{tag}</a></li>)}
 				</ul></nav>}
-				<div class="article-content"><slot /></div>
+				<div class="article-content e-content"><slot /></div>
 			</article>
 		</main>
 	</div>
