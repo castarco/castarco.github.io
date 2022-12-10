@@ -33,7 +33,7 @@ const tags = Object.entries(tagCounters).sort(([,c1], [,c2]) => c2 - c1)
 			<h1 class="section-title">Tags</h1>
 			<ul class="tags-list">
 				{tags.map(([tag, counter]) => (
-				<li><a class="tag" href={`/tags/${tag}/`}>{tag} ({counter})</a></li>
+				<li><a class="tag" rel="tag" href={`/tags/${tag}/`}>{tag} ({counter})</a></li>
 				))}
 			</ul>
 		</main>
