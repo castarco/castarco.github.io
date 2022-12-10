@@ -1,0 +1,48 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import MainHeader from "../components/MainHeader.astro";
+import SimpleFooter from "../components/SimpleFooter.astro";
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+		ogType: string
+		divClass?: string | undefined
+	};
+}
+
+const {
+	content: { title, description, ogType, divClass },
+} = Astro.props as Props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="en">
+
+<head>
+	<BaseHead title={title} description={description} canonical={canonicalURL} ogType={ogType} />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={canonicalURL} />
+	<meta property="og:site_name" content="Coder Spirit" />
+	<link rel="webmention" href="https://webmention.io/blog.coderspirit.xyz_about_/webmention" />
+	<link rel="pingback" href="https://webmention.io/blog.coderspirit.xyz_about_/xmlrpc" />
+</head>
+
+<body>
+	<MainHeader />
+	<div class="wrapper">
+		<main>
+			<article>
+				<h1 class="section-title">{title}</h1>
+				<div class={divClass ? `article-content ${divClass}` : 'article-content'}><slot /></div>
+			</article>
+		</main>
+	</div>
+	<!--Use wrapper... -->
+	<SimpleFooter />
+</body>
+
+</html>
