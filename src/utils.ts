@@ -1,4 +1,4 @@
-import type { MarkdownInstance, Page, PaginateFunction, Props } from "astro";
+import type { MDXInstance, Page, PaginateFunction, Props } from "astro";
 import { PAGE_SIZE } from "./config";
 
 export type PostFrontmatter = {
@@ -9,7 +9,7 @@ export type PostFrontmatter = {
 	tags?: string[];
 };
 
-export type PostMdxInstance = MarkdownInstance<PostFrontmatter>;
+export type PostMdxInstance = MDXInstance<PostFrontmatter>;
 export type PostPage = Page<PostMdxInstance>;
 
 export type CustomPaginator = (pgOpts: {
@@ -22,7 +22,7 @@ export type CustomPaginator = (pgOpts: {
 >;
 
 const addPrefixToUrl = (
-	prefix: `/${string}` | undefined,
+	prefix: `/${string}`,
 	url: string | undefined
 ): string | undefined => {
 	const newUrl =
@@ -34,7 +34,7 @@ const addPrefixToUrl = (
 };
 
 const removePrefixFromUrl = (
-	prefix: `/${string}` | undefined,
+	prefix: `/${string}`,
 	url: string | undefined
 ): string | undefined => {
 	const newUrl =
@@ -46,6 +46,9 @@ const removePrefixFromUrl = (
 export const getSortedPosts = (unsortedPosts: PostMdxInstance[]) => {
 	return unsortedPosts
 		.map((p) => {
+			if (p.url === undefined) {
+				throw new Error(`URL not defined! (file: ${p.file})`)
+			}
 			const dateStr = p.url.split("/").slice(2, 5).join("/");
 
 			return {
