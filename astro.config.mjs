@@ -26,5 +26,5 @@ export default defineConfig({
 		sitemap(),
 	],
 	trailingSlash: "always",
-	site: `https://blog.coderspirit.xyz`,
+	site: 'https://blog.coderspirit.xyz',
 });
