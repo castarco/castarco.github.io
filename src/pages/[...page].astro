@@ -1,10 +1,10 @@
 ---
 import MainPage from "../layouts/MainPage.astro";
-import { getCustomStaticPathsGetter } from "../utils";
+import { getCustomStaticPathsGetter, getUnsortedPosts } from "../utils";
 
 export async function getStaticPaths({ paginate }) {
 	const __getStaticPaths = await getCustomStaticPathsGetter(
-		await Astro.glob('./blog/*/*/*/*.mdx'),
+		await getUnsortedPosts(),
 		'onlyFirst',
 		'/old',
 		true
