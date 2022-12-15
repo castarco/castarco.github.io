@@ -4,8 +4,7 @@ import MainPage from "../../../layouts/MainPage.astro";
 import { getSortedPosts, PostMdxInstance } from "../../../utils";
 
 export async function getStaticPaths({ paginate }) {
-	const unsortedPosts = (await Astro.glob('../../blog/*/*/*/*.mdx')) as PostMdxInstance[];
-	const sortedPosts = getSortedPosts(unsortedPosts);
+	const sortedPosts = getSortedPosts();
 
 	const allTags = new Set<string>()
 	sortedPosts.forEach(post => {

@@ -1,5 +1,9 @@
 import type { MDXInstance, Page, PaginateFunction, Props } from "astro";
 import { PAGE_SIZE } from "./config";
+import { default as FastGlob } from 'fast-glob'
+import { readFileSync } from 'fs'
+import YAML from 'yaml'
+import { resolve } from 'path'
 
 export type PostFrontmatter = {
 	title: string;
@@ -43,7 +47,27 @@ const removePrefixFromUrl = (
 	return newUrl === "" ? "/" : newUrl;
 };
 
-export const getSortedPosts = (unsortedPosts: PostMdxInstance[]) => {
+export const getUnsortedPosts = (): PostMdxInstance[] => {
+	const blogArticlesRelativePaths = FastGlob.sync('./src/pages/blog/**/*.mdx')
+	const unsortedPosts = blogArticlesRelativePaths.map(relPath => {
+		const absolutePath = resolve(relPath)
+		const frontmatter = YAML.parse(
+			readFileSync(relPath, { encoding: 'utf8' }).split('---')[1].replace('\t', '  ')
+		)
+
+		return {
+			frontmatter,
+			url: `${absolutePath.split('src/pages')[1].slice(0, -4)}/`,
+			file: absolutePath
+		}
+	}) as PostMdxInstance[];
+
+	return unsortedPosts
+}
+
+export const getSortedPosts = () => {
+	const unsortedPosts = getUnsortedPosts()
+
 	return unsortedPosts
 		.map((p) => {
 			if (p.url === undefined) {

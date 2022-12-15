@@ -2,11 +2,12 @@
 import BaseHead from "../../components/BaseHead.astro";
 import MainHeader from "../../components/MainHeader.astro";
 import SimpleFooter from "../../components/SimpleFooter.astro";
+import { type PostMdxInstance, getUnsortedPosts } from "../../utils.js";
 
 const title = "Coder Spirit";
 const description = "Geeky Computer Science stuff.";
 
-const unsortedPosts = await Astro.glob('../blog/*/*/*/*.mdx');
+const unsortedPosts = getUnsortedPosts()
 const tagCounters: Record<string, number> = {}
 
 for (const post of unsortedPosts) {
