@@ -1,6 +1,4 @@
 ---
-import type { MarkdownInstance, Page } from "astro";
-
 import BaseHead from "../components/BaseHead.astro";
 import MainFooter from "../components/MainFooter.astro";
 import MainHeader from "../components/MainHeader.astro";
@@ -9,12 +7,13 @@ import PostsList from "./PostsList.astro";
 
 export interface Props {
 	title?: string
+	metaTitle?: string
 	page: PostPage
 }
 
-const { page, title } = Astro.props as Props
+const { page, title, metaTitle } = Astro.props as Props
 
-const headTitle = title ?? "Coder Spirit";
+const headTitle = metaTitle ?? `Coder Spirit :: ${title}` ?? "Coder Spirit";
 const description = "Geeky Computer Science stuff.";
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
