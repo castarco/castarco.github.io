@@ -7,6 +7,10 @@
 		{
 			"source": "/blog/2018/10/08/web-development-jobs-landscape/",
 			"destination": "/blog/2018/12/15/web-development-jobs-landscape/"
+		},
+		{
+			"source": "/blog/2017/01/05/toy-problem-the-traverlers-dilemma/",
+			"destination": "/blog/2017/01/05/toy-problem-the-travelers-dilemma/"
 		}
 	],
 	"trailingSlash": true
