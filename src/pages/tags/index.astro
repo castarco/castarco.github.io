@@ -17,13 +17,13 @@ for (const post of unsortedPosts) {
 }
 
 const tags = Object.entries(tagCounters).sort(([,c1], [,c2]) => c2 - c1)
-
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} />
+	<BaseHead title={title} description={description} canonical={canonicalURL} />
 	<meta name="robots" content="noindex" />
 </head>
 
