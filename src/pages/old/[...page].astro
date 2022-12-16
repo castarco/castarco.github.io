@@ -15,4 +15,4 @@ export async function getStaticPaths({ paginate }) {
 const { page } = Astro.props;
 ---
 
-<MainPage page={page}></MainPage>
+<MainPage page={page} metaTitle={`Coder Spirit :: Page ${page.currentPage}`}></MainPage>

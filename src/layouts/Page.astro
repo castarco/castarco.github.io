@@ -16,14 +16,16 @@ const {
 	content: { title, description, ogType, divClass },
 } = Astro.props as Props;
 
+const metaTitle = `Coder Spirit :: ${title}`
+
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
 
 <head>
-	<BaseHead title={title} description={description} canonical={canonicalURL} ogType={ogType} />
-	<meta property="og:title" content={title} />
+	<BaseHead title={metaTitle} description={description} canonical={canonicalURL} ogType={ogType} />
+	<meta property="og:title" content={metaTitle} />
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={canonicalURL} />
 	<meta property="og:site_name" content="Coder Spirit" />
