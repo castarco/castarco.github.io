@@ -16,13 +16,13 @@ const { page, title } = Astro.props as Props
 
 const headTitle = title ?? "Coder Spirit";
 const description = "Geeky Computer Science stuff.";
-
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <html lang="en">
 
 <head>
-	<BaseHead title={headTitle} description={description} />
+	<BaseHead title={headTitle} description={description} canonical={canonicalURL} />
 </head>
 
 <body>
