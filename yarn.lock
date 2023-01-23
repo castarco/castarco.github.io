@@ -3518,10 +3518,10 @@ slash@^4.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-4.0.0.tgz#2422372176c4c6c5addb5e2ada885af984b396a7"
   integrity sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==
 
-solid-js@^1.6.5:
-  version "1.6.5"
-  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.6.5.tgz#19d92bce93a576124ea36af012c472d17516f4b4"
-  integrity sha512-q1/wIIRmrWltNnP3PW/e29eRWCC24hX5amBiOXomw2kDiM6JZZ10l+chK/Oi/6ipwUxeabYl5YD2lJOObY9heA==
+solid-js@^1.6.9:
+  version "1.6.9"
+  resolved "https://registry.yarnpkg.com/solid-js/-/solid-js-1.6.9.tgz#98dc71f1bacf9e6efe771cf47c0d023e5bd892ed"
+  integrity sha512-kV3fMmm+1C2J95c8eDOPKGfZHnuAkHUBLG4hX1Xu08bXeAIPqmxuz/QdH3B8SIdTp3EatBVIyA6RCes3hrGzpg==
   dependencies:
     csstype "^3.1.0"
 
