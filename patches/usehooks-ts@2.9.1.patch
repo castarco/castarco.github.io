@@ -1,0 +1,86 @@
+diff --git a/dist/esm/index.js b/dist/esm/index.js
+index bc117f26d42e6876cf378fcb61e71cd24c6b7245..6cc891753f87a6b7e249d8a3f330236832e9cb56 100644
+--- a/dist/esm/index.js
++++ b/dist/esm/index.js
+@@ -16,11 +16,11 @@ export { default as useDocumentTitle } from './useDocumentTitle/useDocumentTitle
+ export * from './useDocumentTitle/useDocumentTitle';
+ export { default as useEffectOnce } from './useEffectOnce/useEffectOnce';
+ export * from './useEffectOnce/useEffectOnce';
+-export { default as useElementSize } from './useElementSize/useElementSize';
+-export * from './useElementSize/useElementSize';
++export { default as useElementSize } from './useElementSize/useElementSize.mjs';
++export * from './useElementSize/useElementSize.mjs';
+ export { default as useEventCallback } from './useEventCallback/useEventCallback';
+ export * from './useEventCallback/useEventCallback';
+-export { default as useEventListener } from './useEventListener/useEventListener';
++export { default as useEventListener } from './useEventListener/useEventListener.mjs';
+ export * from './useEventListener/useEventListener';
+ export { default as useFetch } from './useFetch/useFetch';
+ export * from './useFetch/useFetch';
+@@ -38,7 +38,7 @@ export { default as useIsFirstRender } from './useIsFirstRender/useIsFirstRender
+ export * from './useIsFirstRender/useIsFirstRender';
+ export { default as useIsMounted } from './useIsMounted/useIsMounted';
+ export * from './useIsMounted/useIsMounted';
+-export { default as useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
++export { default as useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.mjs';
+ export * from './useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
+ export { default as useLocalStorage } from './useLocalStorage/useLocalStorage';
+ export * from './useLocalStorage/useLocalStorage';
+diff --git a/dist/esm/useElementSize/useElementSize.js b/dist/esm/useElementSize/useElementSize.mjs
+similarity index 83%
+rename from dist/esm/useElementSize/useElementSize.js
+rename to dist/esm/useElementSize/useElementSize.mjs
+index ec137b7aa75a12b98bc395ab854b0ff972eaafa7..66280b634ac0cb2fab35ea4d85265cd6784bec20 100644
+--- a/dist/esm/useElementSize/useElementSize.js
++++ b/dist/esm/useElementSize/useElementSize.mjs
+@@ -1,5 +1,6 @@
+ import { useCallback, useState } from 'react';
+-import { useEventListener, useIsomorphicLayoutEffect } from '..';
++import useEventListener from '../useEventListener/useEventListener.mjs';
++import useIsomorphicLayoutEffect from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.mjs';
+ function useElementSize() {
+     const [ref, setRef] = useState(null);
+     const [size, setSize] = useState({
+diff --git a/dist/esm/useEventListener/useEventListener.js b/dist/esm/useEventListener/useEventListener.mjs
+similarity index 89%
+rename from dist/esm/useEventListener/useEventListener.js
+rename to dist/esm/useEventListener/useEventListener.mjs
+index 8aecd8aaa9a34df182542f2f470a99673d09b251..b86958055a85c55930b0e57d99d598ad55e9e2cb 100644
+--- a/dist/esm/useEventListener/useEventListener.js
++++ b/dist/esm/useEventListener/useEventListener.mjs
+@@ -1,5 +1,5 @@
+ import { useEffect, useRef } from 'react';
+-import { useIsomorphicLayoutEffect } from '..';
++import useIsomorphicLayoutEffect from '../useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.mjs';
+ function useEventListener(eventName, handler, element, options) {
+     const savedHandler = useRef(handler);
+     useIsomorphicLayoutEffect(() => {
+diff --git a/dist/esm/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js b/dist/esm/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.mjs
+similarity index 100%
+rename from dist/esm/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js
+rename to dist/esm/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.mjs
+diff --git a/package.json b/package.json
+index efb8ca11a599b320abeeb0de56ed13ccf4f84874..28465660a07ed62739ffb97092e2bbe747ae9d02 100644
+--- a/package.json
++++ b/package.json
+@@ -13,6 +13,20 @@
+   "license": "MIT",
+   "main": "./dist/cjs/index.js",
+   "module": "./dist/esm/index.js",
++  "exports": {
++    ".": {
++      "import": "./dist/esm/index.js",
++      "require": "./dist/cjs/index.js",
++      "node": "./dist/cjs/index.js",
++      "types": "./dist/esm/index.d.ts"
++    },
++    "./useElementSize": {
++      "import": "./dist/esm/useElementSize/useElementSize.mjs",
++      "require": "./dist/cjs/useElementSize/useElementSize.js",
++      "node": "./dist/cjs/useElementSize/useElementSize.js",
++      "types": "./dist/esm/useElementSize/useElementSize.d.ts"
++    }
++  },
+   "types": "./dist/esm/index.d.ts",
+   "workspaces": [
+     "packages/eslint-config-custom"

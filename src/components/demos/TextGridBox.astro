@@ -1,0 +1,95 @@
+---
+import { randomUUID } from 'crypto'
+
+type BraceProps = {
+	start: number
+	end: number
+	comment?: string
+	braceColor?: string
+	commentColor?: string
+}
+
+export interface Props {
+	text: string
+	overbraces?: BraceProps[]
+	underbraces?: BraceProps[]
+}
+
+const { text, overbraces, underbraces } = Astro.props;
+const componentId = randomUUID()
+
+import OverBrace from './OverBrace.astro'
+import UnderBrace from './UnderBrace.astro'
+---
+<style>
+	.text-grid-box-div {
+		width: 100%;
+	}
+	.text-grid-box-table {
+		margin: 0 auto;
+		border-spacing: 0;
+		border: 1px solid;
+		border-collapse: separate;
+		border-radius: 8px;
+	}
+	.text-grid-box-td {
+		border-left: 1px solid;
+		padding: 0 12px;
+		font-family: 'Fira Code', monospace;
+	}
+	.text-grid-box-td:first-child {
+		border: 0 none;
+	}
+</style>
+<script>
+	const rootDivs = document.getElementsByClassName("text-grid-box-div") as HTMLCollectionOf<HTMLElement>
+	for (const rootDiv of rootDivs) {
+		const underbraces = JSON.parse(decodeURI(rootDiv.dataset.underbraces ?? '[]')) as any[]
+		const table = rootDiv.getElementsByTagName('table')[0]
+		const tbody = table.getElementsByTagName('tbody')[0]
+		const tr = tbody.getElementsByTagName('tr')[0]
+		const tds = tr.getElementsByTagName('td')
+
+		// We perform a 1st loop to ensure underbraces don't affect vertical offset calculations
+		for (const underbrace of underbraces) {
+			const underbraceElem = document.getElementById(`${rootDiv.id}-underbrace-${underbrace.start}`)!
+			underbraceElem.style.position = 'fixed';
+			underbraceElem.style.float = 'none';
+		}
+
+		for (const underbrace of underbraces) {
+			const underbraceTds = Array.from(tds).slice(underbrace.start, underbrace.end + 1)
+			const underbraceWidth = underbraceTds.map(td => td.offsetWidth).reduce((a, b) => a+b, 0)
+			const coords = underbraceTds[0].getBoundingClientRect();
+
+			const underbraceElem = document.getElementById(`${rootDiv.id}-underbrace-${underbrace.start}`)!
+			underbraceElem.style.left = coords.left + "px";
+			underbraceElem.style.top = (coords.bottom + 1) + "px";
+			underbraceElem.style.width = `${underbraceWidth}px`;
+		}
+
+		const underbracesHeight = 1 + (underbraces.length
+			? (document.getElementById(`${rootDiv.id}-underbrace-${underbraces[0].start}`)?.getBoundingClientRect()?.height ?? 0)
+			: 0
+		)
+
+		rootDiv.style.height = `${rootDiv.offsetHeight + underbracesHeight}px`
+	}
+</script>
+<div
+	class="text-grid-box-div" id={componentId}
+	data-overbraces={JSON.stringify(overbraces ?? [])}
+	data-underbraces={JSON.stringify(underbraces ?? [])}
+>
+	{(overbraces ?? []).map(overbrace =>
+		<OverBrace numSlots={overbrace.end-overbrace.start+1} id={`${componentId}-overbrace-${overbrace.start}`} />
+	)}
+	<table class="text-grid-box-table">
+		<tr class="text-grid-box-tr">
+			{Array.from(text).map(char => <td class="text-grid-box-td">{char}</td>)}
+		</tr>
+	</table>
+	{(underbraces ?? []).map(underbrace =>
+		<UnderBrace numSlots={underbrace.end-underbrace.start+1} id={`${componentId}-underbrace-${underbrace.start}`} />
+	)}
+</div>
