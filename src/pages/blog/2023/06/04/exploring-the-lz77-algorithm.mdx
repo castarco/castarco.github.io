@@ -1,0 +1,306 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Exploring the LZ77 Algorithm"
+description: "Learn how the grandfather of most major compression algorithms, LZ77, works!"
+pubDate: 2023/06/04
+
+enableMath: true
+
+topic: tech
+lang: english
+tags: [algorithms, compression]
+# ogImage # TODO
+---
+
+This article is the first in a series where we'll delve into the fascinating
+world of compression algorithms, starting with LZ77 (a lossless data compression
+algorithm). In future articles, we'll expand on its family: LZ78, LZW, LZSS,
+DEFLATE, and more.
+
+You might be wondering, why explore a topic that's already been covered
+extensively in numerous articles and books? Well, I have some reasons:
+
+- During my previous work on
+  ([animated gosper curves](/blog/2022/12/08/animated-gosper-curve-in-ts/)),
+  I found myself in need of reliable TypeScript/JavaScript libraries that could
+  handle GIT, PNG and APNG files. However, the available options were either
+  poorly maintained, tied to NodeJS, or not compatible with ECMAScript modules
+  (ESM). This prompted me to create my own solution and document the journey.
+- I noticed a lack of engaging, visual and interactive explanations on the
+  topic. This series aims to fill the gap by providing not just information, but
+  also interactive simulations to help you understand these algorithms.
+
+Stay tuned as we embark on this exciting journey of data compression!
+
+## A bit of history
+
+[LZ77](https://en.wikipedia.org/wiki/LZ77_and_LZ78#LZ77) was first
+[published in 1977](https://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.118.8921)
+by [Abraham Lempel](https://en.wikipedia.org/wiki/Abraham_Lempel) and
+[Jacob Ziv](https://en.wikipedia.org/wiki/Jacob_Ziv). It was by no means the
+first compression algorithm, but it was the first to introduce a **sliding
+window** that allowed processing arbitrary streams of data in a nearly optimal
+way without needing prior knowledge of the data.
+
+## Some terms & concepts
+
+Before we dive into the algorithm, let's define some terms and concepts that
+will come in handy later on (don't worry if you don't understand them yet, they
+are here so you can refer to them later on):
+
+- The **input stream** is the sequence of symbols that we want to compress.
+- The **output stream** is the sequence of symbols that we get after compressing
+  the **input stream**.
+- A **character** is a single symbol in the input stream, our basic data element.
+- The **sliding window** is a fixed-size[¹](#concepts-1) buffer that acts as a
+  _view_ into the input stream. It's composed of two parts:
+  - The **search buffer** is the part of the **sliding window** that contains the
+    symbols that have already been processed.[²](#concepts-2)
+  - The **look-ahead buffer** is the part of the **sliding window** that contains
+    the symbols that are yet to be processed.[²](#concepts-2)
+- The **coding position** is the position of the first symbol in the
+  **look-ahead buffer** (but we use its absolute index respect to the **input
+  stream** to refer to it).
+- A **pointer** is a pair of numbers that points to a sequence of symbols in the
+  search buffer. In this article, we'll use the notation `<length:offset>`, but
+  other notations are also used elsewhere. Also, the offset is often expressed
+  respect to the **coding position**, but we'll compute it respect to the start of
+  the **search buffer**.
+
+<ol>
+	<li id="concepts-1">
+		The size of the sliding window is configurable, but it's usually a power of
+		2. Also, although its size is fixed during the process, it can be treated as
+		if it was smaller at the beginning and end of the compression process.
+	</li>
+	<li id="concepts-2">
+		As with the sliding window, the sizes of the search and look-ahead buffers
+		are also configurable.
+	</li>
+</ol>
+
+## The algorithm
+
+The algorithm is quite simple, it can be summarized in the following steps
+(don't fret, we'll see a simulation of it later on):
+
+1. Initialize the **sliding window** with the first symbols of the **input
+   stream**, and set the **coding position** to the beginning of the stream.
+2. Find the longest sequence of symbols in the **search buffer** that matches
+   the symbols in the **look-ahead buffer** (notice that we can find matches
+   that span across both buffers!).
+3. Output a `<length:offset:char>` tuple (a **pointer** followed by the first
+   symbol in the **look-ahead buffer** that doesn't match the sequence) to the
+   **output stream**.
+4. If the **look-ahead buffer** is empty, we are done. Otherwise, move the
+   **sliding window** as many symbols "to the right" as the length of the
+   previous match, and repeat from step 2.
+
+Notice that the algorithm does not prescribe the format of the output tuples,
+nor the size of the buffers, nor the pattern matching algorithm.
+
+## Compression examples
+
+Let's see a simulation of the algorithm in action! For these examples we'll
+use a search buffer of size 4 and a look-ahead buffer of size 4.
+
+You can press the _play_ button to advance the simulation step by step.
+
+import LZ77 from "../../../../../components/tools/LZ77.tsx";
+import LZ77d from "../../../../../components/tools/LZ77d.tsx";
+
+<LZ77
+	text="abadakadabra"
+	searchBufferSize={4}
+	lookAheadBufferSize={4}
+	client:only="react"
+/>
+
+The previous example is helpful, but it does not show how the match can span
+across both buffers. Let's see it in action:
+
+<LZ77
+	text="aaaabaaabbba"
+	searchBufferSize={4}
+	lookAheadBufferSize={4}
+	client:only="react"
+/>
+
+By the way, did you notice that the output stream for the second example is
+shorter than the first one? That's because the second example has more
+redundancy (more repeated patterns), so it can be compressed more efficiently.
+
+## A decompression example
+
+Now that we have seen how the compression process works, let's see how we can do
+it in reverse to recover the original input stream. For this example we'll use
+the output stream from the previous one.
+
+<LZ77d
+	input={[
+		{ length: 0, offset: 0, char: "a" },
+		{ length: 3, offset: 0, char: "b" },
+		{ length: 3, offset: 0, char: "b" },
+		{ length: 2, offset: 3, char: "a" },
+	]}
+	searchBufferSize={4}
+	client:only="react"
+/>
+
+When decompressing, we reconstruct the search buffer on the fly. In our case we
+do it character by character, because some of the pointers point to symbols that
+are yet to be decompressed.
+
+Besides the minor complication of having pointers to symbols that are yet to be
+decompressed, the decompression process is simpler and faster than compression
+(we don't have to search for longest matches between strings).
+
+## Some observations
+
+Up until this point, we have paid attention to the algorithm, however, apart
+from the algorithm itself, there are at least 3 other factors that affect how
+well it performs:
+
+- The pattern matching algorithm (how we find the longest match) affects both
+  the speed and memory usage.
+- The output format (how we encode the pointers) affects the compression ratio.
+- The parametrization (how big the search and look-ahead buffers are) directly
+  affects the compression ratio and memory usage, but it can also affect the
+  compression ratio indirectly by affecting the output format (a larger sliding
+  window results in larger pointers, but it also increases the likelihood of
+  finding longer matches).
+
+Depending on how "clever" is the implementation, other relations between these
+factors and performance attributes can arise.
+
+For example, let's imagine an encoding that uses smaller pointers for the first
+bytes of the stream (this is possible because the search buffer is smaller at
+the beginning of the compression process). This would result in a slightly
+better compression ratio, but the added complexity could affect how fast the
+algorithm is.
+
+## The pattern matching algorithm
+
+The naive approach for pattern matching is easy to understand and implement, but
+has a quadratic time complexity of $O(m·n)$ (where $m$ is the length of the
+pattern and $n$ is the length of the text).
+
+A better (but not necessarily the best) approach is to use the
+[Knuth-Morris-Pratt algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm),
+which has a time complexity of $O(m+n)$.
+
+For the interactive examples in this article I implemented a modified
+version of KMP to account for partial matches and the fact that although we
+accept matches that overlap over the search and look-ahead buffers, we don't
+want matches with an offset greater than the size of the search buffer.
+
+```typescript
+/**
+ * Custom version of Knuth-Morris-Pratt algorithm that also returns the longest
+ * partial match if no full match is found. It also introduces stopAfter
+ * parameter to stop searching after a certain point.
+ */
+export const partialKMPSearch = (
+	searchString: string,
+	pattern: string,
+	stopAfter: number = +Infinity
+): [number, number] => {
+	const n = searchString.length;
+	const m = pattern.length;
+
+	const table = kmpPreprocessPattern(pattern);
+
+	let i = 0;
+	let j = 0;
+
+	let longestMatchLength = 0;
+	let longestMatchIndex = -1;
+
+	while (j < n) {
+		if (j - i >= stopAfter) {
+			break;
+		}
+		if (pattern[i] === searchString[j]) {
+			j += 1;
+			i += 1;
+			if (i === m) {
+				return [j - i, i];
+			}
+		} else {
+			if (i === 0) {
+				j += 1;
+			} else {
+				if (i > longestMatchLength) {
+					longestMatchLength = i;
+					longestMatchIndex = j - i;
+				}
+
+				i = table[i - 1];
+			}
+		}
+	}
+
+	return [longestMatchIndex, longestMatchLength];
+};
+
+/**
+ * Preprocesses the pattern to generage the skip table used by the KMP algorithm
+ */
+const kmpPreprocessPattern = (pattern: string): number[] => {
+	const m = pattern.length;
+	const table = new Array(m).fill(0);
+
+	let i = 0;
+	let j = 1;
+
+	while (j < m) {
+		if (pattern[i] === pattern[j]) {
+			i += 1;
+			table[j] = i;
+			j += 1;
+		} else if (i === 0) {
+			table[j] = 0;
+			j += 1;
+		} else {
+			i = table[i - 1];
+		}
+	}
+
+	return table;
+};
+```
+
+Choosing the right pattern matching algorithm deserves an article of its own.
+In my case, I chose KMP because it's easy to implement and easy to adapt for
+partial matches. However, it's important to note that there are other notable
+algorithms that may be worth exploring, such as
+[Boyer-Moore](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm),
+[Rabin-Karp](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_algorithm), and
+many others (such as algorithms relying on
+[suffix trees](https://en.wikipedia.org/wiki/Suffix_tree) or
+[suffix arrays](https://en.wikipedia.org/wiki/Suffix_array)).
+
+## Parametrization & Encoding
+
+There are many tradeoffs to consider when choosing an output format:
+
+- How many bits do we use for the length and offset?
+- Going further: Do we use a fixed or variable number of bits for the length and
+  offset?
+- Should we use "fat pointers" (pointers that include the next symbol), or "thin
+  pointers" (pointers that only include the length and offset)?
+  - In the case of "fat pointers" we could skip encoding the offset when the
+    length is 0.
+  - In the case of "thin pointers", we could distinguish between pointers and
+    symbols by looking at the first bit (0 for symbols, 1 for pointers).
+
+## Conclusion
+
+As we have seen, LZ77 is a simple yet powerful lossless compression algorithm,
+or rather, a family of algorithms: It leaves many design decisions to the
+implementer, which can result in a wide range of implementations with different
+performance characteristics.
+
+We have only scratched the surface, but I hope this article has piqued your
+interest in the topic. In future articles we'll explore other compression
+algorithms, as well as some of the topics we have left out in this one.

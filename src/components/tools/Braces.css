@@ -1,0 +1,6 @@
+.overbrace,
+.underbrace {
+	height: auto;
+	display: block;
+	position: absolute;
+}

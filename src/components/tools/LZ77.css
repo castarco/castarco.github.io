@@ -1,0 +1,46 @@
+.lz77-example {
+	width: 100%;
+	margin-bottom: 16px;
+}
+.lz77-buttons {
+	display: flex;
+	margin: 0 auto;
+	padding: 12px 0;
+	justify-content: center;
+	width: fit-content;
+}
+
+.lz77-compressed-data {
+	display: flex;
+	justify-content: center;
+	margin: 16px 0;
+}
+
+.lz77-buttons button:hover {
+	color: var(--color-solarized-red)
+}
+
+.lz77-buttons button:active {
+	transform: translateY(1px);
+}
+
+.lz77-state-table {
+	margin: 0 auto;
+	padding: 8px;
+	border-spacing: 0;
+	border: 1px solid;
+	border-collapse: separate;
+	border-radius: 8px;
+}
+
+.lz77-state-table tbody tr td {
+	padding: 0 16px;
+	width: 208px;
+}
+
+.lz77-state-table tbody tr td.lz77-result {
+	border-top: 1px solid;
+	padding-top: 14px;
+	white-space: pre-wrap;
+	font-size: 10px;
+}
