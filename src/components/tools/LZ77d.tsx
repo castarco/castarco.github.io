@@ -22,6 +22,16 @@ export default function LZ77d(props: LZ77dProps) {
 		.join(', ')
 	)
 
+	const decompressRestart = () => {
+		setInput(props.input)
+		setOutput('')
+		setCurrentPointer(undefined)
+		setCompressedInput(props.input
+			.map(p => `<${p.length}:${p.offset}:${p.char}>`)
+			.join(', ')
+		)
+	}
+
 	const decompressNext = () => {
 		if (input.length === 0) {
 			return
@@ -57,7 +67,10 @@ export default function LZ77d(props: LZ77dProps) {
 
 	return (<div className="lz77-example">
 		<div className="lz77-buttons">
-			<button className="lz77-decompress-next" onClick={decompressNext}>▶</button>
+			{input.length > 0
+			 ? <button className="lz77-decompress-next" onClick={decompressNext}>▶</button>
+			 : <button className="lz77-decompress-restart" onClick={decompressRestart}>♻</button>
+			}
 		</div>
 		<div className="lz77-compressed-data">
 			{currentPointer !== undefined
