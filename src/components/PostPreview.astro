@@ -8,6 +8,9 @@ export interface Props {
 
 const { title, description, pubDate, url } = Astro.props as Props
 
+// hack to get the date in the right timezone (well, with some extra margin)
+pubDate.setTime(pubDate.getTime() + 4 * 60 * 60 * 1000)
+
 const strDate = pubDate.toISOString().slice(0,10)
 const [year, month, day] = strDate.split('-')
 ---

@@ -17,10 +17,11 @@ export default function OverBrace(props: BraceProps) {
 		>
 			<path
 				fill="none"
-				stroke="#000"
-				strokeWidth="0.5"
+				stroke={props.braceColor ?? "var(--color-solarized-red)"}
+				strokeWidth="1"
 				strokeLinejoin="round"
 				strokeLinecap="round"
+				strokeDasharray={props.dashPattern ?? "1,0"}
 				d={`
 					M 1,9
 					C 1,6 2,5 5,5
