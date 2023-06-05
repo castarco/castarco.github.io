@@ -23,6 +23,10 @@
 		{
 			"source": "/the-comeback-of-the-fediverse-and-the-old-web/",
 			"destination": "/blog/2022/12/04/fediverse-yesterweb/"
+		},
+		{
+			"source": "/knex-credentials-leak/",
+			"destination": "/blog/2023/06/05/knex-credentials-leak/"
 		}
 	],
 	"trailingSlash": true
