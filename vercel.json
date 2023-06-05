@@ -13,15 +13,15 @@
 			"destination": "/blog/2017/01/05/toy-problem-the-travelers-dilemma/"
 		},
 		{
-			"source": "/exploring-the-lz77-compression-algorithm",
+			"source": "/exploring-the-lz77-compression-algorithm/",
 			"destination": "/blog/2023/06/04/exploring-the-lz77-algorithm/"
 		},
 		{
-			"source": "/animated-gosper-curves-in-js",
+			"source": "/animated-gosper-curves-in-js/",
 			"destination": "/blog/2022/12/08/animated-gosper-curve-in-ts/"
 		},
 		{
-			"source": "/the-comeback-of-the-fediverse-and-the-old-web",
+			"source": "/the-comeback-of-the-fediverse-and-the-old-web/",
 			"destination": "/blog/2022/12/04/fediverse-yesterweb/"
 		}
 	],
