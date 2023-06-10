@@ -122,6 +122,9 @@ type VectorsIndex = 0 | 1 | 2 | 3 | 4 | 5
 const DEG60 = Math.PI / 3 // 60º as radians
 const SQUARE_SIDE = 512   // The size of our canvas
 
+// Chain recursion depth
+const LEVEL = 3
+
 // This formula might seem tricky, as it was obtained empirically, although
 // it has some solid grounding:
 // - Each time we go one level further, each segment is divided into 7 more
@@ -295,6 +298,9 @@ const NUM_TONES = 128;
 
 // just a cached coefficient
 const HUES_MULTIPLIER = 360 / NUM_TONES;
+
+// 30º as radians
+const DEG30 = Math.PI / 6
 
 // used to control lines thickness
 const GAP = SEGMENT_SIZE * Math.cos(DEG30);
