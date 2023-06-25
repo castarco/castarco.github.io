@@ -1,0 +1,112 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "A better way to use Dotenv"
+description: "Learn better usage patterns for the Dotenv library to simplify your code"
+pubDate: 2023/06/25
+
+topic: tech
+lang: english
+tags: [javascript, security, web-development]
+---
+
+## Preface
+
+In the ever-changing world of NodeJS development, the choice of tools can profoundly impact a developer's journey. Among these tools, the `dotenv` package has long been a trusted partner, enabling developers to load environment variables from `.env` files into `process.env`.
+
+However, despite its versatility and widespread use, the standard practices in utilizing `dotenv` often leave much to be desired. This article will explore how refining our usage patterns of `dotenv` can result in simpler and more robust code.
+
+## Introduction
+
+Consider the following snippets, showing the most common way of using `dotenv`:
+
+```js
+require('dotenv').config(/* options */) // For CommonJS
+
+// code depending on environment variables
+```
+
+```js
+import 'dotenv/config' // For ESM-compatible code
+
+// code depending on environment variables
+```
+
+The [ESM](https://www.valentinog.com/blog/es-modules/) case stands out because it doesn't initiate a function call and instead relies on side effects during import. In their documentation, they [try to justify it](https://www.npmjs.com/package/dotenv#how-do-i-use-dotenv-with-import) by pointing fingers to the "unintuitive" behavior of ESM imports. I beg to differ, the problem is not with ESM, but with the usage patterns they propose in their documentation.
+    - Their proposed examples encourage defining module-scoped variables that are later exported, which is not ideal, as it makes it difficult to control the execution flow and to test modules in isolation.
+    - `dotenv` allows us to avoid performing implicit global side effects. However, its default behavior promotes these side effects, especially in the "ESM" case.
+
+If we take care of implementing proper encapsulation and avoiding global or module-scoped variable declarations, then we can write instead (for the ESM case):
+```js
+import { config } from 'dotenv'
+
+config(/* options */)
+
+// code depending on environment variables
+```
+
+This is more verbose, but also more explicit, gives us more control (as we can pass parameters to the `config` call) and makes it easier to test our code in isolation.
+
+But I went ahead of myself, why do we care about extra flexibility if we are only loading `.env` files? Well, we might want to:
+- [Load other files instead](https://github.com/motdotla/dotenv#path), for example, something like `.env.test`, `.env.local`, or `.env.ci`.
+- Decide whether to [override existing environment variables or not](https://github.com/motdotla/dotenv#override) when loading the `.env` file.
+- Load the defined variables not into `process.env`, but [into another object of our choice](https://github.com/motdotla/dotenv#processenv).
+
+Having said that, I don't think that we should be worrying about these details in our application code. This logic belongs elsewhere.
+
+## Removing clutter
+
+You see, one question that comes to my mind is why are we using `dotenv` for _production_ code in the first place? We are certainly not going to rely on `.env` files up there in the cloud, are we? 
+
+Given that we (hopefully) want to use `dotenv` for development-only purposes, we can apply these steps:
+  1. Move that dependency to the `devDependencies` section of our `package.json` file. This has the benefit of reducing the size of our production bundle (by 71.6 kB) and the complexity of our application logic.
+  2. Shift the usage of `dotenv` to the [preloading phase](https://github.com/motdotla/dotenv#preload) of our application, this way we don't need to import it inside our application, and we'll use it only in our development scripts. This has the benefit that we don't need to worry about the order of execution of application code depending on environment variables.
+
+```bash
+node -r dotenv/config ./src/index.js # Dev environment
+```
+
+```bash
+node ./src/index.js # Production environment
+```
+
+If we need to parametrize the behavior of `dotenv`, we can set `DOTENV_CONFIG_<OPTION>` environment variables, for example:
+
+```bash
+DOTENV_CONFIG_PATH="./.env.test"  node -r dotenv/config ./src/tests.js
+```
+
+or if we care about cross-platform compatibility (i.e. Windows support), we can use [cross-env](https://www.npmjs.com/package/cross-env) (which I also recommend to install as a dev dependency):
+
+```bash
+cross-env DOTENV_CONFIG_PATH="./.env.test"  node -r dotenv/config ./src/tests.js
+```
+
+Another way to look at this is that we are moving the responsibility of loading environment variables from our application to the environment itself. The complexity is not gone, but it is now in a place where it is easier to manage.
+
+## Final tweaks
+
+There are many "plugin" packages for `dotenv` that extend its functionality, one of the most interesting ones is [`dotenv-expand`](https://www.npmjs.com/package/dotenv-expand), which allows us to "expand" environment variables in our `.env` files.
+
+For example, if we have the following `.env` file, `dotenv-expand` will expand the `HOST` variable into `development.example.com`:
+
+```bash
+NODE_ENV=development
+HOST=${NODE_ENV}.example.com
+```
+
+The problem is that we cannot easily use `dotenv-expand` in the preloading phase, but luckily for us we still have options. [`dotenv-cli`](https://www.npmjs.com/package/dotenv-cli) is a CLI wrapper around `dotenv` and `dotenv-expand` that allows us to do so:
+
+```bash
+dotenv -e ./.env.test node ./src/tests.js
+```
+
+This one is my personal favorite, as it enables us to use the full power of `dotenv` and `dotenv-expand` in our development scripts in a much less verbose way, while still keeping the responsibility of loading environment variables outside of our application.
+
+## Conclusion
+
+This article was focused on `dotenv`, but if there are any takeaways I'd like to leave you with, they are these:
+- Be critical of the tools you use, and don't be afraid to challenge their most common usage patterns.
+- When possible, try to minimise the amount of dependencies in your production code.
+- Try to keep your application logic as simple as possible, don't pollute it to handle use cases that only apply to development or testing environments.
+
+Thank you for reading me!
