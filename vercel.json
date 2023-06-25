@@ -27,6 +27,10 @@
 		{
 			"source": "/knex-credentials-leak/",
 			"destination": "/blog/2023/06/05/knex-credentials-leak/"
+		},
+		{
+			"source": "/a-better-way-to-use-dotenv/",
+			"destination": "/blog/2023/06/25/a-better-way-to-use-dotenv/"
 		}
 	],
 	"trailingSlash": true
