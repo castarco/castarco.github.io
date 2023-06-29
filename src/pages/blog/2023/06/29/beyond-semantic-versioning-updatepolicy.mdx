@@ -1,0 +1,180 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "Beyond semantic versioning: updatePolicy"
+description: "Some random thoughts on how to make NPM package updates a bit safer"
+pubDate: 2023/06/29
+
+topic: tech
+lang: english
+tags: [javascript, nodejs, security, npm, web-development]
+ogImage: [
+    { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_1000sq.webp', width: 1000, height: 1000 },
+    { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_512sq.webp', width: 512, height: 512 },
+  ]
+---
+
+## Preface
+
+The ideas I am about to present are my own and I have not yet discussed them with others. This article serves as an open invitation for feedback and discussion. I am eager to hear your thoughts on these potential improvements.
+
+To begin, I want to clarify that while I am not a subject matter expert, nor am I affiliated with the [NPM](https://www.npmjs.com/), [PNPM](https://pnpm.io/), or [Yarn](https://yarnpkg.com/) teams, my perspective is rooted in years of experience as a TypeScript/NodeJS developer.
+
+## The problem
+
+I'm a firm advocate for [Semantic versioning](https://semver.org/), which has been widely embraced as the standard for software versioning, specially for libraries. Yet, it's crucial to recognize that not all developers adhere to it, leading to a variety of challenges:
+
+1. **Assumed adherence:** Some package authors do not clearly state if their package does not follow semantic versioning. As a result, users may assume adherence due to its widespread use, only to encounter unexpected breaking changes.
+2. **Missed communication:** Even when package authors explicitly state their non-adherence to semantic versioning, users may overlook this information if they haven't read the documentation thoroughly. It's easy to blame users for not reading carefully, but that doesn't fix the issue. Moreover, the time and effort to manually check every dependency can be substantial.
+3. **Accidental non-compliance:** Sometimes, package authors who generally follow semantic versioning may unintentionally release a breaking change in a patch or minor version.
+4. **Issues with transitive dependencies:** Even if we meticulously check all our direct dependencies, we cannot control how careful the authors of those dependencies are. They might inadvertently introduce breaking changes via transitive dependencies.
+
+## Current mitigation strategies
+
+I won't go into detail about the current strategies to mitigate these issues as they have been discussed extensively in other places. Instead, I'll provide some links for further reading:
+- [JavaScript Libraries are Almost Never Updated Once Installed](https://blog.cloudflare.com/javascript-libraries-are-almost-never-updated/)
+- [Dependency Management: A Guide and 3 Tips to Keep You Sane](https://www.mend.io/blog/dependency-management-a-guide-and-3-tips-to-keep-you-sane/)
+
+## A new mitigation strategy
+
+What I'm going to propose is not a replacement for semantic versioning, but rather a complementary strategy to mitigate the risks of breaking changes (huge emphasis on _mitigate_, not _eliminate_).
+
+Moreover, it consists of applying one of the oldest tricks in the book: to rely on extra metadata to make smarter decisions; so I cannot claim any originality here.
+
+Let's proceed. I'll start by describing a new section that I propose to add to the `package.json` file, then I'll proceed to explain the details of how it would work.
+
+```json
+{
+  "updatePolicy": {
+    /**
+     * Defines the versioning strategy followed by this package. Some
+     * possible values are:
+     * - "none":   The package does not offer any guarantees regarding
+     *             breaking changes.
+     * - "patch":  The package only offers non-breaking guarantees for patch
+     *             versions.
+     * - "semver": The package follows semantic versioning.
+     */
+    "versioningStrategy": "semver",
+    "dependencies": {
+      /**
+        * Defines the assumed versioning strategy for the dependencies that
+        * do not specify their own versioning strategy (whether they are
+        * direct or transitive dependencies). It can take the same values
+        * as the "versioningStrategy" property.
+        * It only applies to dependencies with a version range defined with
+        * a caret (^), although it can be passed down to transitive deps of
+        * dependencies with other version ranges (~, *, or pinned).
+        */
+      "defaultVersioningStrategy": "patch",
+      /**
+        * This property can only tighten the default versioning strategy of
+        * transitive dependencies when set to true, by setting the
+        * strictest between the default at the current level, and the
+        * default at deeper levels.
+        * It only applies to dependencies with a version range defined with
+        * a caret (^), although it can be passed down to transitive deps of
+        * dependencies with other version ranges (~, *, or pinned).
+        */
+      "overrideTransitiveDefaults": true,
+      /**
+       * Allows us to "unpin" transitive dependencies that are labeled as
+       * "patch" or "semver" for their "versioningStrategy" field. This
+       * can help to update transitive dependencies for unmaintained
+       * packages that are too conservative and pin exact versions of
+       * their dependencies instead of using flexible version ranges (with
+       * ~ or ^).
+       * Allowed values are:
+       * - false:    Do not unpin any transitive dependencies.
+       * - "patch":  Unpin transitive dependencies that have
+       *             "versioningStrategy" set to "patch" or "semver", and
+       *             only allow patch updates.
+       * - "semver": Unpin transitive dependencies that have
+       *             "versioningStrategy" set to "patch" or "semver", and
+       *             only allow updates that follow the constrains
+       *             specified by their versioning strategy.
+       *             This option can also affect not-pinned dependencies
+       *             using the "~" opeator for their version range.
+       */
+      "unpinTrustedSemver": false,
+      /**
+       * Allows us to set "versioningStrategy" values for specific transitive
+       * dependencies. Although we can use ~ for direct dependencies when we
+       * want updates only at the patch level, this is not possible for
+       * transitive dependencies (unless our dependencies apply a similar
+       * version range to their own transitive dependencies, but we don't have
+       * control over that).
+       * The applied versioning strategy will be the strictest between the one
+       * specified by the package itself, and all the overrides defined along
+       * that specific "path" of the dependency tree.
+       * Note that, when no other overrides are specified and no versioning
+       * strategy is defined by the package itself, the override could be less
+       * strict than what's defined by the "defaultVersioningStrategy" field.
+       */
+      "overrides": {
+        "typescript": "patch",
+      }
+    },
+  }
+}
+```
+
+## How would this work?
+
+If no `updatePolicy` section is defined, the package manager should behave as it does today, unless there are overrides applied from upper levels of the dependency tree.
+
+### updatePolicy.versioningStrategy
+
+The most important field of this proposal is `versioningStrategy`. By allowing authors to specify the versioning strategy followed by their library, we enable package managers to make smarter (and bolder) decisions when updating dependencies.
+
+This also leaves the developer free from having to manually check the versioning strategy of every dependency to decide whether to use `~` or `^` for their version range, making it easier to default to `^`.
+
+### updatePolicy.dependencies.defaultVersioningStrategy
+
+This field allows us to protect our project from dependencies that are too liberal when defining version ranges for their own transitive dependencies.
+
+It can happen that a dependency treats all of its transitive dependencies as if they followed semantic versioning, but we know better, so we can override that behavior (in combination with `dependencies.overrideTransitiveDefaults`).
+
+### updatePolicy.dependencies.unpinTrustedSemver
+
+This field is possibly the one that can be seen as more controversial, as it would allow us to undo conservative decisions made by other developers. However, I believe that we can define good rules to make it safe to use.
+
+This option can help us to update transitive dependencies for unmaintained packages, reducing the risk of having unpatched vulnerabilities in our projects.
+
+Here you can see an example of how this field would work on transitive dependencies (here `versioningStrategy` is the computed value after applying all overrides):
+
+| versionRange | versioningStrategy | unpin | nextVersions        | updatedTo |
+| :----------: | :----------------: | :---: | :-----------------: | :-------: |
+| 1.0.0        | none               | false | 1.0.1, 1.1.0, 2.0.0 | 1.0.0     |
+| 1.0.0        | none               | true  | 1.0.1, 1.1.0, 2.0.0 | 1.0.0     |
+| 1.0.0        | patch              | false | 1.0.1, 1.1.0, 2.0.0 | 1.0.0     |
+| 1.0.0        | patch              | true  | 1.0.1, 1.1.0, 2.0.0 | 1.0.1     |
+| 1.0.0        | semver             | false | 1.0.1, 1.1.0, 2.0.0 | 1.0.0     |
+| 1.0.0        | semver             | true  | 1.0.1, 1.1.0, 2.0.0 | 1.1.0     |
+| ~1.0.0       | semver             | false | 1.0.1, 1.1.0, 2.0.0 | 1.0.1     |
+| ~1.0.0       | semver             | true  | 1.0.1, 1.1.0, 2.0.0 | 1.1.0     |
+
+### updatePolicy.dependencies.overrides
+
+I had tons of doubts about including this field to the proposal. Every time that I forgot about the case of transitive dependencies, I thought that this feature was covered by version ranges defined with `~` and that it only came to my mind because I was short of coffee.
+
+However, as I started writing down all of these ideas, it became clear that `~` is not enough to protect ourselves from mistakes made in the package manifests of our dependencies.
+
+## Potential applications
+
+Although the main goal of this proposal is to make it easier to update dependencies safely, I foresee other potential applications (well, just one for now).
+
+### Automated reports
+
+One example that comes to my mind is to make it possible to automatically report breaking changes that should not be there according to the versioning strategy defined by the package. It is easier to conceptualize this application when both the dependency and its consumer are open source, so let's go with that just for simplicity.
+
+Imagine that we have an open source project called _lib_ that, according to its `versioningStrategy` field, should follow semantic versioning. Now, we have another open source project called _app_ that relies on _lib_, and we have configured a proper CI pipeline to run tests, plus a bot that proposes PRs to update its dependencies.
+
+Let's suppose that our bot proposes an update to _lib_ from `1.0.0` to `1.1.0` (a minor version update), and that, when running the tests, we find out that the update introduces a breaking change. In this case, that same bot could open an issue in the _lib_ repository, pointing out that the last version bump should have been a major version update instead of a minor one, and even link to the _app_ broken build (we can do that because _app_ is also open source).
+
+Of course, such feature should be refined to avoid sending the same report over and over again, but that's a minor detail quite easy to solve.
+
+## Final remarks
+
+I acknowledge that this proposal might be too complex, or be perceived as a solution in search of a problem. However, I feel that the problem it tries to solve is real, and that it's worth exploring new ideas in this space. I'd love to hear your thoughts on this.
+
+Although comments are not enabled on this blog, I encourage you to start a discussion on your preferred platform. I will update this post with links to these discussions as they occur.
