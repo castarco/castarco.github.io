@@ -11,6 +11,10 @@
 	font-weight: 100;
 }
 
+html {
+	overflow-y: scroll;
+}
+
 body {
 	background-color: var(--color-egg-white);
 }
@@ -205,6 +209,40 @@ main article time {
 .article-content blockquote {
 	@apply border-2 border-dashed mb-4 pt-2 pl-3 pr-3;
 	border-color: var(--color-sun-yellow);
+}
+
+.article-content table {
+	margin: 0 auto 16px auto;
+    border-collapse: separate;
+	border-spacing: 0;
+	border: 1px dashed var(--color-sun-yellow);
+	border-radius: 8px;
+}
+.article-content table thead tr th {
+	padding: 4px 8px;
+	border-width: 0 1px 1px 0;
+	border-style: dashed;
+	border-color: var(--color-sun-yellow);
+	color: var(--color-pine-green);
+}
+.article-content table thead tr th:last-child {
+	border-width: 0 0 1px 0;
+}
+.article-content table tbody tr td {
+	padding: 4px 8px;
+	border-width: 0 1px 1px 0;
+	border-style: dashed;
+	border-color: var(--color-sun-yellow);
+	font-family: 'Fira Code', monospace;
+}
+.article-content table tbody tr td:last-child {
+	border-width: 0 0 1px 0;
+}
+.article-content table tbody tr:last-child td {
+	border-width: 0 1px 0 0;
+}
+.article-content table tbody tr:last-child td:last-child {
+	border-width: 0;
 }
 
 .language-id {
