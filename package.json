@@ -17,7 +17,7 @@
     "@fontsource/fira-code": "^5.0.3",
     "@fontsource/oxygen": "^5.0.3",
     "astro": "^2.7.1",
-    "fast-glob": "^3.2.12",
+    "fast-glob": "^3.3.0",
     "postcss": "^8.4.24",
     "rehype-katex": "^6.0.3",
     "remark-math": "^5.1.1",
