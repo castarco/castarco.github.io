@@ -46,8 +46,8 @@ devDependencies:
     specifier: ^5.0.4
     version: 5.0.4
   '@fontsource/oxygen':
-    specifier: ^5.0.4
-    version: 5.0.4
+    specifier: ^5.0.5
+    version: 5.0.5
   astro:
     specifier: ^2.8.0
     version: 2.8.0
@@ -867,8 +867,8 @@ packages:
     resolution: {integrity: sha512-w6NuIc3/wCRFVLdw7Ku712YsFKthDqKHu8zU12LmJxF5g77Z4HkUaKeQROw5NHrgO8Cq/j+01X4zgxGV0V3Dcg==}
     dev: true
 
-  /@fontsource/oxygen@5.0.4:
-    resolution: {integrity: sha512-a9G9JaHd31OP26zw47QVzmQfAQBk5h3ZjRqUWR5OvLBBhA1LcwNY6p5BAoqO3x0rwIZp0mrhJkRRZqVh2VWJuA==}
+  /@fontsource/oxygen@5.0.5:
+    resolution: {integrity: sha512-w3pTHCJai8Gyr3OvbsWEznggVym9HlbTigmfPZpWgwi2N9TOFHXK8EAOG59WEpW2cQkUMEq2BpU4CQfNyo5gMQ==}
     dev: true
 
   /@jridgewell/gen-mapping@0.3.3:
