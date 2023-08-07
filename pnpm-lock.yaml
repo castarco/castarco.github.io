@@ -43,8 +43,8 @@ devDependencies:
     specifier: ^3.1.3
     version: 3.1.3(astro@2.8.0)(tailwindcss@3.3.2)
   '@fontsource/fira-code':
-    specifier: ^5.0.4
-    version: 5.0.4
+    specifier: ^5.0.8
+    version: 5.0.8
   '@fontsource/oxygen':
     specifier: ^5.0.4
     version: 5.0.4
@@ -863,8 +863,8 @@ packages:
     dev: true
     optional: true
 
-  /@fontsource/fira-code@5.0.4:
-    resolution: {integrity: sha512-w6NuIc3/wCRFVLdw7Ku712YsFKthDqKHu8zU12LmJxF5g77Z4HkUaKeQROw5NHrgO8Cq/j+01X4zgxGV0V3Dcg==}
+  /@fontsource/fira-code@5.0.8:
+    resolution: {integrity: sha512-kp/tJUVnjaZeLHENMBFTTSgP2B7+/rIboeofuMfoGB40s2U0DKXNqQcOqIF5PtDhJ5QTG1LcviYXMnc1yG6oYQ==}
     dev: true
 
   /@fontsource/oxygen@5.0.4:
