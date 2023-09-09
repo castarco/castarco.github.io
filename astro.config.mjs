@@ -9,18 +9,17 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  compressHTML: true,
   markdown: {
     syntaxHighlight: "shiki",
     shikiConfig: {
-      theme: "material-darker",
+      theme: "material-theme-darker",
       wrap: true
     }
   },
   integrations: [mdx({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex]
-  }), tailwind(), sitemap(), react()],
+  }), tailwind(), react(), sitemap()],
   trailingSlash: "always",
   site: 'https://blog.coderspirit.xyz'
 });
