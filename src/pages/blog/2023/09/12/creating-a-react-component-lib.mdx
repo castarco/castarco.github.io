@@ -1,0 +1,513 @@
+---
+layout: "../../../../../layouts/Post.astro"
+title: "How to create a React component library"
+description: "Learn how to create a React component library using Rollup, TypeScript and Storybook"
+pubDate: 2023/09/12
+
+topic: tech
+lang: english
+tags: [javascript, typescript, frontend, web-development, react]
+# ogImage: [
+#     { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_1000sq.webp', width: 1000, height: 1000 },
+#     { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_512sq.webp', width: 512, height: 512 },
+#   ]
+---
+
+## Introduction
+
+Creating (and publishing) good, small and easy to use libraries is a bit more complicated than just writing nice, modular and reusable code. Each language and ecosystem has its own particularities, in our case we'll focus on the JavaScript and [TypeScript](https://www.typescriptlang.org/) ecosystems, putting special emphasis on frontend development.
+
+The following points are usually relevant when creating & publishing a JavaScript/TypeScript library:
+- There are different module systems ([ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules), [CommonJS](https://nodejs.org/api/modules.html#modules-commonjs-modules), [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE), [UMD](https://jameshfisher.com/2020/10/04/what-are-umd-modules/), etc.) that are not compatible with each other. Supporting all of them is not always necessary, but it's a good idea to support at least ESM and CommonJS; doing so is [not always trivial](https://fast-check.dev/blog/2023/09/04/dual-packages-or-supporting-both-cjs-and-esm/).
+- We might have to consider different environments (Browser(s), [Node](https://nodejs.org/en), [Deno](https://deno.com/), [Bun](https://bun.sh/), etc.).
+- In the case of JavaScript, we might have to target older versions of the language (to ensure compatibility with older browsers or engines).
+- In the case of TypeScript, we should compile our code before publishing it (to ensure that it can be consumed by pure JavaScript projects).
+- We might want to make our bundles as small as possible, as well as [tree-shakeable](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking).
+- As the cherry on top, we might also want to provide [type definitions](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) to maintain interoperability with TypeScript, and [source maps](https://web.dev/source-maps/) to make debugging easier.
+
+With all this in mind, let's see how we can create a [React](https://react.dev/) component library that fulfills all these requirements 😄.
+
+## Project Setup
+
+> **NOTE:** Although I've done my best to describe all the relevant details in this article, it might be useful for you as a reader to explore some real [example code](https://github.com/Coder-Spirit/beautiful-tree) in case you find holes in the explanation that follows.
+
+### The Package Manager
+
+For the rest of this article, I'll assume that we are using [pnpm](https://pnpm.io/) as our package manager of choice. If you are using [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/), then you'll have to adapt the commands accordingly. In any case, [I recommend using pnpm over the others](https://www.youtube.com/watch?v=ZIKDJBrk56k).
+
+To create a new project, we can run the following commands:
+```bash
+mkdir beautiful-tree # or whatever name you want to give to your project
+cd beautiful-tree
+pnpm init # This will create a package.json file. We'll edit it later.
+```
+
+### Dependencies
+
+We _want_ to install `react` and `react-dom` as [peer dependencies](https://blog.bitsrc.io/understanding-peer-dependencies-in-javascript-dbdb4ab5a7be) (and not as "normal" dependencies), if you are not sure why, then I recommend reading the article from the previous link.
+
+```bash
+pnpm add --save-peer react react-dom
+```
+
+The rest of the dependencies are development dependencies, so we'll install them as such.
+
+- We'll use `typescript` to type-check our code
+- `react` and `react-dom` are necessary for our tests to work
+- `rollup` is the module bundler that we'll use. `@rollup/plugin-terser` is a plugin that we'll use to minify our code. `@rollup/plugin-typescript` is a plugin that we'll use to transpile our TypeScript code.
+- We'll use `vitest` as our test runner, together with `@testing-library/react` to test our React components, and `jsdom` to provide a browser-like environment for our tests.
+- `publint` will help us validate that our `package.json` file is correct (specifically the `exports` and `types` fields)
+
+```bash
+pnpm add --save-dev \
+     jsdom \
+     publint \
+     react \
+     react-dom \
+     rollup \
+     @rollup/plugin-terser \
+     @rollup/plugin-typescript \
+     @testing-library/react \
+     typescript \
+     vitest
+```
+
+### TypeScript
+
+Although we can run `pnpm tsc --init` to create a new `tsconfig.json` file, for this example we'll create it manually, so we can explain each option in detail.
+
+> **NOTE:** From now on, you will find that the code snippets contain comments with insights that would take too much time to explain in the main text. I recommend reading them.
+>
+> Some of them will be inside JSON files, so you'll have to strip them out before using the code.
+
+```jsonc
+{
+  "compilerOptions": {
+    // To ensure that our code is compatible with "slightly old" browsers,
+    // we target an older version of ECMAScript (ES2020 in this case).
+    // See https://www.typescriptlang.org/tsconfig#target
+    "target": "es2020",
+
+    // We load these 3 libraries in the global scope so TypeScript knows
+    // about the DOM and ES2020 features.
+    // See https://www.typescriptlang.org/tsconfig#lib
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    // To have compatibility with ES modules, we can use the values:
+    // - ES2015: Very basic support for ES modules
+    // - ES2020: Supports dynamic imports and import.meta
+    // - ES2022: Supports top-level await
+    // See https://www.typescriptlang.org/tsconfig#module
+    "module": "ES2020",
+
+    // The 'bundler' resolution strategy is similar to the 'node16' and
+    // 'nodenext' strategies (in that it supports package.json "exports" and
+    // "imports" fields), but it allows us to not have to specify the file
+    // extension when importing files (which is nice, because we'll be bundling
+    // everything anyway, so the extensions are not relevant).
+    // See https://www.typescriptlang.org/tsconfig#moduleResolution
+    "moduleResolution": "Bundler",
+
+    // This tells TypeScript to use the `react-jsx` factory function when
+    // transpiling JSX syntax.
+    "jsx": "react-jsx",
+
+    // Our code will be placed in the ./src directory
+    "baseUrl": "./src",
+
+    // We'll use Rollup to emit code, instead of tsc.
+    "noEmit": true,
+
+    // Most bundlers have limitations when dealing with features such as
+    // `const enum` (which can affect code generation across different files).
+    // Because of this, it is a good idea to ensure that every module is
+    // compilable on its own, without relying on other modules.
+    // See https://www.typescriptlang.org/tsconfig#isolatedModules
+    "isolatedModules": true,
+
+    // I'm surprised that this option is still not enabled by default, because
+    // it's basically a bug fix for a mistake they made in their past
+    // assumptions on how ES modules work.
+    // See https://www.typescriptlang.org/tsconfig#esModuleInterop
+    "esModuleInterop": true,
+
+    // Feel free to not use these options if you don't want to, but my
+    // suggestion is to always use it, so you can catch more errors at compile
+    // time.
+    "strict": true,
+    "checkJs": true,
+  },
+  // In a real project, we might need to add some more directories to the
+  // "exclude" array, but for this example we'll keep it simple.
+  "exclude": [
+    "dist/**/*",
+    "node_modules/**/*",
+  ]
+}
+```
+
+### Rollup
+
+As we mentioned before, we'll use Rollup as our module bundler, as it combines flexibility with ease of use, and it allows us to generate different types of bundles.
+
+Let's create a `rollup.config.mjs` file at the root of our repository (adapt the referred files to your needs):
+```js
+import { defineConfig } from 'rollup'
+
+// We'll use this plugin to generate the .d.ts files
+import dts from 'rollup-plugin-dts'
+
+// We'll use this plugin to transpile our TypeScript code
+import pluginTs from '@rollup/plugin-typescript'
+
+// We'll use this plugin to minify our code
+import terser from '@rollup/plugin-terser'
+
+// Some constants that we'll use later
+const input = 'src/main.ts'
+const external = ['react', 'react-dom', 'react/jsx-runtime']
+const globals = {
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  'react/jsx-runtime': 'jsxRuntime',
+}
+
+export default defineConfig([
+  {
+    input,
+    output: [
+      // We tell Rollup to generate a CommonJS bundle
+      {
+        // The .cjs extension is not strictly necessary, but it helps
+        file: 'dist/beautiful-tree.cjs',
+        format: 'cjs',
+        globals, // We tell Rollup how to map the external dependencies
+        sourcemap: true, // We want sourcemaps for debugging purposes
+      },
+      // We tell Rollup to generate an ESM bundle
+      {
+        // The .mjs extension is not strictly necessary, but it helps
+        file: 'dist/beautiful-tree.mjs',
+        format: 'es',
+        globals, // We tell Rollup how to map the external dependencies
+        sourcemap: true, // We want sourcemaps for debugging purposes
+      },
+      // We tell Rollup to generate an IIFE bundle
+      // (for browser environments)
+      {
+        name: 'BeautifulTree', // The global name given to the "bundle"
+        file: 'dist/beautiful-tree.iife.js',
+        format: 'iife',
+        globals, // We tell Rollup how to map the external dependencies
+        sourcemap: true, // We want sourcemaps for debugging purposes
+      },
+      // We tell Rollup to generate an UMD bundle
+      // (as a sort of "universal" default)
+      {
+        name: 'BeautifulTree', // The global name given to the "bundle"
+        file: 'dist/beautiful-tree.umd.js',
+        format: 'umd',
+        globals, // We tell Rollup how to map the external dependencies
+        sourcemap: true, // We want sourcemaps for debugging purposes
+      },
+    ],
+    // We tell Rollup to treat the following dependencies as external
+    // (see the "external" constant above)
+    external,
+    plugins: [pluginTs()],
+  },
+  // We have another set of output files that uses a slightly different
+  // configuration: We want to minify the code, so we use `terser` as a plugin,
+  // and add the `min` infix to the output filenames.
+  {
+    input,
+    output: [
+      {
+        file: 'dist/beautiful-tree.min.cjs',
+        format: 'cjs',
+        globals,
+        sourcemap: true,
+      },
+      {
+        file: 'dist/beautiful-tree.min.mjs',
+        format: 'es',
+        globals,
+        sourcemap: true,
+      },
+      {
+        name: 'BeautifulTree',
+        file: 'dist/beautiful-tree.min.iife.js',
+        format: 'iife',
+        globals,
+        sourcemap: true,
+      },
+      {
+        name: 'BeautifulTree',
+        file: 'dist/beautiful-tree.min.umd.js',
+        format: 'umd',
+        globals,
+        sourcemap: true,
+      },
+    ],
+    external,
+    plugins: [pluginTs(), terser()],
+  },
+  // We also want to generate type definitions for our library:
+  {
+    input,
+    output: [
+      // Both files will be equal, but we need to generate them separately
+      // to deal with some edge cases related to how TypeScript loads types.
+      // An interesting thread on the topic (sadly, in Xitter):
+      // https://twitter.com/AndaristRake/status/1695549037556949344
+      { format: 'cjs', file: 'dist/beautiful-tree.d.cts' },
+      { format: 'es', file: 'dist/beautiful-tree.d.mts' },
+    ],
+    external,
+    plugins: [dts()],
+  },
+])
+
+```
+
+You probably noticed that we are generating `.cjs` and `.mjs` files, when in theory using the `.js` extension should be enough if our `package.json` exports are correctly configured (if you don't know about that, don't worry, we'll get to it in a few lines). The reason for that is plain and simple defensive programming; I've seen too many weird bugs caused by tooling that does not properly "understand" the `exports` field in `package.json`.
+
+## Creating a dummy React component
+
+Now that we have both TypeScript and Rollup configured, we can create a dummy React component to test that everything is working as expected.
+
+Let's create a file called `BeautifulTree.tsx` inside the `./src` directory:
+```tsx
+export type BeautifulTreeProps = {
+  id: string
+  width: number
+  height: number
+}
+
+export function BeautifulTree({ id, width, height }: BeautifulTreeProps): JSX.Element {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      id={id}
+      viewBox={`0 0 ${width} ${height}`}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
+      className={'beautiful-tree-react'}
+    >
+    {/* replace with real code to draw a tree */}
+    <circle
+      cx={width * 0.5}
+      cy={height * 0.5}
+      r={Math.min(width, height) * 0.5}
+    />
+    </svg>
+  )
+}
+```
+
+and a `main.ts` file inside the `./src` directory:
+```typescript
+// It is a good practice to separate type imports/exports from
+// value imports/exports
+export type { BeautifulTreeProps } from './BeautifulTree'
+export { BeautifulTree } from './BeautifulTree'
+```
+
+## Building our dummy React component
+
+Now, if we run the command
+```bash
+pnpm rollup --config rollup.config.mjs
+```
+
+we should see that a bunch of files have been generated inside the `./dist` directory (type definitions, source maps, and minified/non-minified versions of different bundles).
+
+## Visualizing our dummy React component
+
+To visualize our dummy React component, we'll use [Storybook](https://storybook.js.org/). I won't get into too much details, because Storybook itself guides us through the process of creating a new project with an interactive tutorial.
+
+```bash
+# Install Storybook and initialize its configuration
+pnpm dlx storybook@latest init
+```
+
+When it asks us about the builder for the project, choose [`Vite`](https://vitejs.dev/), which is much faster than the other proposed alternative (at the time being, ["Webpack 5"](https://webpack.js.org/)).
+
+We can close the Storybook process by typing `Ctrl+C` in the terminal, and start it again with the command:
+```bash
+pnpm run storybook
+```
+
+Now that we have Storybook installed, we can create a new "story" where we can visualize our component.
+
+Let's create a file called `BeautifulTree.stories.tsx` inside the `./src/stories` directory:
+```typescript
+import { BeautifulTree } from '../BeautifulTree'
+import type { Meta, StoryObj } from '@storybook/react'
+
+// To learn more about this, check the official Storybook documentation.
+const meta = {
+  title: 'BeautifulTree',
+  component: BeautifulTree,
+  parameters: { layout: 'centered' },
+  tags: ['autodocs'],
+  argTypes: {},
+} satisfies Meta<typeof BeautifulTree>
+
+export default meta
+
+type Story = StoryObj<typeof BeautifulTree>
+
+export const MyFirstStory: Story = {
+  args: {
+    id: 'my-first-story',
+    width: 200,
+    height: 200,
+  },
+}
+```
+
+If we now go to the Storybook UI, we should see that we have a new story called "MyFirstStory", and if we click on it we should see our dummy React component.
+
+We could certainly live without Storybook, but it's a nice tool to verify visually that our components are working as expected, while also serves as a sort of interactive documentation.
+
+
+## Vitest
+
+Once we have our component, and we have verified that it works as expected, we can prepare tests based on this knowledge. We can also prepare unit tests for internal details that are not tied to the UI, but those should be simpler to implement and don't need much explanation.
+
+For our tests, we'll use [Vitest](https://vitest.dev/), which is a lightweight test runner with native support for ESM, TypeScript and JSX, and happens to be much faster than [Jest](https://jestjs.io/).
+
+Our configuration file is `vitest.config.mts`:
+```typescript
+// eslint-disable-next-line import/no-unresolved
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    // We'll use the `jsdom` environment to run tests that depend on the
+    // browser DOM
+    environment: 'jsdom',
+  },
+})
+
+```
+
+We'll create an example tests file called `BeautifulTree.test.tsx` inside the `./src/tests` directory:
+```typescript
+import { BeautifulTree } from '../BeautifulTree'
+import { describe, expect, it } from 'vitest'
+import { render } from '@testing-library/react'
+
+describe('BeautifulTree', () => {
+  it('renders a boring circle', () => {
+    const rendered = render(
+      <BeautifulTree
+        id="my-boring-test-tree"
+        width={200}
+        height={200}
+      />
+    )
+
+    // The first time that we run this test, it will generate a snapshot that
+    // will be used to compare against future runs. We trust that the first
+    // execution is correct because we saw it in Storybook.
+    expect(rendered).toMatchSnapshot()
+  })
+})
+```
+
+To run our tests, we can execute the following command:
+```bash
+pnpm vitest run
+```
+
+## The `package.json` File
+
+After we have our components ready, we can start thinking about what do we have to write in our `package.json` file to ensure that our library is compatible with different module systems and environments.
+
+```jsonc
+{
+  "name": "@beautiful-tree/react",
+  "version": "0.1.1",
+  "private": false,
+  // `main` is the legacy way of defining the CJS entry point of the library.
+  // We keep it for backwards compatibility.
+  "main": "./dist/beautiful-tree.cjs",
+  // `module` is the legacy way of defining the ESM entry point of the library.
+  // We keep it for backwards compatibility.
+  "module": "./dist/beautiful-tree.mjs",
+  // top-level `types` is the legacy way of telling how to load the type
+  // definitions. We keep it for backwards compatibility.
+  "types": "./dist/beautiful-tree.d.ts",
+  // `exports` is the modern way of defining the entry points of the library.
+  "exports": {
+    // Because we have minified and non-minified versions of our code, we add
+    // an extra level of nesting to the `exports` object (usually not needed).
+    // This one is for the path "@beautiful-tree/react";`
+    ".": {
+      // the `types` entry always must be the first one.
+      // Unfortunately, this one only applies to CJS files.
+      "types": "./dist/beautiful-tree.d.cts",
+      // We need an extra level of nesting for our "import" key because it
+      // needs to have its own independent "types" key.
+      "import": {
+        "types": "./dist/beautiful-tree.d.mts",
+        "default": "./dist/beautiful-tree.mjs" // ESM entry point
+      },
+      "require": {
+        "types": "./dist/beautiful-tree.d.cts",
+        "default": "./dist/beautiful-tree.cjs" // CJS entry point
+      },
+      // We don't bother on adding types for the browser and default
+      // entries, because we don't use these modules during development.
+      "browser": "./dist/beautiful-tree.iife.js", // browser entry point
+      "default": "./dist/beautiful-tree.umd.js" // default entry point
+    },
+    // This one is for the path "@beautiful-tree/react/min";`
+    "./min": {
+      "types": "./dist/beautiful-tree.d.cts",
+      "import": {
+        "types": "./dist/beautiful-tree.d.mts",
+        "default": "./dist/beautiful-tree.min.mjs"
+      },
+      "require": {
+        "types": "./dist/beautiful-tree.d.cts",
+        "default": "./dist/beautiful-tree.min.cjs"
+      },
+      "browser": "./dist/beautiful-tree.min.iife.js",
+      "default": "./dist/beautiful-tree.min.umd.js"
+    }
+  },
+  // We use the `files` allow-list to ensure that only the generated bundles
+  // are published to npm.
+  "files": ["dist"],
+  "scripts": {
+    "build": "rollup --config rollup.config.prod.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    // ...
+  },
+  "peerDependencies": {
+    // ...
+  }
+}
+```
+
+## Validating our package
+
+### Publint
+
+A very nice tool that we can use to validate that our `package.json` file declares type definitions and entry points correctly is [publint](https://www.npmjs.com/package/publint), which also has its own [online checker](https://publint.dev/).
+
+### AreTheTypesWrong
+
+Another tool that we can use to validate that our package properly exports type definitions is the website [Are The Types Wrong?](https://arethetypeswrong.github.io/).
+
+## Conclusion
+
+

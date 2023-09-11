@@ -1,6 +1,6 @@
 ---
 import MainPage from "../layouts/MainPage.astro";
-import { getCustomStaticPathsGetter, getUnsortedPosts } from "../utils";
+import { getCustomStaticPathsGetter, getUnsortedPosts } from "../utils.js";
 
 export async function getStaticPaths({ paginate }) {
 	const __getStaticPaths = await getCustomStaticPathsGetter(
