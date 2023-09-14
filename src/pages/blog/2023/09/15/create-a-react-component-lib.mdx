@@ -1,17 +1,19 @@
 ---
 layout: "../../../../../layouts/Post.astro"
-title: "How to create a React component library"
-description: "Learn how to create a React component library using Rollup, TypeScript and Storybook"
-pubDate: 2023/09/12
+title: "Create a React components ESM+CJS library"
+description: "Learn how to create a React component ESM+CJS library using Rollup, TypeScript and Storybook"
+pubDate: 2023/09/15
 
 topic: tech
 lang: english
-tags: [javascript, typescript, frontend, web-development, react]
+tags: [javascript, typescript, frontend, web-development, react, rollupjs]
 # ogImage: [
 #     { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_1000sq.webp', width: 1000, height: 1000 },
 #     { url: 'https://blog.coderspirit.xyz/images/og/20230629_updatePolicy_512sq.webp', width: 512, height: 512 },
 #   ]
 ---
+
+> **NOTE:** This article is focused on the technical aspects of package creation and publishing, and assumes that you already know how to create React components. If you are not familiar with React, I recommend reading the [official documentation](https://react.dev/learn) first.
 
 ## Introduction
 
@@ -29,7 +31,7 @@ With all this in mind, let's see how we can create a [React](https://react.dev/)
 
 ## Project Setup
 
-> **NOTE:** Although I've done my best to describe all the relevant details in this article, it might be useful for you as a reader to explore some real [example code](https://github.com/Coder-Spirit/beautiful-tree) in case you find holes in the explanation that follows.
+> **NOTE:** Although I've done my best to describe all the relevant details in this article, it might be useful for you as a reader to explore some [real code](https://github.com/Coder-Spirit/beautiful-tree) in case you find holes in the explanation that follows.
 
 ### The Package Manager
 
@@ -72,9 +74,11 @@ pnpm add --save-dev \
      vitest
 ```
 
+When it comes to "normal" dependencies, we need them to be either dual ESM/CJS packages, or at least ESM packages. In our case, we won't be installing any, but it's important to keep that in mind if we want to meet our requirements.
+
 ### TypeScript
 
-Although we can run `pnpm tsc --init` to create a new `tsconfig.json` file, for this example we'll create it manually, so we can explain each option in detail.
+Although we can run `pnpm tsc --init` to create a new `tsconfig.json` file, for this example we'll create it manually, so we can explain each relevant option in detail.
 
 > **NOTE:** From now on, you will find that the code snippets contain comments with insights that would take too much time to explain in the main text. I recommend reading them.
 >
@@ -411,9 +415,12 @@ describe('BeautifulTree', () => {
       />
     )
 
+    // NOTE: Snapshots are like black boxes, and depending too much on them for
+    //       testing can make our tests brittle. Use them sparingly.
+    //
     // The first time that we run this test, it will generate a snapshot that
     // will be used to compare against future runs. We trust that the first
-    // execution is correct because we saw it in Storybook.
+    // execution is correct because we saw it in Storybook before.
     expect(rendered).toMatchSnapshot()
   })
 })
@@ -448,12 +455,10 @@ After we have our components ready, we can start thinking about what do we have 
     // an extra level of nesting to the `exports` object (usually not needed).
     // This one is for the path "@beautiful-tree/react";`
     ".": {
-      // the `types` entry always must be the first one.
-      // Unfortunately, this one only applies to CJS files.
-      "types": "./dist/beautiful-tree.d.cts",
       // We need an extra level of nesting for our "import" key because it
       // needs to have its own independent "types" key.
       "import": {
+				// the `types` entry must be always the first one.
         "types": "./dist/beautiful-tree.d.mts",
         "default": "./dist/beautiful-tree.mjs" // ESM entry point
       },
@@ -468,7 +473,6 @@ After we have our components ready, we can start thinking about what do we have 
     },
     // This one is for the path "@beautiful-tree/react/min";`
     "./min": {
-      "types": "./dist/beautiful-tree.d.cts",
       "import": {
         "types": "./dist/beautiful-tree.d.mts",
         "default": "./dist/beautiful-tree.min.mjs"
@@ -504,10 +508,24 @@ After we have our components ready, we can start thinking about what do we have 
 
 A very nice tool that we can use to validate that our `package.json` file declares type definitions and entry points correctly is [publint](https://www.npmjs.com/package/publint), which also has its own [online checker](https://publint.dev/).
 
+```bash
+pnpm publint --strict # I recommend using the --strict option
+```
+
 ### AreTheTypesWrong
 
 Another tool that we can use to validate that our package properly exports type definitions is the website [Are The Types Wrong?](https://arethetypeswrong.github.io/).
 
+We can also use its CLI version, although I don't recommend adding it to our CI pipeline, because it's difficult to exclude some irrelevant problems with enough precision (we would exclude too much, or too little).
+
+```bash
+# To install it
+pnpm add --save-dev @arethetypeswrong/cli
+
+# To run it
+pnpm attw --pack
+```
+
 ## Conclusion
 
-
+I hope that this article has been useful/interesting to you. Thank you for reading it! 😄
