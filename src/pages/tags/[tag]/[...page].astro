@@ -1,7 +1,7 @@
 ---
-import { PAGE_SIZE } from "../../../config";
-import MainPage from "../../../layouts/MainPage.astro";
-import { getSortedPosts, PostMdxInstance } from "../../../utils";
+import { PAGE_SIZE } from "../../../config.js"
+import MainPage from "../../../layouts/MainPage.astro"
+import { getSortedPosts } from "../../../utils.js"
 
 export async function getStaticPaths({ paginate }) {
 	const sortedPosts = getSortedPosts();
@@ -13,8 +13,8 @@ export async function getStaticPaths({ paginate }) {
 		}
 	})
 
-	return Array.from(allTags).map((tag) => {
-		const filteredPosts = sortedPosts.filter((post) => post.frontmatter.tags.includes(tag))
+	return Array.from(allTags).flatMap((tag) => {
+		const filteredPosts = sortedPosts.filter((post) => post.frontmatter.tags?.includes(tag) ?? false)
 		return paginate(filteredPosts, {
 			params: { tag },
 			pageSize: PAGE_SIZE

@@ -12,6 +12,7 @@ ogImage: [
     { url: 'https://blog.coderspirit.xyz/images/og/20230625_dotenv_512sq.webp', width: 512, height: 512 },
   ]
 ---
+> **UPDATE:** Since the [release of NodeJS 20.6.0](https://nodejs.org/en/blog/release/v20.6.0), we can directly load `.env` files by using the `--env-file` command line option: `node --env-file=.env index.js`, which makes this article a bit less relevant.
 
 ## Preface
 
@@ -59,7 +60,7 @@ Having said that, I don't think that we should be worrying about these details i
 
 ## Removing clutter
 
-You see, one question that comes to my mind is why are we using `dotenv` for _production_ code in the first place? We are certainly not going to rely on `.env` files up there in the cloud, are we? 
+You see, one question that comes to my mind is why are we using `dotenv` for _production_ code in the first place? We are certainly not going to rely on `.env` files up there in the cloud, are we?
 
 Given that we (hopefully) want to use `dotenv` for development-only purposes, we can apply these steps:
   1. Move that dependency to the `devDependencies` section of our `package.json` file. This has the benefit of reducing the size of our production bundle (by 71.6 kB) and the complexity of our application logic.
