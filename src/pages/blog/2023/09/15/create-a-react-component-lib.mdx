@@ -56,7 +56,7 @@ The rest of the dependencies are development dependencies, so we'll install them
 
 - We'll use `typescript` to type-check our code
 - `react` and `react-dom` are necessary for our tests to work, while `@types/react` and `@types/react-dom` are necessary for our type checks.
-- `rollup` is the module bundler that we'll use. `@rollup/plugin-terser` is a plugin that we'll use to minify our code. `@rollup/plugin-typescript` is a plugin that we'll use to transpile our TypeScript code, and `rollup-plugin-dts` will help us to emit type definitions.
+- `rollup` is the module bundler that we'll use. `@rollup/plugin-terser` is a plugin that we'll use to minify our code. `@rollup/plugin-typescript` is a plugin that we'll use to transpile our TypeScript code, and `rollup-plugin-dts` will help us to emit type definitions. `tslib` is also necessary as a peer dependency for `@rollup/plugin-typescript`.
 - We'll use `vitest` as our test runner, together with `@testing-library/react` to test our React components, and `jsdom` to provide a browser-like environment for our tests.
 - `publint` will help us validate that our `package.json` file is correct (specifically the `exports` and `types` fields)
 
@@ -73,6 +73,7 @@ pnpm add --save-dev \
      @types/react \
      @types/react-dom \
      rollup-plugin-dts \
+     tslib \
      typescript \
      vitest
 ```
