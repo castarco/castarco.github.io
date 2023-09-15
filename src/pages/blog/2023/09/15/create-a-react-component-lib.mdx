@@ -55,8 +55,8 @@ pnpm add --save-peer react react-dom
 The rest of the dependencies are development dependencies, so we'll install them as such.
 
 - We'll use `typescript` to type-check our code
-- `react` and `react-dom` are necessary for our tests to work
-- `rollup` is the module bundler that we'll use. `@rollup/plugin-terser` is a plugin that we'll use to minify our code. `@rollup/plugin-typescript` is a plugin that we'll use to transpile our TypeScript code.
+- `react` and `react-dom` are necessary for our tests to work, while `@types/react` and `@types/react-dom` are necessary for our type checks.
+- `rollup` is the module bundler that we'll use. `@rollup/plugin-terser` is a plugin that we'll use to minify our code. `@rollup/plugin-typescript` is a plugin that we'll use to transpile our TypeScript code, and `rollup-plugin-dts` will help us to emit type definitions.
 - We'll use `vitest` as our test runner, together with `@testing-library/react` to test our React components, and `jsdom` to provide a browser-like environment for our tests.
 - `publint` will help us validate that our `package.json` file is correct (specifically the `exports` and `types` fields)
 
@@ -70,6 +70,9 @@ pnpm add --save-dev \
      @rollup/plugin-terser \
      @rollup/plugin-typescript \
      @testing-library/react \
+     @types/react \
+     @types/react-dom \
+     rollup-plugin-dts \
      typescript \
      vitest
 ```
@@ -448,7 +451,7 @@ After we have our components ready, we can start thinking about what do we have 
   "module": "./dist/beautiful-tree.mjs",
   // top-level `types` is the legacy way of telling how to load the type
   // definitions. We keep it for backwards compatibility.
-  "types": "./dist/beautiful-tree.d.ts",
+  "types": "./dist/beautiful-tree.d.cts",
   // `exports` is the modern way of defining the entry points of the library.
   "exports": {
     // Because we have minified and non-minified versions of our code, we add
