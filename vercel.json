@@ -1,7 +1,7 @@
 {
 	"headers": [
 		{
-			"source": "/*.jpg",
+			"source": "/(.*).jpg",
 			"headers": [
 				{
 					"key": "Cache-Control",
@@ -10,7 +10,7 @@
 			]
 		},
 		{
-			"source": "/*.png",
+			"source": "/(.*).png",
 			"headers": [
 				{
 					"key": "Cache-Control",
@@ -19,7 +19,7 @@
 			]
 		},
 		{
-			"source": "/*.webp",
+			"source": "/(.*).webp",
 			"headers": [
 				{
 					"key": "Cache-Control",
