@@ -6,6 +6,10 @@
 				{
 					"key": "Cache-Control",
 					"value": "public, max-age=604800, immutable"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
 				}
 			]
 		},
@@ -15,6 +19,10 @@
 				{
 					"key": "Cache-Control",
 					"value": "public, max-age=604800, immutable"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
 				}
 			]
 		},
@@ -24,12 +32,33 @@
 				{
 					"key": "Cache-Control",
 					"value": "public, max-age=604800, immutable"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
 				}
 			]
 		},
 		{
-			"source": "/(.*)",
+			"source": "/",
 			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=3600"
+				},
+				{
+					"key": "X-Content-Type-Options",
+					"value": "nosniff"
+				}
+			]
+		},
+		{
+			"source": "/blog/(.*)/",
+			"headers": [
+				{
+					"key": "Cache-Control",
+					"value": "public, max-age=3600"
+				},
 				{
 					"key": "X-Content-Type-Options",
 					"value": "nosniff"
