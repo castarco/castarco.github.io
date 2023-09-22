@@ -13,9 +13,6 @@
 	padding: 0 12px;
 	font-family: 'Fira Code', monospace;
 }
-.segmendted-text-td:first-child {
-	border: 0 none;
-}
 .segmented-text-overbraces .segmented-text-underbraces {
 	float:left;
 	clear: none;
