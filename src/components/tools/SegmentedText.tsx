@@ -171,7 +171,7 @@ export default function SegmentedText(
 		style={{
 			width: `${tableBounds.width}px`,
 			height: `${underbraceElems.length > 0 ? '11' : '0'}px`,
-			margin: '0 auto'
+			margin: '-16px auto 8px auto'
 		}}
 	>
 		{underbraceElems}
