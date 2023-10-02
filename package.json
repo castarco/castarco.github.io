@@ -16,7 +16,7 @@
     "@astrojs/tailwind": "^5.0.0",
     "@fontsource/fira-code": "^5.0.8",
     "@fontsource/oxygen": "^5.0.8",
-    "astro": "^3.1.2",
+    "astro": "^3.2.1",
     "fast-glob": "^3.3.1",
     "postcss": "^8.4.30",
     "rehype-katex": "^6.0.3",
