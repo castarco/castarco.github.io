@@ -29,3 +29,7 @@ const { title, description, enableMath, canonical, ogType } = Astro.props;
 }
 <meta property="og:type" content={ogType || 'website'} />
 <link rel="alternate" type="application/rss+xml" title="RSS Feed for blog.coderspirit.xyz" href="/rss.xml" />
+<link rel="webmention" href="https://webmention.io/blog.coderspirit.xyz_about_/webmention" />
+<link rel="pingback" href="https://webmention.io/blog.coderspirit.xyz_about_/xmlrpc" />
+<link rel="openid.delegate" href="https://blog.coderspirit.xyz/" />
+<link rel="openid.server" href="https://openid.indieauth.com/openid" />
